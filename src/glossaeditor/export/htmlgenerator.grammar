@@ -1,0 +1,227 @@
+/*
+ *  Copyright 2010 Georgios Migdos <cyberpython@gmail.com>.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *  under the License.
+ */
+Package htmlgenerator;
+
+Helpers
+	any_unicode_char = [0..0xffff] ; //Όλοι οι χαρακτήρες Unicode	
+
+	latin_letter 	 = ['a'..'z'] | ['A'..'Z'] ;
+	greek_letter	 = ['α'..'ω'] | ['Α'..'Ω'] | 'ά' | 'έ' | 'ό' | 'ώ' | 'ή' | 'ί' | 'ύ' | 'ϊ' | 'ϋ' | 'ΐ' | 'ΰ' | 'Ά' | 'Έ' | 'Ό' | 'Ώ' | 'Ή' | 'Ί' | 'Ύ' | 'Ϊ' | 'Ϋ' ;
+	letter 		 = latin_letter | greek_letter ;	//Όλα τα γράμματα του Ελληνικού και του Λατινικού αλφάβητου
+	
+	//Για τον ορισμό case-insensitive δεσμευμένων λέξεων:
+	
+	d		= 'd' | 'D';
+	i		= 'i' | 'I';	
+	m		= 'm' | 'M';
+	o		= 'o' | 'O';
+	v		= 'v' | 'V';
+	
+	alpha		= 'α' | 'Α';
+	beta		= 'β' | 'Β';
+	gamma		= 'γ' | 'Γ';
+	delta		= 'δ' | 'Δ';
+	epsilon		= 'ε' | 'Ε';
+	zeta		= 'ζ' | 'Ζ';
+	eta		= 'η' | 'Η';
+	theta		= 'θ' | 'Θ';
+	giota		= 'ι' | 'Ι';
+	kappa		= 'κ' | 'Κ';
+	lambda		= 'λ' | 'Λ';
+	mi		= 'μ' | 'Μ';
+	ni		= 'ν' | 'Ν';
+	ksi		= 'ξ' | 'Ξ';
+	omicron		= 'ο' | 'Ο';
+	pi		= 'π' | 'Π';
+	ro		= 'ρ' | 'Ρ';
+	sigma		= 'σ' | 'Σ';
+	tau		= 'τ' | 'Τ';
+	ypsilon		= 'υ' | 'Υ';
+	phi		= 'φ' | 'Φ';
+	xi		= 'χ' | 'Χ';
+	psi		= 'ψ' | 'Ψ';
+	omega		= 'ω' | 'Ω';
+	
+	sigma_teliko	= 'σ' |'ς' | 'Σ' | 'Σ';
+	
+	alpha_tonos	= 'ά' | 'Ά';
+	epsilon_tonos	= 'έ' | 'Έ';
+	omicron_tonos	= 'ό' | 'Ό';
+	omega_tonos	= 'ώ' | 'Ώ';
+	eta_tonos	= 'ή' | 'Ή';
+	giota_tonos	= 'ί' | 'Ί';
+	ypsilon_tonos	= 'ύ' | 'Ύ';
+		
+	digit 		 = ['0'..'9'] ;	//Αριθμητικά ψηφία
+	digits 		 = digit+ ; 	//Ένα ή περισσότερα ψηφία
+
+	tab 		 = 9 ;		//Ο χαρακτήρας tab	
+
+	newline 	 = [13 + 10];		  //Αλλαγή γραμμής
+	non_newline 	 = [any_unicode_char - newline] ; //Όλοι οι χαρακτήρες Unicode εκτός από την αλλαγή γραμμής
+	
+	single_quote 	 = 0x0027 ;				//Ο χαρακτήρας ' (απλό εισαγωγικό)
+	non_single_quote = [any_unicode_char - single_quote]  ;	//Όλοι οι χαρακτήρες Unicode εκτός από το απλό εισαγωγικό
+	permitted_in_string = [non_single_quote - newline ] ; 	//Όλοι οι χαρακτήρες Unicode εκτός από το απλό εισαγωγικό και την αλλαγή γραμμής
+	
+	case_helper 	 = pi epsilon ro giota pi tau omega sigma eta | pi epsilon ro giota_tonos pi tau omega sigma eta; //'ΠΕΡΙΠΤΩΣΗ';
+	else_helper 	 = alpha lambda lambda giota omega sigma_teliko | alpha lambda lambda giota omega_tonos sigma_teliko ; //'ΑΛΛΙΩΣ' ;
+	with_helper 	 = mi epsilon; //'ΜΕ';
+	step_helper	 = beta eta mi alpha | beta eta_tonos mi alpha; //'ΒΗΜΑ';
+	
+	white_space	 = ' ' | tab ;
+
+
+Tokens
+	//Σχόλια:
+	comment			= '!' non_newline*;
+	
+	line_end		= 13 | 10 | 13 10;
+	
+	//Κενά, tab:
+	space 			= ' ';
+    tab             = 9;
+
+	
+	//Τύποι δεδομένων:
+	data_type		= alpha kappa epsilon ro alpha giota epsilon sigma_teliko
+				| alpha kappa epsilon_tonos ro alpha giota epsilon sigma_teliko
+				| pi ro alpha gamma mi alpha tau giota kappa epsilon sigma_teliko
+				| pi ro alpha gamma mi alpha tau giota kappa epsilon_tonos sigma_teliko
+				| xi alpha ro alpha kappa tau eta ro epsilon sigma_teliko 
+				| xi alpha ro alpha kappa tau eta_tonos ro epsilon sigma_teliko 
+				| lambda omicron gamma giota kappa epsilon sigma_teliko 
+				| lambda omicron gamma giota kappa epsilon_tonos sigma_teliko 
+				| alpha kappa epsilon ro alpha giota alpha 
+				| alpha kappa epsilon_tonos ro alpha giota alpha 
+				| pi ro alpha gamma mi alpha tau giota kappa eta 
+				| pi ro alpha gamma mi alpha tau giota kappa eta_tonos 
+				| lambda omicron gamma giota kappa eta 
+				| lambda omicron gamma giota kappa eta_tonos 
+				| xi alpha ro alpha kappa tau eta ro alpha sigma_teliko 
+				| xi alpha ro alpha kappa tau eta_tonos ro alpha sigma_teliko ;
+
+	
+	//Λέξεις Κλειδιά (Δεσμευμένες λέξεις):
+	keyword 		= pi ro omicron gamma ro alpha mi mi alpha 
+				| pi ro omicron_tonos gamma ro alpha mi mi alpha 
+				| tau epsilon lambda omicron sigma_teliko '_' pi ro omicron gamma ro alpha mi mi alpha tau omicron sigma_teliko
+				| tau epsilon_tonos lambda omicron sigma_teliko '_' pi ro omicron gamma ro alpha_tonos mi mi alpha tau omicron sigma_teliko
+				| mi epsilon tau alpha beta lambda eta tau epsilon sigma_teliko 
+				| mi epsilon tau alpha beta lambda eta tau epsilon_tonos sigma_teliko
+				| sigma tau alpha theta epsilon ro epsilon sigma_teliko
+				| sigma tau alpha theta epsilon ro epsilon_tonos sigma_teliko
+				| delta giota alpha beta alpha sigma epsilon
+				| delta giota alpha_tonos beta alpha sigma epsilon
+				| gamma ro alpha psi epsilon
+				| gamma ro alpha_tonos psi epsilon
+				| alpha ro xi eta
+				| alpha ro xi eta_tonos
+				| alpha ni
+				| tau omicron tau epsilon
+				| tau omicron_tonos tau epsilon
+				| alpha lambda lambda giota omega sigma_teliko
+				| alpha lambda lambda giota omega_tonos sigma_teliko
+				| alpha lambda lambda giota omega sigma_teliko '_' alpha ni
+				| alpha lambda lambda giota omega_tonos sigma_teliko '_' alpha ni
+				| tau epsilon lambda omicron sigma_teliko '_' alpha ni
+				| tau epsilon_tonos lambda omicron sigma_teliko '_' alpha ni
+				| epsilon pi giota lambda epsilon ksi epsilon
+				| epsilon pi giota_tonos lambda epsilon ksi epsilon
+				| pi epsilon ro giota pi tau omega sigma eta
+				| pi epsilon ro giota_tonos pi tau omega sigma eta
+				| case_helper white_space+ else_helper
+				| tau epsilon lambda omicron sigma_teliko '_' epsilon pi giota lambda omicron gamma omega ni
+				| tau epsilon_tonos lambda omicron sigma_teliko '_' epsilon pi giota lambda omicron gamma omega_tonos ni
+				| omicron sigma omicron
+				| omicron_tonos sigma omicron
+				| epsilon pi alpha ni alpha lambda alpha beta epsilon
+				| epsilon pi alpha ni alpha_tonos lambda alpha beta epsilon
+				| tau epsilon lambda omicron sigma_teliko '_' epsilon pi alpha ni alpha lambda eta psi eta sigma_teliko 
+				| tau epsilon_tonos lambda omicron sigma_teliko '_' epsilon pi alpha ni alpha_tonos lambda eta psi eta sigma_teliko
+				| alpha ro xi eta '_' epsilon pi alpha ni alpha lambda eta psi eta sigma_teliko
+				| alpha ro xi eta_tonos '_' epsilon pi alpha ni alpha_tonos lambda eta psi eta sigma_teliko
+				| mi epsilon xi ro giota sigma '_' omicron tau omicron ypsilon 
+				| mi epsilon_tonos xi ro giota sigma '_' omicron_tonos tau omicron ypsilon
+				| gamma giota alpha
+				| alpha pi omicron
+				| alpha pi omicron_tonos
+				| mi epsilon xi ro giota
+				| mi epsilon_tonos xi ro giota
+				| with_helper '_' step_helper
+				| with_helper white_space+ step_helper
+				| delta giota alpha delta giota kappa alpha sigma giota alpha
+				| delta giota alpha delta giota kappa alpha sigma giota_tonos alpha
+				| tau epsilon lambda omicron sigma_teliko '_' delta giota alpha delta giota kappa alpha sigma giota alpha sigma_teliko
+				| tau epsilon_tonos lambda omicron sigma_teliko '_' delta giota alpha delta giota kappa alpha sigma giota_tonos alpha sigma_teliko
+				| sigma ypsilon ni alpha ro tau eta sigma eta
+				| sigma ypsilon ni alpha_tonos ro tau eta sigma eta
+				| tau epsilon lambda omicron sigma_teliko '_' sigma ypsilon ni alpha ro tau eta sigma eta sigma_teliko 
+				| tau epsilon_tonos lambda omicron sigma_teliko '_' sigma ypsilon ni alpha_tonos ro tau eta sigma eta sigma_teliko
+				| kappa alpha lambda epsilon sigma epsilon
+				| kappa alpha_tonos lambda epsilon sigma epsilon  ;
+
+
+    assign      = '<-';
+
+    different   = '<>';
+	lt          = '<' ;
+	gt         	= '>' ;
+    lte         = '<=';
+	gte         = '>=';
+
+    amp         = '&' ;
+
+	operators	= '+'
+				| '-' 
+				| '*' 
+				| '/' 
+				| '^' 
+				| d i v 
+				| m o d 
+				| '=' 				
+				| kappa alpha giota
+				| eta_tonos
+				| omicron xi giota 
+				| omicron_tonos xi giota;
+	
+	brackets		= '(' 
+				| ')' 
+				| '[' 
+				| ']' ;
+	
+	symbols		= ':' 
+				| ',' 
+				| '.';
+				
+
+	
+
+	number			= digits 
+				| digits '.' digits ;
+				
+	string			= single_quote permitted_in_string* single_quote ;
+
+	boolean			= alpha lambda eta theta eta sigma_teliko 
+				| alpha lambda eta theta eta_tonos sigma_teliko
+				| psi epsilon ypsilon delta eta sigma_teliko
+				| psi epsilon ypsilon delta eta_tonos sigma_teliko;
+
+	identifier		= letter (letter | digit | '_')* ;			
+
+	misc 			= [0..0xffff] ;						
+	

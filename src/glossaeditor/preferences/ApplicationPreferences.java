@@ -38,12 +38,16 @@ public class ApplicationPreferences {
     private final String HIGHLIGHTER_PROFILE_CHANGED_EVT_NAME = "highlighterProfileChanged";
     private final String HIGHLIGHTER_PROFILE_COLORS_CHANGED_EVT_NAME = "highlighterProfileColorsChanged";
     private final String EDITOR_FONT_CHANGED_EVT_NAME = "editorFontChanged";
+    private final String USE_SYSTEM_ICONS_CHANGED_EVT_NAME = "useSystemIconsChanged";
+    private final boolean USE_SYSTEM_ICONS_DEFAULT = false;
     private HighlighterProfilesManager profilesManager;
     private HighlighterProfile highlighterProfile;
     private Font editorFont;
     private HashSet<ApplicationPreferencesListener> listeners;
+    private boolean useSystemIcons;
 
     public ApplicationPreferences() {
+
         this.editorFont = this.loadDefaultFont();
 
         this.highlighterProfile = new HighlighterProfile();
@@ -58,6 +62,21 @@ public class ApplicationPreferences {
 
         this.initLAF();
 
+    }
+
+    public void setUseSystemIcons(boolean useSystemIcons){
+        boolean changed = (this.useSystemIcons != useSystemIcons);
+        
+        this.useSystemIcons = useSystemIcons;
+        Preferences pref = Preferences.userNodeForPackage(Slang.class);
+        pref.putBoolean("UseSystemIcons", this.useSystemIcons);
+        if(changed){
+            this.notifyListeners(this.USE_SYSTEM_ICONS_CHANGED_EVT_NAME);
+        }
+    }
+
+    public boolean getUseSystemIcons(){
+        return this.useSystemIcons;
     }
 
     public void setProfilesManager(HighlighterProfilesManager profilesManager) {
@@ -125,6 +144,7 @@ public class ApplicationPreferences {
     public final void loadPreferences() {
         loadEditorFont();
         loadEditorColors();
+        loadMisc();
     }
 
     private void loadEditorFont() {
@@ -156,10 +176,9 @@ public class ApplicationPreferences {
 
     private Font loadDefaultFont() {
          
-        final int DEFAULT_SIZE = 11;
-        //return new Font("monospaced", Font.PLAIN, DEFAULT_SIZE);
+        final int DEFAULT_SIZE = 14;
 
-        String[] fontsList = {"DejaVu Sans Mono", "Liberation Mono", "Courier New"};
+        String[] fontsList = {"Liberation Mono", "DejaVu Sans Mono", "Courier New"};
 
         try {
             GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -188,6 +207,11 @@ public class ApplicationPreferences {
 
     }
 
+    private void loadMisc() {
+        Preferences pref = Preferences.userNodeForPackage(Slang.class);
+        this.setUseSystemIcons(pref.getBoolean("UseSystemIcons", USE_SYSTEM_ICONS_DEFAULT));
+    }
+
     public void resetToDefaultPreferences() {
         String[] editorColors = new String[9];
         editorColors[0] = this.highlighterProfile.KEYWORDS_DEFAULT;
@@ -203,6 +227,8 @@ public class ApplicationPreferences {
 
         Font f = loadDefaultFont();
         this.setEditorFont(f);
+
+        this.setUseSystemIcons(USE_SYSTEM_ICONS_DEFAULT);
 
     }
 
@@ -268,17 +294,22 @@ public class ApplicationPreferences {
         } else if (eventName.equals(this.HIGHLIGHTER_PROFILE_CHANGED_EVT_NAME)) {
             while (iter.hasNext()) {
                 listener = iter.next();
-                listener.HighlighterProfileChanged();
+                listener.highlighterProfileChanged();
             }
         } else if (eventName.equals(this.HIGHLIGHTER_PROFILE_COLORS_CHANGED_EVT_NAME)) {
             while (iter.hasNext()) {
                 listener = iter.next();
-                listener.HighlighterProfileColorsChanged();
+                listener.highlighterProfileColorsChanged();
             }
         } else if (eventName.equals(this.EDITOR_FONT_CHANGED_EVT_NAME)) {
             while (iter.hasNext()) {
                 listener = iter.next();
-                listener.EditorFontChangedEvent();
+                listener.editorFontChangedEvent();
+            }
+        } else if (eventName.equals(this.USE_SYSTEM_ICONS_CHANGED_EVT_NAME)) {
+            while (iter.hasNext()) {
+                listener = iter.next();
+                listener.useSystemIconsChangedEvent(this.useSystemIcons);
             }
         }
     }

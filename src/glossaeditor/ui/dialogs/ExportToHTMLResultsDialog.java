@@ -78,7 +78,6 @@ public class ExportToHTMLResultsDialog extends javax.swing.JDialog {
                 File parentDir = f.getParentFile();
                 String fname = f.getName();
                 String cmd = "/bin/sh " + CROSS_DESKTOP_OPEN_FILE_COMMAND + " " + fname;
-                System.out.println(cmd);
                 Runtime rt = Runtime.getRuntime();
                 Process p = rt.exec(cmd, null, parentDir);
                 p.waitFor();

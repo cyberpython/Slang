@@ -208,7 +208,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         this.requestIcons();
 
-        this.applyWin7UIEnhancements();
+        //this.applyWin7UIEnhancements();
     }
 
     private void addSearchBoxDocumentListener() {
@@ -531,7 +531,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         try {
             File f = File.createTempFile("glossa", ".html");
-            System.out.println(f.getAbsolutePath());
             HtmlGenerator gen = new HtmlGenerator();
             gen.setColors(this.appPrefs.getHighlighterProfile().getColors());
             try {
@@ -757,7 +756,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             URI a = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI();
             File f = new File(a);
             String cp = f.getParentFile().getCanonicalPath();
-            System.out.println(cp);
             File f2 = new File(cp + File.separator + "help" + File.separator + "index.html");
             desktop.open(f2);
         } catch (UnsupportedOperationException uoe) {
@@ -778,7 +776,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
                 String cp = f.getParentFile().getCanonicalPath();
                 File helpDir = new File(cp + File.separator + "help");
                 String cmd = "/bin/sh \"" + CROSS_DESKTOP_OPEN_FILE_COMMAND + " index.html\"";
-                System.out.println(cmd);
                 Runtime rt = Runtime.getRuntime();
                 Process p = rt.exec(cmd, null, helpDir);
                 p.waitFor();
@@ -807,7 +804,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
                 File parentDir = f.getParentFile();
                 String fname = f.getName();
                 String cmd = "/bin/sh " + CROSS_DESKTOP_OPEN_FILE_COMMAND + " \"" + fname +"\"";
-                System.out.println(cmd);
                 Runtime rt = Runtime.getRuntime();
                 Process p = rt.exec(cmd, null, parentDir);
                 p.waitFor();
@@ -965,21 +961,26 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     public void profilesManagerChanged() {
     }
 
-    public void HighlighterProfileChanged() {
+    public void highlighterProfileChanged() {
         this.updateEditorColors();
     }
 
-    public void HighlighterProfileColorsChanged() {
+    public void highlighterProfileColorsChanged() {
         this.updateEditorColors();
     }
 
-    public void EditorFontChangedEvent() {
+    public void editorFontChangedEvent() {
         this.updateEditorFont();
     }
 
-    /*public void useRibbonChangedEvent() {
-    this.setupToolbarsAndMenus();
-    }*/
+    public void useSystemIconsChangedEvent(boolean useSystemIcons){
+        Slang app = Slang.getApplication();
+        app.getIconManager().updateIcons(app.getSystemInfo(), useSystemIcons);
+        this.requestIcons();
+        this.findReplaceDialog.iconsChangedEvent();
+        this.ooid.iconsChangedEvent();
+        app.getIconLoader().loadIcons();
+    }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Application exit event handling">
     public boolean canExit(java.util.EventObject e) {

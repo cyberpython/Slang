@@ -41,9 +41,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 
@@ -191,8 +192,7 @@ public class JFileBrowserPanel extends javax.swing.JPanel {
             this.currentPath = root;
             File[] items = root.listFiles(filter);
             Arrays.sort(items);
-            //TODO: FIXME
-            Vector<File> files = new Vector<File>();
+            List<File> files = new ArrayList<File>();
 
             this.filesModel.clear();
             for (File file : items) {

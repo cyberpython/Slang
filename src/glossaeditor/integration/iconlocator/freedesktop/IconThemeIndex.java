@@ -16,23 +16,26 @@
  */
 package glossaeditor.integration.iconlocator.freedesktop;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+
 
 public class IconThemeIndex {
 
-    //TODO: FIXME
-    Hashtable entryLookupTable;
+    HashMap<String, HashMap<String, String>> entryLookupTable;
 
     public IconThemeIndex() {
-        entryLookupTable = new Hashtable();
+        entryLookupTable = new HashMap<String, HashMap<String, String>>();
     }
 
     public void load(String filename) throws FileNotFoundException {
 
         try {
 
-            Hashtable currentEntry = null;
+            HashMap<String, String> currentEntry = null;
             String entryName;
 
             FileInputStream fis = new FileInputStream(filename);
@@ -46,9 +49,9 @@ public class IconThemeIndex {
                 if (line.startsWith("[")) {
 
                     entryName = line.substring(1, line.indexOf("]")).toLowerCase();
-                    currentEntry = (Hashtable) entryLookupTable.get(entryName);
+                    currentEntry = entryLookupTable.get(entryName);
                     if (currentEntry == null) {
-                        currentEntry = new Hashtable();
+                        currentEntry = new HashMap<String, String>();
                         entryLookupTable.put(entryName, currentEntry);
                     }
 
@@ -66,6 +69,7 @@ public class IconThemeIndex {
 
             }
         } catch (Exception e) {
+            //TODO: remove printStackTrace
             e.printStackTrace();
         }
 
@@ -79,7 +83,7 @@ public class IconThemeIndex {
         }
     }
 
-    private Hashtable getEntry(String section) {
-        return (Hashtable) (entryLookupTable.get(section.toLowerCase()));
+    private HashMap<String, String> getEntry(String section) {
+        return (entryLookupTable.get(section.toLowerCase()));
     }
 }

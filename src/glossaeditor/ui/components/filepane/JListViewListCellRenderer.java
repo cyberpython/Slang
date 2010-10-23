@@ -7,7 +7,7 @@ package glossaeditor.ui.components.filepane;
 
 import java.awt.Component;
 import java.io.File;
-import java.util.Hashtable;
+import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -25,15 +25,14 @@ public class JListViewListCellRenderer extends javax.swing.JPanel implements Lis
 
     private JLabel folderIconLabel;
     private JLabel fileIconLabel;
-    private static Hashtable<String, ImageIcon> icons;
+    private static HashMap<String, ImageIcon> icons;
 
     public JListViewListCellRenderer() {
         this.folderIconLabel = null;
         this.fileIconLabel = null;
 
         if(JListViewListCellRenderer.icons == null){
-            //TODO: FIXME
-            JListViewListCellRenderer.icons = new Hashtable<String, ImageIcon>();
+            JListViewListCellRenderer.icons = new HashMap<String, ImageIcon>();
         }
 
         initComponents();

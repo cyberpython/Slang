@@ -18,7 +18,7 @@ package glossaeditor.integration.iconlocator.freedesktop;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public class IconThemeDescription {
     
@@ -50,8 +50,7 @@ public class IconThemeDescription {
     private File rootDir;
     private String name;
     private String internalName;
-    //TODO: FIXME
-    private Hashtable<String, SubDirPropertiesItem> subdirsProps;
+    private HashMap<String, SubDirPropertiesItem> subdirsProps;
     private String filename;
     
         
@@ -64,7 +63,7 @@ public class IconThemeDescription {
         
         internalName = rootDir.getName();
 
-        subdirsProps = new Hashtable<String, SubDirPropertiesItem>();
+        subdirsProps = new HashMap<String, SubDirPropertiesItem>();
 
 
         try {
@@ -109,6 +108,7 @@ public class IconThemeDescription {
 
 
         } catch (Exception e) {
+            //TODO: remove printStackTrace
             e.printStackTrace();
         }
 

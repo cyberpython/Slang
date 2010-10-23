@@ -21,13 +21,13 @@ import glossaeditor.integration.iconlocator.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FreedesktopIconLocator implements IconLocator {
 
     private FallbackIconLocator fbil;
-    //TODO: FIXME
-    private Vector<File> baseDirs;
+    private List<File> baseDirs;
     private IconThemeDescription themeIndex;
     private String[] extensions;
     private IconThemeLister iconThemes;    
@@ -42,7 +42,6 @@ public class FreedesktopIconLocator implements IconLocator {
         extensions[1] = "svg";
 
         this.iconThemes = new IconThemeLister(baseDirs);
-
         this.themeIndex = getCurrentIconTheme(deInfo);
 
     }
@@ -66,7 +65,6 @@ public class FreedesktopIconLocator implements IconLocator {
         File themeFile = iconThemes.getThemes().get(themeName);
 
         if (themeFile != null) {
-            //System.out.println(themeFile);
             result = new IconThemeDescription(themeFile);
         }
 
@@ -74,8 +72,8 @@ public class FreedesktopIconLocator implements IconLocator {
 
     }
 
-    private Vector<File> getBaseDirs() {
-        Vector<File> dirs = new Vector<File>();
+    private List<File> getBaseDirs() {
+        List<File> dirs = new ArrayList<File>();
         
         File userIconsDir = new File(System.getProperty("user.home") + File.separator + ".icons");
         File kde4UserIconsDir1 = new File(System.getProperty("user.home") + File.separator + ".kde" + File.separator + "share" + File.separator + "icons");
@@ -287,7 +285,7 @@ public class FreedesktopIconLocator implements IconLocator {
     }
     
     
-    private void printDirs(Vector<File> dirs) {
+    private void printDirs(List<File> dirs) {
 
         for (int i = 0; i < dirs.size(); i++) {
             File d = dirs.get(i);

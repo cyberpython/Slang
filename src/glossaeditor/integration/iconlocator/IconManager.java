@@ -20,8 +20,8 @@ import glossaeditor.integration.SystemInfo;
 import glossaeditor.integration.freedesktop.DesktopEnvironmentInfo;
 import glossaeditor.integration.iconlocator.freedesktop.FreedesktopIconLocator;
 import java.net.URL;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -29,7 +29,7 @@ import javax.swing.ImageIcon;
  * Applications should use an IconManager to handle icon-loading.
  * IconManager, every time a search is performed,
  * maps the icon name and size to the corresponding filename and
- * then stores them in a hashtable, so that the next time we look for this icon
+ * then stores them in a hashmap, so that the next time we look for this icon
  * we do not have to scan the filesystem again.
  * In order to use an IconManager, simply make an instance: <br>
  * <b>IconManager iconManager = new IconManager(null);</b> //No FallbackIconLocator is used here<br>
@@ -41,42 +41,55 @@ import javax.swing.ImageIcon;
  */
 public class IconManager {
 
-    //TODO: FIXME
-    private Hashtable<IconSearchKey, URL> systemIconURLs;
-    private Hashtable<IconSearchKey, URL> crossplatformIconURLs;
-    private Hashtable<IconSearchKey, Icon> systemIcons;
-    private Hashtable<IconSearchKey, Icon> crossplatformIcons;
+    private HashMap<IconSearchKey, URL> systemIconURLs;
+    private HashMap<IconSearchKey, URL> crossplatformIconURLs;
+    private HashMap<IconSearchKey, Icon> systemIcons;
+    private HashMap<IconSearchKey, Icon> crossplatformIcons;
     private IconLocator systemLocator;
     private IconLocator crossplatformLocator;
+    private FallbackIconLocator fbil;
 
     /**
      * Default constructor
      * @param fbil The FallbackIconLocator to be used when searching for iconURLs.
      *          Can be null.
      */
-    public IconManager(SystemInfo sysInfo, FallbackIconLocator fbil) {
+    public IconManager(SystemInfo sysInfo, FallbackIconLocator fbil, boolean loadSystemIcons) {
 
-        this.systemIconURLs = new Hashtable<IconSearchKey, URL>();
-        this.crossplatformIconURLs = new Hashtable<IconSearchKey, URL>();
+        this.systemIconURLs = new HashMap<IconSearchKey, URL>();
+        this.crossplatformIconURLs = new HashMap<IconSearchKey, URL>();
 
-        this.systemIcons = new Hashtable<IconSearchKey, Icon>();
-        this.crossplatformIcons = new Hashtable<IconSearchKey, Icon>();
+        this.systemIcons = new HashMap<IconSearchKey, Icon>();
+        this.crossplatformIcons = new HashMap<IconSearchKey, Icon>();
 
         String osName = sysInfo.getOSName().toLowerCase();
-        DesktopEnvironmentInfo deInfo = sysInfo.getDesktopEnvironmentInfo();
 
-
-        if (osName.equals("linux")) {
-            systemLocator = new FreedesktopIconLocator(deInfo);
-            systemLocator.setFallbackIconLocator(fbil);
-        } else {
-            systemLocator = new DefaultIconLocator();
-            systemLocator.setFallbackIconLocator(fbil);
-        }
-
+        this.fbil = fbil;
         crossplatformLocator = new DefaultIconLocator();
         crossplatformLocator.setFallbackIconLocator(fbil);
 
+        if (osName.equals("linux") && loadSystemIcons) {
+            DesktopEnvironmentInfo deInfo = sysInfo.getDesktopEnvironmentInfo();
+            systemLocator = new FreedesktopIconLocator(deInfo);
+            systemLocator.setFallbackIconLocator(fbil);
+        } else {
+            systemLocator = crossplatformLocator;
+        }
+
+    }
+
+    public void updateIcons(SystemInfo sysInfo, boolean loadSystemIcons){
+        String osName = sysInfo.getOSName().toLowerCase();
+        if (osName.equals("linux") && loadSystemIcons && (systemLocator==crossplatformLocator)) {
+            this.systemIconURLs = new HashMap<IconSearchKey, URL>();
+            this.systemIcons = new HashMap<IconSearchKey, Icon>();
+            DesktopEnvironmentInfo deInfo = sysInfo.getDesktopEnvironmentInfo();
+            deInfo.refreshThemeAndIconThemeName(osName);
+            systemLocator = new FreedesktopIconLocator(deInfo);
+            systemLocator.setFallbackIconLocator(this.fbil);
+        } else {
+            systemLocator = crossplatformLocator;
+        }
     }
 
     private String getExtension(URL url) {
@@ -93,7 +106,7 @@ public class IconManager {
         return getIcon(key, crossplatformLocator, crossplatformIconURLs, crossplatformIcons);
     }
 
-    private Icon getIcon(IconSearchKey key, IconLocator locator, Hashtable<IconSearchKey, URL> storage, Hashtable<IconSearchKey, Icon> iconStorage) {
+    private Icon getIcon(IconSearchKey key, IconLocator locator, HashMap<IconSearchKey, URL> storage, HashMap<IconSearchKey, Icon> iconStorage) {
         Icon result = iconStorage.get(key);
         if (result == null) {
             URL foundAt = locateIcon(locator, storage, key);
@@ -120,7 +133,7 @@ public class IconManager {
         return this.locateIcon(systemLocator, systemIconURLs, key);
     }
 
-    public void locateSystemIcons(Vector<String> iconNames) {
+    public void locateSystemIcons(List<String> iconNames) {
         this.locateIcons(systemLocator, systemIconURLs, iconNames);
     }
 
@@ -128,11 +141,11 @@ public class IconManager {
         return this.locateIcon(crossplatformLocator, crossplatformIconURLs, key);
     }
 
-    public void locateCrossplatformIcons(Vector<String> iconNames) {
+    public void locateCrossplatformIcons(List<String> iconNames) {
         this.locateIcons(crossplatformLocator, crossplatformIconURLs, iconNames);
     }
 
-    private URL locateIcon(IconLocator locator, Hashtable<IconSearchKey, URL> storage, IconSearchKey key) {
+    private URL locateIcon(IconLocator locator, HashMap<IconSearchKey, URL> storage, IconSearchKey key) {
         URL iconURL = storage.get(key);
         //System.out.println("Searching:  "+key.getName()+":"+key.getSize());
         if (iconURL == null) //The icon is not yet in the hashtable
@@ -151,7 +164,7 @@ public class IconManager {
         return null;
     }
 
-    private void locateIcons(IconLocator locator, Hashtable<IconSearchKey, URL> storage, Vector<String> iconNames) {
+    private void locateIcons(IconLocator locator, HashMap<IconSearchKey, URL> storage, List<String> iconNames) {
 
         for (int i = 0; i < iconNames.size(); i++) {
 

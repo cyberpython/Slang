@@ -25,6 +25,7 @@ import glossaeditor.integration.iconlocator.IconManager;
 import glossaeditor.integration.GlossaCrossplatformFallbackIconLocator;
 import glossaeditor.integration.GlossaEditorIconLoader;
 import glossaeditor.preferences.ApplicationPreferences;
+import javax.swing.UIManager;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -37,6 +38,7 @@ public class Slang extends SingleFrameApplication{
     private ApplicationPreferences appPrefs;
     private SystemInfo sysInfo;
     private GlossaEditorIconLoader iconLoader;
+    private IconManager iconManager;
 
     private GlossaEditorView mainWindow;
     private JOpenOrInsertDialog ooid;
@@ -56,10 +58,14 @@ public class Slang extends SingleFrameApplication{
         this.sysInfo = new SystemInfo();
         sysInfo.printSystemInfo(System.out);
 
+        if ("GTK look and feel".equals(UIManager.getLookAndFeel().getName())){
+          UIManager.put("FileChooserUI", "eu.kostia.gtkjfilechooser.ui.GtkFileChooserUI");
+        }
+
 
         this.appPrefs = new ApplicationPreferences();
 
-        IconManager iconManager = new IconManager(this.sysInfo, new GlossaCrossplatformFallbackIconLocator());
+        iconManager = new IconManager(this.sysInfo, new GlossaCrossplatformFallbackIconLocator(), this.appPrefs.getUseSystemIcons());
 
         this.iconLoader = new GlossaEditorIconLoader(iconManager, appPrefs);
 
@@ -82,6 +88,10 @@ public class Slang extends SingleFrameApplication{
 
     public GlossaEditorIconLoader getIconLoader(){
         return this.iconLoader;
+    }
+
+    public IconManager getIconManager(){
+        return this.iconManager;
     }
 
     public void restartApp(){

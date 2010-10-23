@@ -21,8 +21,9 @@ import glossaeditor.Slang;
 import glossaeditor.integration.iconlocator.FallbackIconLocator;
 import glossaeditor.integration.iconlocator.IconLocator;
 import java.net.URL;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.ImageIcon;
 
 
@@ -34,7 +35,7 @@ import javax.swing.ImageIcon;
 public class GlossaCrossplatformFallbackIconLocator implements IconLocator, FallbackIconLocator {
 
     private FallbackIconLocator fbil;
-    private Vector<String> availableIcons;
+    private List<String> availableIcons;
 
     /**
      * Deafult constructor - Creates a DefaultIconLocator without a
@@ -46,7 +47,7 @@ public class GlossaCrossplatformFallbackIconLocator implements IconLocator, Fall
     }
 
     private void initAvailableIcons(){
-        this.availableIcons = new Vector<String>();
+        this.availableIcons = new ArrayList<String>();
         this.availableIcons.add("document:24");
         this.availableIcons.add("folder:24");
         this.availableIcons.add("go-home:24");
@@ -131,8 +132,8 @@ public class GlossaCrossplatformFallbackIconLocator implements IconLocator, Fall
         return findIcon(iconname, size);
     }
 
-    public Hashtable<String, ImageIcon> getAvailableIconsHashTable(){
-        Hashtable<String, ImageIcon> result = new Hashtable<String, ImageIcon>();
+    public HashMap<String, ImageIcon> getAvailableIconsHashTable(){
+        HashMap<String, ImageIcon> result = new HashMap<String, ImageIcon>();
         for(int i=0; i<this.availableIcons.size(); i++){
             String iconEntry = this.availableIcons.get(i);
             int sepIndex = iconEntry.lastIndexOf(":");
@@ -141,7 +142,7 @@ public class GlossaCrossplatformFallbackIconLocator implements IconLocator, Fall
             URL iconURL = findIcon(iconName, iconSize);
             if(iconURL!=null){
                 ImageIcon value = new ImageIcon(iconURL);
-                String key = new String(iconName+":"+String.valueOf(iconSize));
+                String key = iconName+":"+String.valueOf(iconSize);
                 result.put(key, value);
             }
         }

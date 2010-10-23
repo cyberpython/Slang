@@ -23,8 +23,8 @@ package glossaeditor.preferences;
  */
 public interface ApplicationPreferencesListener {
     public void profilesManagerChanged();
-    public void HighlighterProfileChanged();
-    public void HighlighterProfileColorsChanged();
-    public void EditorFontChangedEvent();
-
+    public void highlighterProfileChanged();
+    public void highlighterProfileColorsChanged();
+    public void editorFontChangedEvent();
+    public void useSystemIconsChangedEvent(boolean useSystemIcons);
 }

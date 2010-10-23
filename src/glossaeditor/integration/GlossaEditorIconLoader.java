@@ -20,8 +20,8 @@ import glossaeditor.ui.components.misc.JSearchTextField;
 import glossaeditor.integration.iconlocator.IconManager;
 import glossaeditor.integration.iconlocator.IconSearchKey;
 import glossaeditor.preferences.ApplicationPreferences;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,12 +37,12 @@ public class GlossaEditorIconLoader {
 
     private IconManager iconManager;
     private ApplicationPreferences appPrefs;
-    private Hashtable<Object, IconSearchKey> items;
+    private HashMap<Object, IconSearchKey> items;
 
     public GlossaEditorIconLoader(IconManager iconManager, ApplicationPreferences appPrefs) {
         this.iconManager = iconManager;
         this.appPrefs = appPrefs;
-        this.items = new Hashtable<Object, IconSearchKey>();
+        this.items = new HashMap<Object, IconSearchKey>();
     }
 
     public void addItem(Object o, IconSearchKey key) {
@@ -50,11 +50,11 @@ public class GlossaEditorIconLoader {
     }
 
     public void loadIcons() {
-        boolean useSystemIcons = true;
+        boolean useSystemIcons = appPrefs.getUseSystemIcons();
         if (iconManager != null) {
-            Enumeration keys = items.keys();
-            while (keys.hasMoreElements()) {
-                Object object = keys.nextElement();
+            Iterator iter = items.keySet().iterator();
+            while (iter.hasNext()) {
+                Object object = iter.next();
 
                 IconSearchKey value = items.get(object);
                 Icon icon = loadIcon(iconManager, value.getName(), value.getSize(), useSystemIcons);

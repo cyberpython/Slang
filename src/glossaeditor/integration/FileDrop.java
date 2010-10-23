@@ -474,7 +474,9 @@ public class FileDrop
         {   dt.addDropTargetListener( dropListener );
         }   // end try
         catch( java.util.TooManyListenersException e )
-        {   e.printStackTrace();
+        {   
+            //TODO: remove printStackTrace
+            e.printStackTrace();
             log(out, "FileDrop: Drop will not work due to previous error. Do you have another listener attached?" );
         }   // end catch
         

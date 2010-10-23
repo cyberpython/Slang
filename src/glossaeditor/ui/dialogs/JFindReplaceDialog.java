@@ -35,7 +35,7 @@ import javax.swing.event.CaretListener;
  *
  * @author  cyberpython
  */
-public class JFindReplaceDialog extends javax.swing.JDialog implements CaretListener {
+public class JFindReplaceDialog extends javax.swing.JDialog implements CaretListener, IconDisplayingDialog{
 
     private Frame parent;
     private boolean locationHasBeenSet;
@@ -78,6 +78,10 @@ public class JFindReplaceDialog extends javax.swing.JDialog implements CaretList
         this.requestIcons();
     }
 
+    public void iconsChangedEvent() {
+        this.requestIcons();
+    }
+
     // <editor-fold defaultstate="collapsed" desc="CaretListener implementation">
     public void caretUpdate(CaretEvent e) {
         if (this.editorView != null) {
@@ -95,7 +99,8 @@ public class JFindReplaceDialog extends javax.swing.JDialog implements CaretList
 
     /* ----------------------------------------------------- */
     // </editor-fold>
-    
+
+
     public void close() {
         this.setVisible(false);
         this.editorView.clearSearchHighlights();

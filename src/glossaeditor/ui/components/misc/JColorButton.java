@@ -22,8 +22,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -38,8 +42,7 @@ public class JColorButton extends JButton {
     private final int WIDTH_DIFF = 10;
     private int HEIGHT_DIFF = 10;
     private Color color;
-    private JLabel listeningLabel;
-    private JPanel listeningPanel;
+    private List<JComponent> listeners;
     private boolean colorModified;
 
     public JColorButton() {
@@ -48,8 +51,7 @@ public class JColorButton extends JButton {
         this.colorModified = false;
         this.setText("");
         this.setPreferredSize(new Dimension(40, 26));
-        this.listeningLabel = null;
-        this.listeningPanel = null;
+        this.listeners = new ArrayList<JComponent>();
         this.addMouseListener(new MouseListener() {
 
             public void mouseClicked(MouseEvent e) {
@@ -60,14 +62,8 @@ public class JColorButton extends JButton {
                         color = selection;
                         colorModified = true;
                         repaint();
-                        if (listeningLabel != null) {
-                            listeningLabel.setForeground(color);
-                            listeningLabel.repaint();
-                        }
-                        if (listeningPanel != null) {
-                            listeningPanel.setBackground(color);
-                            listeningPanel.repaint();
-                        }
+
+                        updateListeners();
                     }
 
                 }
@@ -97,31 +93,38 @@ public class JColorButton extends JButton {
             this.color = Color.WHITE;
             this.repaint();
         }
-        if (this.listeningLabel != null) {
-            this.listeningLabel.setForeground(this.color);
-            this.listeningLabel.repaint();
+        updateListeners();
+    }
+
+    public boolean addListener(JComponent listener) {
+        return this.listeners.add(listener);
+    }
+
+    public boolean removeListener(JComponent listener) {
+        return this.listeners.remove(listener);
+    }
+
+    private void updateLabel(JLabel label) {
+        label.setForeground(color);
+        label.repaint();
+    }
+
+    private void updatePanel(JPanel panel) {
+        panel.setBackground(color);
+        panel.repaint();
+    }
+
+    public void updateListeners() {
+        for (Iterator<JComponent> it = listeners.iterator(); it.hasNext();) {
+            JComponent listener = it.next();
+            if (listener != null) {
+                if(listener instanceof JLabel){
+                    updateLabel((JLabel)listener);
+                }else if(listener instanceof JPanel){
+                    updatePanel((JPanel)listener);
+                }
+            }
         }
-
-        if (this.listeningPanel != null) {
-            this.listeningPanel.setBackground(this.color);
-            this.listeningPanel.repaint();
-        }
-    }
-
-    public JLabel getListeningLabel() {
-        return this.listeningLabel;
-    }
-
-    public void setListeningLabel(JLabel label) {
-        this.listeningLabel = label;
-    }
-
-    public JPanel getListeningPanel() {
-        return this.listeningPanel;
-    }
-
-    public void setListeningPanel(JPanel panel) {
-        this.listeningPanel = panel;
     }
 
     public boolean getColorModified() {

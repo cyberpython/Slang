@@ -18,29 +18,27 @@ package glossaeditor.integration.iconlocator.freedesktop;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class IconThemeLister {
 
-    //TODO: FIXME
-    private Hashtable<String, File> themes;
+    private HashMap<String, File> themes;
 
-    public IconThemeLister(Vector<File> baseDirs) {
+    public IconThemeLister(List<File> baseDirs) {
 
-        themes = new Hashtable<String, File>();
+        themes = new HashMap<String, File>();
 
         listAllIndexFiles(baseDirs);
     }
 
-    public Hashtable<String, File> getThemes() {
+    public HashMap<String, File> getThemes() {
         return this.themes;
     }
 
-    
-    //Method from : http://snippets.dzone.com/posts/show/1875
-    private Vector<File> listFiles(File directory, FilenameFilter filter) {
+    private List<File> listFiles(File directory, FilenameFilter filter) {
                 
         if(directory==null){
             return null;
@@ -52,15 +50,13 @@ public class IconThemeLister {
             
             if(dirsToCheck!=null){
                 
-                Vector<File> themeFiles = new Vector<File>();
+                List<File> themeFiles = new ArrayList<File>();
                 
                 for(int i=0; i<dirsToCheck.length; i++){
                     if(dirsToCheck[i].isDirectory()){
                         File[] themefiles = dirsToCheck[i].listFiles(filter);
                         
-                        for(int j=0; j<themefiles.length; j++){
-                            themeFiles.add(themefiles[j]);
-                        }
+                        themeFiles.addAll(Arrays.asList(themefiles));
                         
                     }
                 }
@@ -77,7 +73,7 @@ public class IconThemeLister {
 
       
     
-    private void listAllIndexFiles(Vector<File> baseDirs) {
+    private void listAllIndexFiles(List<File> baseDirs) {
 
         FilenameFilter ff = new FilenameFilter() {
 
@@ -91,12 +87,12 @@ public class IconThemeLister {
 
 
         for (int i = 0; i < baseDirs.size(); i++) {
-            Vector<File> files = listFiles(baseDirs.get(i), ff);
+            List<File> files = listFiles(baseDirs.get(i), ff);
             
             if(files!=null){
 
                 for (int j = 0; j < files.size(); j++) {                
-                    themes.put(files.get(j).getParentFile().getName(), files.get(j));                    
+                    themes.put(files.get(j).getParentFile().getName(), files.get(j));
                 }
             }
 
@@ -104,8 +100,8 @@ public class IconThemeLister {
 
     }
     
-    private static Vector<File> getBaseDirs() {
-        Vector<File> dirs = new Vector<File>();
+    /*private static List<File> getBaseDirs() {
+        List<File> dirs = new ArrayList<File>();
 
         File userIconsDir = new File(System.getProperty("user.home") + File.separator + ".icons");
         dirs.add(userIconsDir);
@@ -126,10 +122,10 @@ public class IconThemeLister {
     
     
     private void printThemes(){
-        Enumeration en = themes.elements();
-        while(en.hasMoreElements()){
-            System.out.println( ((File)en.nextElement()).getAbsolutePath() );
+        Iterator<File> iter = themes.values().iterator();
+        while(iter.hasNext()){
+            System.out.println(iter.next().getAbsolutePath() );
         }
-    }
+    }*/
     
 }

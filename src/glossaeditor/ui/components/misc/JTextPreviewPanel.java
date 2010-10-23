@@ -44,14 +44,14 @@ public class JTextPreviewPanel extends javax.swing.JPanel {
     private int maxLinesToBeShown;
     private Charset charset;
     List<String> lines;
-    private final int MARGIN_LEFT = 10;
-    private final int MARGIN_TOP = 10;
-    private final int MARGIN_RIGHT = 10;
-    private final int MARGIN_BOTTOM = 10;
-    private final int TEXT_MARGIN_LEFT = 5;
-    private final int TEXT_MARGIN_TOP = 5;
-    private final int TEXT_MARGIN_RIGHT = 5;
-    private final int TEXT_MARGIN_BOTTOM = 5;
+    private final int MARGIN_LEFT = 1;
+    private final int MARGIN_TOP = 1;
+    private final int MARGIN_RIGHT = 2;
+    private final int MARGIN_BOTTOM = 2;
+    private final int TEXT_MARGIN_LEFT = 10;
+    private final int TEXT_MARGIN_TOP = 10;
+    private final int TEXT_MARGIN_RIGHT = 10;
+    private final int TEXT_MARGIN_BOTTOM = 10;
     private final int TEXT_LINE_GAP = 2;
 
     public JTextPreviewPanel() {
@@ -59,16 +59,22 @@ public class JTextPreviewPanel extends javax.swing.JPanel {
         this.modified = false;
         this.charset = Charset.defaultCharset();
         this.lines = new ArrayList<String>();
-        this.maxLinesToBeShown = 10;
+        this.maxLinesToBeShown = 15;
     }
 
     public void setSrc(File f) {
         if (f != null) {
-            if (!f.equals(this.src)) {
-                this.src = f;
-                modified = true;
+            if (f.isDirectory()) {
+                f = null;
+            } else {
+                if (!f.equals(this.src)) {
+                    this.src = f;
+                    modified = true;
+                }
             }
         }
+        this.src = f;
+        modified = true;
         this.repaint();
     }
 
@@ -103,34 +109,35 @@ public class JTextPreviewPanel extends javax.swing.JPanel {
     }
 
     private void drawPreview(Graphics g) {
+
+        if (modified) {
+            this.getText(this.maxLinesToBeShown);
+            modified = false;
+        }
+
         if (this.src != null) {
 
-            if (modified) {
-                this.getText(this.maxLinesToBeShown);
-                modified = false;
-            }
+            int rectWidth = this.getWidth();
+            int rectHeight = this.getHeight();
 
-            int rectWidth = this.getWidth() - MARGIN_LEFT - MARGIN_RIGHT;
-            int rectHeight = this.getHeight() - MARGIN_TOP - MARGIN_BOTTOM;
-
-            Shape clipRect = new Rectangle2D.Float(MARGIN_LEFT + TEXT_MARGIN_LEFT,
-                                                   MARGIN_TOP+TEXT_MARGIN_TOP,
-                                                   this.getWidth()-MARGIN_LEFT - TEXT_MARGIN_LEFT -MARGIN_RIGHT-TEXT_MARGIN_RIGHT,
-                                                   this.getHeight() - MARGIN_TOP - TEXT_MARGIN_TOP - MARGIN_BOTTOM - TEXT_MARGIN_BOTTOM );
+            Shape clipRect = new Rectangle2D.Float(TEXT_MARGIN_LEFT,
+                    TEXT_MARGIN_TOP,
+                    this.getWidth() - TEXT_MARGIN_LEFT - TEXT_MARGIN_RIGHT,
+                    this.getHeight() - TEXT_MARGIN_TOP - TEXT_MARGIN_BOTTOM);
 
             Graphics2D g2d = (Graphics2D) g;
 
             g2d.setPaint(Color.white);
-            g2d.fillRect(10, 10, rectWidth, rectHeight);
+            g2d.fillRect(0, 0, rectWidth, rectHeight);
 
             g2d.setPaint(Color.black);
-            g2d.drawRect(10, 10, rectWidth, rectHeight);
+            g2d.drawRect(0, 0, rectWidth - 1, rectHeight - 1);
 
             RenderingHints hints = g2d.getRenderingHints();
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2d.setPaint(new Color(45, 95, 150));
             Font f = g2d.getFont();
-            g2d.setFont(f.deriveFont(this.calcFontSize((float)clipRect.getBounds2D().getHeight(), TEXT_LINE_GAP, g, f)));
+            g2d.setFont(f.deriveFont(this.calcFontSize((float) clipRect.getBounds2D().getHeight(), TEXT_LINE_GAP, g, f)));
 
             g2d.setClip(clipRect);
 
@@ -182,6 +189,9 @@ public class JTextPreviewPanel extends javax.swing.JPanel {
     }
 
     private void getText(int maxLength) {
+        if (this.src == null) {
+            return;
+        }
         try {
             BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(this.src), this.charset));
             this.lines.clear();
@@ -192,10 +202,10 @@ public class JTextPreviewPanel extends javax.swing.JPanel {
                 i++;
             }
             r.close();
-            if(line!=null){
+            if (line != null) {
                 this.lines.add("...");
-            }else{
-                while(this.lines.size()<=maxLength){
+            } else {
+                while (this.lines.size() <= maxLength) {
                     this.lines.add(" ");
                 }
             }

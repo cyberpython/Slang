@@ -31,7 +31,7 @@ import javax.swing.ImageIcon;
  *
  * @author  cyberpython
  */
-public class JOpenOrInsertDialog extends javax.swing.JDialog {
+public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconDisplayingDialog{
     
     public static final int OPEN = 0;
     public static final int INSERT = 1;
@@ -78,6 +78,10 @@ public class JOpenOrInsertDialog extends javax.swing.JDialog {
         iconLoader.addItem(this.jButton1, new IconSearchKey("window-close", 24));
         iconLoader.addItem(this.jButton2, new IconSearchKey("list-add", 24));
         iconLoader.addItem(this.jButton3, new IconSearchKey("document-open", 24));
+    }
+
+    public void iconsChangedEvent() {
+        this.requestIcons();
     }
     
     public void setOpenIcon( ImageIcon openIcon){

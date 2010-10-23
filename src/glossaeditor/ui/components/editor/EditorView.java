@@ -30,10 +30,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
-import java.util.Vector;
 import javax.swing.JEditorPane;
 import javax.swing.JPopupMenu;
 import javax.swing.event.CaretEvent;
@@ -68,13 +69,11 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
     private EditorViewContainer container;
     private String UNTITLED;
     private JPopupMenu popupMenu;
-    //TODO: FIXME
-    private Vector<Object> searchHighlights;
+    private List searchHighlights;
     private LinkedList<Point> searchResults;
     private String lastSearch;
-    private Hashtable<String, String> searchedFor;
-    //TODO: FIXME
-    private Hashtable<String, String> replacedWith;
+    private HashMap<String, String> searchedFor;
+    private HashMap<String, String> replacedWith;
 
     /** Creates new form EditorView */
     public EditorView() {
@@ -118,13 +117,13 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
         }
         modified = false;
 
-        this.searchHighlights = new Vector<Object>();
+        this.searchHighlights = new ArrayList();
         this.searchResults = new LinkedList<Point>();
 
         this.lastSearch = null;
 
-        this.searchedFor = new Hashtable<String, String>();
-        this.replacedWith = new Hashtable<String, String>();
+        this.searchedFor = new HashMap<String, String>();
+        this.replacedWith = new HashMap<String, String>();
     }
 
     private void postInit() {

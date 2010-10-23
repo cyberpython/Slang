@@ -23,9 +23,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class DesktopEnvironmentInfo {
 
@@ -34,9 +35,8 @@ public class DesktopEnvironmentInfo {
     private String windowManager;
     private String widgetTheme;
     private String iconTheme;
-    //TODO: FIXME
-    private Hashtable<String, String> wmList;
-    private Hashtable<String, String> deList;
+    private HashMap<String, String> wmList;
+    private HashMap<String, String> deList;
 
     /**
      * Default constructor
@@ -45,7 +45,7 @@ public class DesktopEnvironmentInfo {
         osName = osName.toLowerCase();
         if (osName.equals("linux")) {
             initialize();
-            Vector<String> runningProcesses = listRunningProcessesOnUnix();
+            List<String> runningProcesses = listRunningProcessesOnUnix();
             this.desktopName = findDesktopName(runningProcesses);
             this.windowManager = findWMName(runningProcesses);
             findThemeAndIconTheme(this.desktopName);
@@ -65,6 +65,10 @@ public class DesktopEnvironmentInfo {
             this.iconTheme = "Not available";
             this.widgetTheme = "Not available";
         }
+    }
+
+    public final void refreshThemeAndIconThemeName(String osName){
+        findThemeAndIconTheme(this.desktopName);
     }
 
     /**
@@ -132,7 +136,7 @@ public class DesktopEnvironmentInfo {
 
     private void initialize() {
 
-        this.wmList = new Hashtable<String, String>();
+        this.wmList = new HashMap<String, String>();
         this.wmList.put("beryl", "Beryl");
         this.wmList.put("compiz", "Compiz");
         this.wmList.put("emerald", "Emerald");
@@ -149,7 +153,7 @@ public class DesktopEnvironmentInfo {
         this.wmList.put("pekwm", "PekWM");
 
 
-        this.deList = new Hashtable<String, String>();
+        this.deList = new HashMap<String, String>();
         this.deList.put("xfce-mcs-manage", "xfce4");
         this.deList.put("ksmserver", "kde");
     }
@@ -167,7 +171,7 @@ public class DesktopEnvironmentInfo {
      *          <b>unknown</b> - for other desktop environments
      *          </ul>
      */
-    private String findDesktopName(Vector<String> processes) {
+    private String findDesktopName(List<String> processes) {
         String name = System.getProperty("sun.desktop");
         if (name != null) {
             name = name.toLowerCase();
@@ -176,10 +180,10 @@ public class DesktopEnvironmentInfo {
             }
         }
 
-        Enumeration en = deList.keys();
+        Iterator<String> iter = deList.keySet().iterator();
 
-        while (en.hasMoreElements()) {
-            String deProc = (String) en.nextElement();
+        while (iter.hasNext()) {
+            String deProc = iter.next();
             String deName = deList.get(deProc);
 
 
@@ -213,12 +217,12 @@ public class DesktopEnvironmentInfo {
      *          <b>unknown</b> - for other Window Managers
      *          </ul>
      */
-    private String findWMName(Vector<String> processes) {
+    private String findWMName(List<String> processes) {
 
-        Enumeration en = wmList.keys();
+        Iterator<String> iter = wmList.keySet().iterator();
 
-        while (en.hasMoreElements()) {
-            String wmProc = (String) en.nextElement();
+        while (iter.hasNext()) {
+            String wmProc = iter.next();
             String wmName = wmList.get(wmProc);
 
 
@@ -242,7 +246,7 @@ public class DesktopEnvironmentInfo {
             if (deName.equals("gnome")) {
 
                 final String GET_GTK_THEME_CMD = "gconftool-2 -g /desktop/gnome/interface/gtk_theme";
-                Vector<String> cmdResults = execCommand(GET_GTK_THEME_CMD);
+                List<String> cmdResults = execCommand(GET_GTK_THEME_CMD);
                 if (cmdResults.size() > 0) {
                     this.widgetTheme = cmdResults.get(0);
                 }
@@ -290,6 +294,7 @@ public class DesktopEnvironmentInfo {
                                             line = br.readLine();
                                         }
                                     } catch (IOException ioe) {
+                                        //TODO: remove printStackTrace
                                         ioe.printStackTrace();
                                         this.widgetTheme = "default";
                                     }
@@ -309,6 +314,7 @@ public class DesktopEnvironmentInfo {
                                             line = br.readLine();
                                         }
                                     } catch (IOException ioe) {
+                                        //TODO: remove printStackTrace
                                         ioe.printStackTrace();
                                         this.iconTheme = "default.kde4";
                                     }
@@ -326,6 +332,7 @@ public class DesktopEnvironmentInfo {
 
 
                     } catch (IOException ioe) {
+                        //TODO: remove printStackTrace
                         ioe.printStackTrace();
                     }
                 }
@@ -383,9 +390,9 @@ public class DesktopEnvironmentInfo {
      * @param cmd The command to be executed
      * @return A Vector of strings representing the commands output
      */
-    private Vector<String> execCommand(String cmd) {
+    private List<String> execCommand(String cmd) {
 
-        Vector<String> result = new Vector<String>();
+        List<String> result = new ArrayList<String>();
 
 
         Runtime rt = Runtime.getRuntime();
@@ -410,14 +417,14 @@ public class DesktopEnvironmentInfo {
      * Lists the running processes on a Unix machine by invoking the 'ps -A' command
      * @return A Vector of strings representing the names of the running processes
      */
-    private Vector<String> listRunningProcessesOnUnix() {
-        Vector<String> v = execCommand(UNIX_PRINT_PROC_CMD);
+    private List<String> listRunningProcessesOnUnix() {
+        List<String> v = execCommand(UNIX_PRINT_PROC_CMD);
 
-        Vector<String> result = new Vector<String>(v.size());
-        Enumeration e = v.elements();
+        List<String> result = new ArrayList<String>(v.size());
+        Iterator<String> e = v.iterator();
 
-        while (e.hasMoreElements()) {
-            String[] s = ((String) e.nextElement()).split("\\s");
+        while (e.hasNext()) {
+            String[] s = e.next().split("\\s");
             result.add(s[s.length - 1]);
         }
 

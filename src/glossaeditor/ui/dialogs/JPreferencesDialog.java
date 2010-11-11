@@ -125,14 +125,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         jColorButton5.setColor(colors[4]);
         jColorButton6.setColor(colors[6]);
         jColorButton7.setColor(colors[8]);
-
-        /*jHtmlLabel1.setForeground(colors[0]);
-        jHtmlLabel2.setForeground(colors[1]);
-        jHtmlLabel3.setForeground(colors[2]);
-        jHtmlLabel4.setForeground(colors[3]);
-        jHtmlLabel6.setForeground(colors[4]);
-
-        jPanel4.setBackground(colors[8]);*/
     }
 
     public final List<Font> getFixedWidthFonts() {
@@ -188,10 +180,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         if (this.editorFont == null) {
             this.editorFont = new Font("monospaced", Font.PLAIN, this.DEFAULT_SIZE);
         }
-
-
-        this.jCheckBox1.setSelected(this.appPrefs.getUseSystemIcons());
-
 
         int fontIndex = -1;
 
@@ -295,7 +283,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
     private void applyAllChanges() {
         applyFontChanges();
         applyColorHighlightingChanges();
-        this.appPrefs.setUseSystemIcons(this.jCheckBox1.isSelected());
     }
 
     private void applyResetAll() {
@@ -328,13 +315,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
     public void editorFontChangedEvent() {
         this.setEditorFont(this.appPrefs.getEditorFont());
     }
-
-    public void useSystemIconsChangedEvent(boolean useSystemIcons){
-    }
-
-    /*public void useRibbonChangedEvent(){
-    this.jRadioButton11.setSelected(this.appPrefs.getUseRibbon());
-    }*/
     // </editor-fold>
     /** This method is called from within the constructor to
      * initialize the form.
@@ -348,6 +328,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -356,7 +337,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
@@ -403,6 +383,8 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
             }
         });
 
+        jScrollPane3.setName("jScrollPane3"); // NOI18N
+
         jPanel1.setName("jPanel1"); // NOI18N
 
         jPanel3.setName("jPanel3"); // NOI18N
@@ -448,14 +430,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
 
         jSeparator1.setName("jSeparator1"); // NOI18N
 
-        jCheckBox1.setText(resourceMap.getString("jCheckBox1.text")); // NOI18N
-        jCheckBox1.setName("jCheckBox1"); // NOI18N
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -463,16 +437,14 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -528,12 +500,12 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)))
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -542,7 +514,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -685,7 +657,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(jComboBox1, 0, 199, Short.MAX_VALUE))
+                                .addComponent(jComboBox1, 0, 125, Short.MAX_VALUE))
                             .addComponent(jLabel17)))
                     .addComponent(jColorButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jColorButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -729,7 +701,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
@@ -771,7 +743,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                     .addComponent(jHtmlLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHtmlLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHtmlLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -806,7 +778,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -830,11 +802,11 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -852,15 +824,17 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jScrollPane3.setViewportView(jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
         );
 
         pack();
@@ -929,10 +903,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         applyAllChanges();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -960,7 +930,6 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
     private glossaeditor.ui.components.misc.JColorButton jColorButton1;
     private glossaeditor.ui.components.misc.JColorButton jColorButton2;
     private glossaeditor.ui.components.misc.JColorButton jColorButton3;
@@ -998,6 +967,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSplitPane jSplitPane1;

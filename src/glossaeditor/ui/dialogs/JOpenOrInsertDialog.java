@@ -20,9 +20,6 @@
 package glossaeditor.ui.dialogs;
 
 import glossaeditor.ui.components.misc.IconContainer;
-import glossaeditor.Slang;
-import glossaeditor.integration.GlossaEditorIconLoader;
-import glossaeditor.integration.iconlocator.IconSearchKey;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
@@ -54,7 +51,6 @@ public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconCont
         
         this.result = -1;
 
-        this.requestIcons();
     }
     
     public final void centerWindowOnScreen() {
@@ -72,13 +68,6 @@ public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconCont
         setLocation(x, y);
         setLocationRelativeTo(parent);                
         requestFocus();
-    }
-
-    private void requestIcons(){
-        GlossaEditorIconLoader iconLoader = Slang.getApplication().getIconLoader();
-        iconLoader.addItem(this.jButton1, new IconSearchKey("window-close", 24));
-        iconLoader.addItem(this.jButton2, new IconSearchKey("list-add", 24));
-        iconLoader.addItem(this.jButton3, new IconSearchKey("document-open", 24));
     }
 
     public void iconsChangedEvent() {

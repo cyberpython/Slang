@@ -39,8 +39,6 @@ import glossaeditor.ui.filefilters.HtmlFileFilter;
 import glossaeditor.ui.components.filepane.JFileBrowserPanel;
 import glossaeditor.export.htmlgenerator.HtmlGenerator;
 import glossaeditor.integration.FileDrop;
-import glossaeditor.integration.GlossaEditorIconLoader;
-import glossaeditor.integration.iconlocator.IconSearchKey;
 import glossaeditor.preferences.ApplicationPreferences;
 import glossaeditor.preferences.ApplicationPreferencesListener;
 import glossaeditor.util.FileUtils;
@@ -291,8 +289,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         this.jPanel12.setVisible(false);
 
-        this.requestIcons();
-
         //this.applyWin7UIEnhancements();
     }
 
@@ -356,68 +352,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     //</editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Icon management">
-    private void requestIcons() {
-        GlossaEditorIconLoader iconLoader = Slang.getApplication().getIconLoader();
-
-        //Buttons:
-        iconLoader.addItem(this.jButton1, new IconSearchKey("document-new", 24));
-        iconLoader.addItem(this.jButton2, new IconSearchKey("document-open", 24));
-        iconLoader.addItem(this.jButton14, new IconSearchKey("document-open-recent", 24));
-        iconLoader.addItem(this.jButton3, new IconSearchKey("document-save", 24));
-        iconLoader.addItem(this.jButton4, new IconSearchKey("document-print", 24));
-        iconLoader.addItem(this.jButton5, new IconSearchKey("edit-cut", 24));
-        iconLoader.addItem(this.jButton6, new IconSearchKey("edit-copy", 24));
-        iconLoader.addItem(this.jButton7, new IconSearchKey("edit-paste", 24));
-        iconLoader.addItem(this.jButton8, new IconSearchKey("edit-undo", 24));
-        iconLoader.addItem(this.jButton9, new IconSearchKey("edit-redo", 24));
-        iconLoader.addItem(this.jButton10, new IconSearchKey("help-browser", 24));
-        iconLoader.addItem(this.jButton11, new IconSearchKey("document-new", 16));
-        iconLoader.addItem(this.jButton12, new IconSearchKey("document-open", 16));
-        iconLoader.addItem(this.jButton13, new IconSearchKey("document-save", 16));
-        iconLoader.addItem(this.jButton17, new IconSearchKey("window-close", 16));
-        iconLoader.addItem(this.jButton18, new IconSearchKey("go-down", 16));
-
-        //Menu items:
-        //File:
-        iconLoader.addItem(this.jMenuItem8, new IconSearchKey("document-new", 16));
-        iconLoader.addItem(this.jMenuItem9, new IconSearchKey("document-open", 16));
-        iconLoader.addItem(this.jMenu4, new IconSearchKey("document-open-recent", 16));
-        iconLoader.addItem(this.jMenuItem10, new IconSearchKey("document-save", 16));
-        iconLoader.addItem(this.jMenuItem11, new IconSearchKey("document-save-as", 16));
-        iconLoader.addItem(this.jMenu2, new IconSearchKey("document-export", 16));
-        iconLoader.addItem(this.jMenuItem27, new IconSearchKey("text-html", 16));
-        iconLoader.addItem(this.jMenuItem12, new IconSearchKey("document-print", 16));
-        iconLoader.addItem(this.jMenuItem13, new IconSearchKey("application-exit", 16));
-        //Edit:
-        iconLoader.addItem(this.jMenuItem14, new IconSearchKey("edit-undo", 16));
-        iconLoader.addItem(this.jMenuItem15, new IconSearchKey("edit-redo", 16));
-        iconLoader.addItem(this.jMenuItem16, new IconSearchKey("edit-cut", 16));
-        iconLoader.addItem(this.jMenuItem17, new IconSearchKey("edit-copy", 16));
-        iconLoader.addItem(this.jMenuItem18, new IconSearchKey("edit-paste", 16));
-        iconLoader.addItem(this.jMenuItem19, new IconSearchKey("edit-delete", 16));
-        iconLoader.addItem(this.jMenuItem20, new IconSearchKey("edit-select-all", 16));
-        iconLoader.addItem(this.jMenuItem21, new IconSearchKey("edit-find", 16));
-        iconLoader.addItem(this.jMenuItem22, new IconSearchKey("edit-find-replace", 16));
-        iconLoader.addItem(this.jMenuItem25, new IconSearchKey("preferences-system", 16));
-        //Help:
-        iconLoader.addItem(this.jMenuItem23, new IconSearchKey("help-browser", 16));
-        iconLoader.addItem(this.jMenuItem24, new IconSearchKey("help-about", 16));
-
-        //Editor popup-menu:
-        iconLoader.addItem(this.jMenuItem1, new IconSearchKey("edit-undo", 16));
-        iconLoader.addItem(this.jMenuItem2, new IconSearchKey("edit-redo", 16));
-        iconLoader.addItem(this.jMenuItem3, new IconSearchKey("edit-cut", 16));
-        iconLoader.addItem(this.jMenuItem4, new IconSearchKey("edit-copy", 16));
-        iconLoader.addItem(this.jMenuItem5, new IconSearchKey("edit-paste", 16));
-        iconLoader.addItem(this.jMenuItem6, new IconSearchKey("edit-delete", 16));
-        iconLoader.addItem(this.jMenuItem7, new IconSearchKey("edit-select-all", 16));
-
-        //Search Field
-        iconLoader.addItem(this.jSearchTextField1, new IconSearchKey("edit-find", 16));
-
-    }
-
     private void setSearchTextfieldIcon() {
         String path = "/artwork/icons/png/crossplatform/s16x16/edit-find.png";
         URL iconURL = Slang.class.getResource(path);
@@ -1038,20 +972,9 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     public void editorFontChangedEvent() {
         this.updateEditorFont();
     }
-
-    public void useSystemIconsChangedEvent(boolean useSystemIcons){
-        Slang app = Slang.getApplication();
-        app.getIconManager().updateIcons(app.getSystemInfo(), useSystemIcons);
-        this.findReplaceDialog.iconsChangedEvent();
-        this.ooid.iconsChangedEvent();
-        this.jFileBrowserPanel1.iconsChangedEvent();
-        app.getIconLoader().loadIcons();
-    }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Application exit event handling">
     public boolean canExit(java.util.EventObject e) {
-        /*Object source = (e != null) ? e.getSource() : null;
-        Component owner = (source instanceof Component) ? (Component) source : null;*/
         return queryCloseApp();
     }
 

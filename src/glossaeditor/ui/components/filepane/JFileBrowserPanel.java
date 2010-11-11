@@ -33,8 +33,6 @@ import documentcontainer.DocumentContainer;
 import glossaeditor.Slang;
 import glossaeditor.ui.filefilters.AllFilesFilter;
 import glossaeditor.ui.filefilters.GlossaFileFilter;
-import glossaeditor.integration.GlossaEditorIconLoader;
-import glossaeditor.integration.iconlocator.IconSearchKey;
 import glossaeditor.ui.components.misc.IconContainer;
 import glossaeditor.util.FileUtils;
 import java.awt.Color;
@@ -118,8 +116,6 @@ public class JFileBrowserPanel extends javax.swing.JPanel implements IconContain
 
         this.filesRenderer.setFileIconLabel(this.fileIconDummyLabel);
         this.filesRenderer.setFolderIconLabel(this.folderIconDummyLabel);
-
-        this.requestIcons();
     }
 
    
@@ -139,18 +135,6 @@ public class JFileBrowserPanel extends javax.swing.JPanel implements IconContain
 
     public void setDocumentContainer(DocumentContainer container) {
         this.documentContainer = container;
-    }
-
-    private void requestIcons(){
-        GlossaEditorIconLoader iconLoader = Slang.getApplication().getIconLoader();
-        iconLoader.addItem(this.jButton1, new IconSearchKey("go-home", 24));
-        iconLoader.addItem(this.jButton2, new IconSearchKey("computer", 24));
-        iconLoader.addItem(this.jButton3, new IconSearchKey("go-up", 24));
-        iconLoader.addItem(this.jButton4, new IconSearchKey("view-refresh", 24));
-        iconLoader.addItem(this.jToggleButton1, new IconSearchKey("locked", 24));
-        iconLoader.addItem(this.jLabel1, new IconSearchKey("folder", 24));
-        iconLoader.addItem(this.folderIconDummyLabel, new IconSearchKey("folder", 24));
-        iconLoader.addItem(this.fileIconDummyLabel, new IconSearchKey("document", 24));
     }
 
     public void setIcons(ImageIcon folderIcon, ImageIcon fileIcon) {

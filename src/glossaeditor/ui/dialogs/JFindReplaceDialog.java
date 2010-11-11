@@ -21,8 +21,6 @@ package glossaeditor.ui.dialogs;
 import glossaeditor.ui.components.misc.IconContainer;
 import glossaeditor.Slang;
 import glossaeditor.ui.components.editor.EditorView;
-import glossaeditor.integration.GlossaEditorIconLoader;
-import glossaeditor.integration.iconlocator.IconSearchKey;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
@@ -75,8 +73,6 @@ public class JFindReplaceDialog extends javax.swing.JDialog implements CaretList
             public void windowDeactivated(WindowEvent e) {
             }
         });
-
-        this.requestIcons();
     }
 
     public void iconsChangedEvent() {
@@ -135,13 +131,6 @@ public class JFindReplaceDialog extends javax.swing.JDialog implements CaretList
     public void setEditorView(EditorView editorView) {
         this.editorView = editorView;
         editorView.getEditorPane().addCaretListener(this);
-    }
-
-    private void requestIcons() {
-        GlossaEditorIconLoader iconLoader = Slang.getApplication().getIconLoader();
-        iconLoader.addItem(this.jButton1, new IconSearchKey("window-close", 24));
-        iconLoader.addItem(this.jButton3, new IconSearchKey("edit-find-replace", 24));
-        iconLoader.addItem(this.jButton4, new IconSearchKey("edit-find", 24));
     }
 
     public void setIcon(ImageIcon icon, JButton button) {

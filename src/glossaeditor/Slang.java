@@ -21,9 +21,6 @@ import glossaeditor.ui.dialogs.JOpenOrInsertDialog;
 import glossaeditor.ui.dialogs.JFindReplaceDialog;
 import glossaeditor.ui.dialogs.JPreferencesDialog;
 import glossaeditor.integration.SystemInfo;
-import glossaeditor.integration.iconlocator.IconManager;
-import glossaeditor.integration.GlossaCrossplatformFallbackIconLocator;
-import glossaeditor.integration.GlossaEditorIconLoader;
 import glossaeditor.preferences.ApplicationPreferences;
 import javax.swing.UIManager;
 import org.jdesktop.application.Application;
@@ -37,8 +34,6 @@ public class Slang extends SingleFrameApplication{
     private String arg;
     private ApplicationPreferences appPrefs;
     private SystemInfo sysInfo;
-    private GlossaEditorIconLoader iconLoader;
-    private IconManager iconManager;
 
     private GlossaEditorView mainWindow;
     private JOpenOrInsertDialog ooid;
@@ -57,22 +52,10 @@ public class Slang extends SingleFrameApplication{
 
         this.sysInfo = new SystemInfo();
         sysInfo.printSystemInfo(System.out);
-
-        if ("GTK look and feel".equals(UIManager.getLookAndFeel().getName())){
-          UIManager.put("FileChooserUI", "eu.kostia.gtkjfilechooser.ui.GtkFileChooserUI");
-        }
-
-
+        
         this.appPrefs = new ApplicationPreferences();
-
-        iconManager = new IconManager(this.sysInfo, new GlossaCrossplatformFallbackIconLocator(), this.appPrefs.getUseSystemIcons());
-
-        this.iconLoader = new GlossaEditorIconLoader(iconManager, appPrefs);
-
         createWindowAndDialogs();
-
-        iconLoader.loadIcons();
-
+        
         show(mainWindow);
         long time2 = new java.util.Date().getTime();
         System.out.println("Time: " + (time2 - time1));
@@ -84,14 +67,6 @@ public class Slang extends SingleFrameApplication{
 
     public ApplicationPreferences getAppPreferences(){
         return this.appPrefs;
-    }
-
-    public GlossaEditorIconLoader getIconLoader(){
-        return this.iconLoader;
-    }
-
-    public IconManager getIconManager(){
-        return this.iconManager;
     }
 
     public void restartApp(){

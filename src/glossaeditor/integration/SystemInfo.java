@@ -17,7 +17,6 @@
 
 package glossaeditor.integration;
 
-import glossaeditor.integration.freedesktop.DesktopEnvironmentInfo;
 import java.io.PrintStream;
 
 /**
@@ -28,12 +27,10 @@ public class SystemInfo {
 
     private String osName;
     private String osVersion;
-    private DesktopEnvironmentInfo desktopInfo;
 
     public SystemInfo(){
         this.osName = System.getProperty("os.name").toLowerCase();
         this.osVersion = System.getProperty("os.version").toLowerCase();
-        this.desktopInfo = null;
     }
 
     public void setOSName(String osName){
@@ -52,19 +49,9 @@ public class SystemInfo {
         return this.osVersion;
     }
 
-    public DesktopEnvironmentInfo getDesktopEnvironmentInfo(){
-        if(this.desktopInfo == null){
-            this.desktopInfo =  new DesktopEnvironmentInfo(this.osName);
-        }
-        return desktopInfo;
-    }
-
     public void printSystemInfo(PrintStream out){
         out.println("Operating system name: "+this.osName);
         out.println("Operating system version: "+this.osVersion);
-        if(this.desktopInfo!=null){
-            this.desktopInfo.printDesktopEnvrionmentInfo(out);
-        }
     }
 
     public static void main(String[] args){

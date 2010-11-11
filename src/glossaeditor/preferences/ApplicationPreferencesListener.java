@@ -26,5 +26,4 @@ public interface ApplicationPreferencesListener {
     public void highlighterProfileChanged();
     public void highlighterProfileColorsChanged();
     public void editorFontChangedEvent();
-    public void useSystemIconsChangedEvent(boolean useSystemIcons);
 }

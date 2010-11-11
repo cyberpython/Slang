@@ -24,8 +24,11 @@ import glossaeditor.ui.dialogs.JPreferencesDialog;
 import glossaeditor.preferences.HighlighterProfile;
 import documentcontainer.DocumentContainer;
 import documentcontainer.DocumentIOManager;
+import glossa.interpreter.Interpreter;
+import glossa.interpreter.InterpreterListener;
+import glossa.interpreter.symboltable.SymbolTable;
+import glossa.ui.gui.stackrenderer.StackRenderer;
 import glossaeditor.Slang;
-import glossaeditor.ui.components.codeinspector.CodeInspectorContainer;
 import glossaeditor.ui.components.misc.JWin7Menu;
 import glossaeditor.ui.components.misc.JWin7MenuBar;
 import glossaeditor.ui.components.misc.JWin7SplitPaneUI;
@@ -49,6 +52,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import javax.swing.event.DocumentEvent;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.SingleFrameApplication;
@@ -57,8 +61,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -79,7 +85,7 @@ import org.jdesktop.application.Application.ExitListener;
 /**
  * The application's main frame.
  */
-public class GlossaEditorView extends FrameView implements EditorViewContainer, CodeInspectorContainer, DocumentContainer, ApplicationPreferencesListener, ExitListener {
+public class GlossaEditorView extends FrameView implements EditorViewContainer, DocumentContainer, ApplicationPreferencesListener, ExitListener, InterpreterListener  {
 
     private final String applicationTitle = "Επεξεργαστής κώδικα για τη ΓΛΩΣΣΑ";
     private int newDocumentsCounter;
@@ -92,6 +98,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     private ApplicationPreferences appPrefs;
     private JFileBrowserPanel jFileBrowserPanel1;
     private Icon glossaFileIcon;
+    private Interpreter interpreter;
 
     public GlossaEditorView(SingleFrameApplication app, String arg, ApplicationPreferences appPrefs) {
         super(app);
@@ -103,6 +110,82 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         postInit(arg);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Code execution">
+    public void parsingAndSemanticAnalysisFinished(boolean success) {
+
+    }
+
+    public void runtimeError() {
+    }
+
+    public void commandExecuted(Interpreter sender, boolean wasPrintStatement) {
+        /*final Interpreter inter = sender;
+        Thread t = new Thread(new Runnable() {
+
+            public void run() {
+                try{
+                    Thread.sleep(500);
+                }catch(InterruptedException e){
+                }
+                inter.resume();
+            }
+        });
+        t.start();*/
+        sender.resume();
+    }
+
+    public void stackPopped() {
+    }
+
+    public void stackPushed(SymbolTable newSymbolTable) {
+    }
+
+    public StackRenderer getStackRenderer() {
+        return this.jGlossaStackPanel1.getStackRenderer();
+    }
+
+    public void runCurrentFile() {
+        File tmpFile = null;
+        try{
+            tmpFile = File.createTempFile(this.editorView1.getTitle(), ".gls");
+            OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(tmpFile), "UTF-8");
+            BufferedWriter bw = new BufferedWriter(w);
+            bw.write(editorView1.getEditorPane().getText());
+
+            bw.flush();
+            bw.close();
+            w.close();
+        }catch(IOException ioe){
+            //TODO: report error
+        }
+        if (tmpFile != null) {
+            runInterpreter(tmpFile);
+        }
+    }
+
+    public void runInterpreter(File f) {
+        if (interpreter != null) {
+            interpreter.stop();
+            interpreter.removeListener(this);
+            interpreter.removeListener(jGlossaStackPanel1.getStackRenderer());
+        }
+        jRuntimeWindow1.clear();
+        jInterpreterMessagesList1.clear();
+        jTabbedPane1.setSelectedIndex(0);
+        interpreter = new Interpreter(f, System.out, System.err, jRuntimeWindow1.getOut(), jRuntimeWindow1.getErr(), jRuntimeWindowInputPanel1.getInputStream());
+        interpreter.addListener(jGlossaStackPanel1.getStackRenderer());
+        interpreter.addListener(this);
+        jInterpreterMessagesList1.setInterpreter(interpreter);
+        boolean success = interpreter.parseAndAnalyzeSemantics(true);
+        if(success){
+            jTabbedPane1.setSelectedIndex(1);
+            jTabbedPane3.setSelectedIndex(2);
+            Thread t = new Thread(interpreter);
+            t.start();
+        }
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Initialization">
     public final void preInit() {
         System.setProperty("suppressSwingDropSupport", "True");
@@ -111,6 +194,8 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         this.setApplicationIcon();
         this.newDocumentsCounter = 0;
         this.frame.setTitle(applicationTitle);
+
+        this.interpreter = null;
 
         this.ioManager = new DocumentIOManager(this, Slang.class);
         this.ioManager.setConfirmOverwriteMessage("Το αρχείο:\n    %filename%\nυπάρχει ήδη!\n\nΘέλετε να γίνει επανεγγραφή;");
@@ -178,7 +263,9 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         this.updateEditorFont();
         this.updateEditorColors();
 
-        this.codeInspector1.setContainer(this);
+        jRuntimeWindowInputPanel1.setWindow(jRuntimeWindow1);
+        jRuntimeWindowInputPanel1.setSubmitButtonText("Υποβολή");
+        jRuntimeWindowInputPanel1.setTextFieldNotFocusedText("Πληκτρολογήστε εδώ");
 
         this.jFileBrowserPanel1 = new JFileBrowserPanel();
         this.jFileBrowserPanel1.setDocumentContainer(this);
@@ -202,8 +289,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             }
         }
 
-        this.jTabbedPane3.remove(jPanel10);
-        this.jTabbedPane3.remove(codeInspector1);
         this.jPanel12.setVisible(false);
 
         this.requestIcons();
@@ -371,9 +456,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             findReplaceDialog.setEditorView(editorView1);
         }
 
-        if(this.codeInspector1!=null){
-            this.codeInspector1.refresh(this.editorView1.getEditorPane().getText());
-        }
 
         jPanel8.validate();
         jPanel8.repaint();
@@ -396,9 +478,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             findReplaceDialog.setEditorView(editorView1);
         }
 
-        if(this.codeInspector1!=null){
-            this.codeInspector1.refresh(this.editorView1.getEditorPane().getText());
-        }
         jPanel8.validate();
         jPanel8.repaint();
     }
@@ -593,39 +672,29 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             JWin7MenuBar jWin7MenuBar1 = this.createWin7MenuBar();
             this.setMenuBar(jWin7MenuBar1);
             jToolBar1.setVisible(false);
-
-            jSplitPane1.setUI(new JWin7SplitPaneUI());
             jSplitPane2.setUI(new JWin7SplitPaneUI());
 
             Color bgColor = new Color(251, 251, 251);
-            this.jSplitPane1.setBackground(bgColor);
             this.jSplitPane2.setBackground(bgColor);
 
-            this.jPanel2.setBackground(bgColor);
             this.jPanel3.setBackground(bgColor);
             this.jPanel4.setBackground(bgColor);
             this.jPanel5.setBackground(bgColor);
             this.jPanel6.setBackground(bgColor);
             //this.jPanel7.setBackground(bgColor);
-            this.jPanel11.setBackground(bgColor);
             this.jPanel12.setBackground(bgColor);
             this.jPanel13.setBackground(bgColor);
             this.jFileBrowserPanel1.setBackgrounds(bgColor);
-            this.cliInterface1.setBackground(bgColor);
 
             this.jToolBar2.setBackground(bgColor);
             this.jButton11.setBackground(bgColor);
             this.jButton12.setBackground(bgColor);
             this.jButton13.setBackground(bgColor);
 
-
-            this.jSplitPane1.setBorder(null);
             this.jSplitPane2.setBorder(null);
 
-            this.jPanel2.setBorder(null);
             this.jPanel3.setBorder(null);
             this.jPanel5.setBorder(null);
-            this.jPanel11.setBorder(null);
 
             this.jTabbedPane1.setBorder(null);
             this.jTabbedPane3.setBorder(null);
@@ -855,9 +924,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jLabel2.setEnabled(modified);
         enableDisableUndoRedo();
         enableDisableSave();
-        if(this.codeInspector1!=null && this.editorView1!=null){
-            this.codeInspector1.refresh(this.editorView1.getEditorPane().getText());
-        }
     }
 
     public void notifyCaretChanged(CaretEvent e) {
@@ -1052,34 +1118,31 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jSeparator12 = new javax.swing.JToolBar.Separator();
-        jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         jSeparator18 = new javax.swing.JToolBar.Separator();
         jButton10 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel2 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        jPanel10 = new javax.swing.JPanel();
-        runtimeInspector1 = new glossaeditor.ui.components.runtimeinspector.RuntimeInspector();
         jPanel13 = new javax.swing.JPanel();
-        codeInspector1 = new glossaeditor.ui.components.codeinspector.CodeInspector();
         jCommandsListPanel1 = new glossaeditor.ui.components.commandslist.JCommandsListPanel();
+        jGlossaStackPanel1 = new glossa.ui.gui.stackrenderer.JGlossaStackPanel();
+        jSplitPane3 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
         jSearchTextField1 = new glossaeditor.ui.components.misc.JSearchTextField();
-        jPanel11 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jInterpreterMessagesList1 = new glossa.ui.gui.io.JInterpreterMessagesList();
         jPanel9 = new javax.swing.JPanel();
-        cliInterface1 = new glossaeditor.ui.components.cli.CliInterface();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jRuntimeWindow1 = new glossa.ui.gui.io.JRuntimeWindow();
+        jRuntimeWindowInputPanel1 = new glossa.ui.gui.io.JRuntimeWindowInputPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -1304,15 +1367,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jSeparator12.setName("jSeparator12"); // NOI18N
         jToolBar1.add(jSeparator12);
 
-        jButton15.setIcon(resourceMap.getIcon("jButton15.icon")); // NOI18N
-        jButton15.setText(resourceMap.getString("jButton15.text")); // NOI18N
-        jButton15.setToolTipText(resourceMap.getString("jButton15.toolTipText")); // NOI18N
-        jButton15.setFocusable(false);
-        jButton15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton15.setName("jButton15"); // NOI18N
-        jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton15);
-
         jButton16.setIcon(resourceMap.getIcon("jButton16.icon")); // NOI18N
         jButton16.setText(resourceMap.getString("jButton16.text")); // NOI18N
         jButton16.setToolTipText(resourceMap.getString("jButton16.toolTipText")); // NOI18N
@@ -1320,6 +1374,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jButton16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton16.setName("jButton16"); // NOI18N
         jButton16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton16);
 
         jSeparator18.setName("jSeparator18"); // NOI18N
@@ -1342,19 +1401,8 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel1.setBorder(null);
         jPanel1.setName("jPanel1"); // NOI18N
 
-        jSplitPane1.setBorder(null);
-        jSplitPane1.setDividerLocation(260);
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setResizeWeight(1.0);
-        jSplitPane1.setContinuousLayout(true);
-        jSplitPane1.setDoubleBuffered(true);
-        jSplitPane1.setName("jSplitPane1"); // NOI18N
-
-        jPanel2.setBorder(null);
-        jPanel2.setName("jPanel2"); // NOI18N
-
         jSplitPane2.setBorder(null);
-        jSplitPane2.setDividerLocation(400);
+        jSplitPane2.setDividerLocation(600);
         jSplitPane2.setResizeWeight(1.0);
         jSplitPane2.setContinuousLayout(true);
         jSplitPane2.setDoubleBuffered(true);
@@ -1363,50 +1411,40 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel3.setBorder(null);
         jPanel3.setName("jPanel3"); // NOI18N
 
+        jTabbedPane3.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPane3.setDoubleBuffered(true);
         jTabbedPane3.setMinimumSize(new java.awt.Dimension(174, 0));
         jTabbedPane3.setName("jTabbedPane3"); // NOI18N
-
-        jPanel10.setName("jPanel10"); // NOI18N
-
-        runtimeInspector1.setMinimumSize(new java.awt.Dimension(139, 0));
-        runtimeInspector1.setName("runtimeInspector1"); // NOI18N
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(runtimeInspector1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(runtimeInspector1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-        );
-
-        jTabbedPane3.addTab(resourceMap.getString("jPanel10.TabConstraints.tabTitle"), jPanel10); // NOI18N
 
         jPanel13.setName("jPanel13"); // NOI18N
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
         jTabbedPane3.addTab(resourceMap.getString("jPanel13.TabConstraints.tabTitle"), jPanel13); // NOI18N
 
-        codeInspector1.setName("codeInspector1"); // NOI18N
-        jTabbedPane3.addTab(resourceMap.getString("codeInspector1.TabConstraints.tabTitle"), codeInspector1); // NOI18N
-
         jCommandsListPanel1.setName("jCommandsListPanel1"); // NOI18N
         jTabbedPane3.addTab(resourceMap.getString("jCommandsListPanel1.TabConstraints.tabTitle"), jCommandsListPanel1); // NOI18N
+
+        jGlossaStackPanel1.setName("jGlossaStackPanel1"); // NOI18N
+        jTabbedPane3.addTab(resourceMap.getString("jGlossaStackPanel1.TabConstraints.tabTitle"), jGlossaStackPanel1); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
         );
 
         jSplitPane2.setRightComponent(jPanel3);
+
+        jSplitPane3.setDividerLocation(300);
+        jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane3.setResizeWeight(1.0);
+        jSplitPane3.setContinuousLayout(true);
+        jSplitPane3.setDoubleBuffered(true);
+        jSplitPane3.setName("jSplitPane3"); // NOI18N
 
         jPanel5.setBorder(null);
         jPanel5.setName("jPanel5"); // NOI18N
@@ -1449,7 +1487,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
+                .addContainerGap(324, Short.MAX_VALUE)
                 .addComponent(jSearchTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton18)
@@ -1472,33 +1510,17 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
         );
 
-        jSplitPane2.setLeftComponent(jPanel5);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-        );
-
-        jSplitPane1.setTopComponent(jPanel2);
-
-        jPanel11.setBorder(null);
-        jPanel11.setName("jPanel11"); // NOI18N
+        jSplitPane3.setLeftComponent(jPanel5);
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPane1.setDoubleBuffered(true);
@@ -1508,28 +1530,20 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel4.setBorder(null);
         jPanel4.setName("jPanel4"); // NOI18N
 
-        jScrollPane1.setDoubleBuffered(true);
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        jList1.setDoubleBuffered(true);
-        jList1.setName("jList1"); // NOI18N
-        jScrollPane1.setViewportView(jList1);
+        jInterpreterMessagesList1.setName("jInterpreterMessagesList1"); // NOI18N
+        jScrollPane1.setViewportView(jInterpreterMessagesList1);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
@@ -1537,17 +1551,26 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel9.setBorder(null);
         jPanel9.setName("jPanel9"); // NOI18N
 
-        cliInterface1.setName("cliInterface1"); // NOI18N
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        jRuntimeWindow1.setName("jRuntimeWindow1"); // NOI18N
+        jScrollPane2.setViewportView(jRuntimeWindow1);
+
+        jRuntimeWindowInputPanel1.setName("jRuntimeWindowInputPanel1"); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cliInterface1, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+            .addComponent(jRuntimeWindowInputPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cliInterface1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRuntimeWindowInputPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel9.TabConstraints.tabTitle"), jPanel9); // NOI18N
@@ -1597,10 +1620,10 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
         jPanel6Layout.setVerticalGroup(
@@ -1608,41 +1631,32 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-        );
+        jSplitPane3.setRightComponent(jTabbedPane1);
 
-        jSplitPane1.setRightComponent(jPanel11);
+        jSplitPane2.setLeftComponent(jSplitPane3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
@@ -1961,7 +1975,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -1973,7 +1987,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
                 .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(578, Short.MAX_VALUE))
+                .addContainerGap(801, Short.MAX_VALUE))
         );
         statusPanelLayout.setVerticalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2345,9 +2359,11 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     }
 }//GEN-LAST:event_jSearchTextField1KeyPressed
 
+private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+    this.runCurrentFile();
+}//GEN-LAST:event_jButton16ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private glossaeditor.ui.components.cli.CliInterface cliInterface1;
-    private glossaeditor.ui.components.codeinspector.CodeInspector codeInspector1;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
@@ -2356,7 +2372,6 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
@@ -2370,10 +2385,11 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private glossaeditor.ui.components.commandslist.JCommandsListPanel jCommandsListPanel1;
+    private glossa.ui.gui.stackrenderer.JGlossaStackPanel jGlossaStackPanel1;
+    private glossa.ui.gui.io.JInterpreterMessagesList jInterpreterMessagesList1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -2408,11 +2424,8 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2421,7 +2434,10 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private glossa.ui.gui.io.JRuntimeWindow jRuntimeWindow1;
+    private glossa.ui.gui.io.JRuntimeWindowInputPanel jRuntimeWindowInputPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private glossaeditor.ui.components.misc.JSearchTextField jSearchTextField1;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -2442,8 +2458,8 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextArea jTextArea1;
@@ -2451,7 +2467,6 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
-    private glossaeditor.ui.components.runtimeinspector.RuntimeInspector runtimeInspector1;
     private javax.swing.JPanel statusPanel;
     // End of variables declaration//GEN-END:variables
     private JDialog aboutBox;

@@ -10,7 +10,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jToolBar1" alignment="0" pref="751" max="32767" attributes="0"/>
+              <Component id="jToolBar1" alignment="0" pref="967" max="32767" attributes="0"/>
               <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
@@ -194,17 +194,6 @@
                 <Property name="name" type="java.lang.String" value="jSeparator12" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton15">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton15.icon"/>
-                <Property name="text" type="java.lang.String" resourceKey="jButton15.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="jButton15.toolTipText"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="name" type="java.lang.String" value="jButton15" noResource="true"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="jButton16">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jButton16.icon"/>
@@ -215,6 +204,9 @@
                 <Property name="name" type="java.lang.String" value="jButton16" noResource="true"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton16ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JToolBar$Separator" name="jSeparator18">
               <Properties>
@@ -248,301 +240,36 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSplitPane1" alignment="0" pref="751" max="32767" attributes="0"/>
+                  <Component id="jSplitPane2" alignment="0" pref="967" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSplitPane1" alignment="0" pref="442" max="32767" attributes="0"/>
+                  <Component id="jSplitPane2" alignment="0" pref="469" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JSplitPane" name="jSplitPane1">
+            <Container class="javax.swing.JSplitPane" name="jSplitPane2">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
-                <Property name="dividerLocation" type="int" value="260"/>
-                <Property name="orientation" type="int" value="0"/>
+                <Property name="dividerLocation" type="int" value="600"/>
                 <Property name="resizeWeight" type="double" value="1.0"/>
                 <Property name="continuousLayout" type="boolean" value="true"/>
                 <Property name="doubleBuffered" type="boolean" value="true"/>
-                <Property name="name" type="java.lang.String" value="jSplitPane1" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="jSplitPane2" noResource="true"/>
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel2">
+                <Container class="javax.swing.JPanel" name="jPanel3">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="top"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSplitPane2" alignment="0" pref="751" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSplitPane2" alignment="1" pref="260" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JSplitPane" name="jSplitPane2">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="null"/>
-                        </Property>
-                        <Property name="dividerLocation" type="int" value="400"/>
-                        <Property name="resizeWeight" type="double" value="1.0"/>
-                        <Property name="continuousLayout" type="boolean" value="true"/>
-                        <Property name="doubleBuffered" type="boolean" value="true"/>
-                        <Property name="name" type="java.lang.String" value="jSplitPane2" noResource="true"/>
-                      </Properties>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
-                      <SubComponents>
-                        <Container class="javax.swing.JPanel" name="jPanel3">
-                          <Properties>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="null"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" value="jPanel3" noResource="true"/>
-                          </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                              <JSplitPaneConstraints position="right"/>
-                            </Constraint>
-                          </Constraints>
-
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTabbedPane3" alignment="1" pref="345" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTabbedPane3" alignment="1" pref="260" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                          </Layout>
-                          <SubComponents>
-                            <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
-                              <Properties>
-                                <Property name="doubleBuffered" type="boolean" value="true"/>
-                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[174, 0]"/>
-                                </Property>
-                                <Property name="name" type="java.lang.String" value="jTabbedPane3" noResource="true"/>
-                              </Properties>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
-                              <SubComponents>
-                                <Container class="javax.swing.JPanel" name="jPanel10">
-                                  <Properties>
-                                    <Property name="name" type="java.lang.String" value="jPanel10" noResource="true"/>
-                                  </Properties>
-                                  <Constraints>
-                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                      <JTabbedPaneConstraints tabName="&#x3a0;&#x3b1;&#x3c1;&#x3b1;&#x3ba;&#x3bf;&#x3bb;&#x3bf;&#x3cd;&#x3b8;&#x3b7;&#x3c3;&#x3b7; &#x3b5;&#x3ba;&#x3c4;&#x3ad;&#x3bb;&#x3b5;&#x3c3;&#x3b7;&#x3c2;">
-                                        <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel10.TabConstraints.tabTitle"/>
-                                      </JTabbedPaneConstraints>
-                                    </Constraint>
-                                  </Constraints>
-
-                                  <Layout>
-                                    <DimensionLayout dim="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="runtimeInspector1" alignment="0" pref="333" max="32767" attributes="0"/>
-                                      </Group>
-                                    </DimensionLayout>
-                                    <DimensionLayout dim="1">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="runtimeInspector1" alignment="0" pref="194" max="32767" attributes="0"/>
-                                      </Group>
-                                    </DimensionLayout>
-                                  </Layout>
-                                  <SubComponents>
-                                    <Component class="glossaeditor.ui.components.runtimeinspector.RuntimeInspector" name="runtimeInspector1">
-                                      <Properties>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[139, 0]"/>
-                                        </Property>
-                                        <Property name="name" type="java.lang.String" value="runtimeInspector1" noResource="true"/>
-                                      </Properties>
-                                    </Component>
-                                  </SubComponents>
-                                </Container>
-                                <Container class="javax.swing.JPanel" name="jPanel13">
-                                  <Properties>
-                                    <Property name="name" type="java.lang.String" value="jPanel13" noResource="true"/>
-                                  </Properties>
-                                  <Constraints>
-                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                      <JTabbedPaneConstraints tabName="&#x391;&#x3c1;&#x3c7;&#x3b5;&#x3af;&#x3b1;">
-                                        <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel13.TabConstraints.tabTitle"/>
-                                      </JTabbedPaneConstraints>
-                                    </Constraint>
-                                  </Constraints>
-
-                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                                </Container>
-                                <Component class="glossaeditor.ui.components.codeinspector.CodeInspector" name="codeInspector1">
-                                  <Properties>
-                                    <Property name="name" type="java.lang.String" value="codeInspector1" noResource="true"/>
-                                  </Properties>
-                                  <Constraints>
-                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                      <JTabbedPaneConstraints tabName="&#x395;&#x3c0;&#x3b9;&#x3c3;&#x3ba;&#x3cc;&#x3c0;&#x3b7;&#x3c3;&#x3b7; &#x3ba;&#x3ce;&#x3b4;&#x3b9;&#x3ba;&#x3b1;">
-                                        <Property name="tabTitle" type="java.lang.String" resourceKey="codeInspector1.TabConstraints.tabTitle"/>
-                                      </JTabbedPaneConstraints>
-                                    </Constraint>
-                                  </Constraints>
-                                </Component>
-                                <Component class="glossaeditor.ui.components.commandslist.JCommandsListPanel" name="jCommandsListPanel1">
-                                  <Properties>
-                                    <Property name="name" type="java.lang.String" value="jCommandsListPanel1" noResource="true"/>
-                                  </Properties>
-                                  <Constraints>
-                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                                      <JTabbedPaneConstraints tabName="&#x395;&#x3bd;&#x3c4;&#x3bf;&#x3bb;&#x3ad;&#x3c2;">
-                                        <Property name="tabTitle" type="java.lang.String" resourceKey="jCommandsListPanel1.TabConstraints.tabTitle"/>
-                                      </JTabbedPaneConstraints>
-                                    </Constraint>
-                                  </Constraints>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JPanel" name="jPanel5">
-                          <Properties>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="null"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" value="jPanel5" noResource="true"/>
-                          </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                              <JSplitPaneConstraints position="left"/>
-                            </Constraint>
-                          </Constraints>
-
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jPanel8" alignment="1" pref="400" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel8" pref="214" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                            </DimensionLayout>
-                          </Layout>
-                          <SubComponents>
-                            <Container class="javax.swing.JPanel" name="jPanel8">
-                              <Properties>
-                                <Property name="name" type="java.lang.String" value="jPanel8" noResource="true"/>
-                              </Properties>
-
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-                            </Container>
-                            <Container class="javax.swing.JPanel" name="jPanel12">
-                              <Properties>
-                                <Property name="name" type="java.lang.String" value="jPanel12" noResource="true"/>
-                              </Properties>
-
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace pref="98" max="32767" attributes="0"/>
-                                          <Component id="jSearchTextField1" min="-2" pref="222" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton18" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton17" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jButton17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jButton18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jSearchTextField1" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                              </Layout>
-                              <SubComponents>
-                                <Component class="javax.swing.JButton" name="jButton17">
-                                  <Properties>
-                                    <Property name="icon" type="javax.swing.Icon" resourceKey="jButton17.icon"/>
-                                    <Property name="text" type="java.lang.String" resourceKey="jButton17.text"/>
-                                    <Property name="toolTipText" type="java.lang.String" resourceKey="jButton17.toolTipText"/>
-                                    <Property name="name" type="java.lang.String" value="jButton17" noResource="true"/>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton17ActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="jButton18">
-                                  <Properties>
-                                    <Property name="icon" type="javax.swing.Icon" resourceKey="jButton18.icon"/>
-                                    <Property name="text" type="java.lang.String" resourceKey="jButton18.text"/>
-                                    <Property name="toolTipText" type="java.lang.String" resourceKey="jButton18.toolTipText"/>
-                                    <Property name="name" type="java.lang.String" value="jButton18" noResource="true"/>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton18ActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="glossaeditor.ui.components.misc.JSearchTextField" name="jSearchTextField1">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" resourceKey="jSearchTextField1.text"/>
-                                    <Property name="name" type="java.lang.String" value="jSearchTextField1" noResource="true"/>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jSearchTextField1KeyPressed"/>
-                                  </Events>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                          </SubComponents>
-                        </Container>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel11">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="null"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="jPanel11" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="jPanel3" noResource="true"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -553,16 +280,193 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTabbedPane1" alignment="0" pref="751" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane3" alignment="1" pref="335" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTabbedPane1" alignment="1" pref="176" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane3" alignment="1" pref="469" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
+                    <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
+                      <Properties>
+                        <Property name="tabPlacement" type="int" value="3"/>
+                        <Property name="doubleBuffered" type="boolean" value="true"/>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[174, 0]"/>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="jTabbedPane3" noResource="true"/>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="jPanel13">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="jPanel13" noResource="true"/>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                              <JTabbedPaneConstraints tabName="&#x391;&#x3c1;&#x3c7;&#x3b5;&#x3af;&#x3b1;">
+                                <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel13.TabConstraints.tabTitle"/>
+                              </JTabbedPaneConstraints>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                        </Container>
+                        <Component class="glossaeditor.ui.components.commandslist.JCommandsListPanel" name="jCommandsListPanel1">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="jCommandsListPanel1" noResource="true"/>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                              <JTabbedPaneConstraints tabName="&#x395;&#x3bd;&#x3c4;&#x3bf;&#x3bb;&#x3ad;&#x3c2;">
+                                <Property name="tabTitle" type="java.lang.String" resourceKey="jCommandsListPanel1.TabConstraints.tabTitle"/>
+                              </JTabbedPaneConstraints>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                        <Component class="glossa.ui.gui.stackrenderer.JGlossaStackPanel" name="jGlossaStackPanel1">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="jGlossaStackPanel1" noResource="true"/>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                              <JTabbedPaneConstraints tabName="&#x3a0;&#x3b1;&#x3c1;&#x3b1;&#x3ba;&#x3bf;&#x3bb;&#x3bf;&#x3cd;&#x3b8;&#x3b7;&#x3c3;&#x3b7; &#x3b5;&#x3ba;&#x3c4;&#x3ad;&#x3bb;&#x3b5;&#x3c3;&#x3b7;&#x3c2; (&#x3a3;&#x3c4;&#x3bf;&#x3af;&#x3b2;&#x3b1;)">
+                                <Property name="tabTitle" type="java.lang.String" resourceKey="jGlossaStackPanel1.TabConstraints.tabTitle"/>
+                              </JTabbedPaneConstraints>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JSplitPane" name="jSplitPane3">
+                  <Properties>
+                    <Property name="dividerLocation" type="int" value="300"/>
+                    <Property name="orientation" type="int" value="0"/>
+                    <Property name="resizeWeight" type="double" value="1.0"/>
+                    <Property name="continuousLayout" type="boolean" value="true"/>
+                    <Property name="doubleBuffered" type="boolean" value="true"/>
+                    <Property name="name" type="java.lang.String" value="jSplitPane3" noResource="true"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                      <JSplitPaneConstraints position="left"/>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="jPanel5">
+                      <Properties>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="jPanel5" noResource="true"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                          <JSplitPaneConstraints position="left"/>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jPanel8" alignment="1" pref="626" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel8" pref="254" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="jPanel8">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="jPanel8" noResource="true"/>
+                          </Properties>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="jPanel12">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="jPanel12" noResource="true"/>
+                          </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace pref="324" max="32767" attributes="0"/>
+                                      <Component id="jSearchTextField1" min="-2" pref="222" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jButton18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jButton17" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jButton17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jSearchTextField1" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JButton" name="jButton17">
+                              <Properties>
+                                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton17.icon"/>
+                                <Property name="text" type="java.lang.String" resourceKey="jButton17.text"/>
+                                <Property name="toolTipText" type="java.lang.String" resourceKey="jButton17.toolTipText"/>
+                                <Property name="name" type="java.lang.String" value="jButton17" noResource="true"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton17ActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="jButton18">
+                              <Properties>
+                                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton18.icon"/>
+                                <Property name="text" type="java.lang.String" resourceKey="jButton18.text"/>
+                                <Property name="toolTipText" type="java.lang.String" resourceKey="jButton18.toolTipText"/>
+                                <Property name="name" type="java.lang.String" value="jButton18" noResource="true"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton18ActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="glossaeditor.ui.components.misc.JSearchTextField" name="jSearchTextField1">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="jSearchTextField1.text"/>
+                                <Property name="name" type="java.lang.String" value="jSearchTextField1" noResource="true"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jSearchTextField1KeyPressed"/>
+                              </Events>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
                     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
                       <Properties>
                         <Property name="tabPlacement" type="int" value="3"/>
@@ -572,6 +476,11 @@
                         </Property>
                         <Property name="name" type="java.lang.String" value="jTabbedPane1" noResource="true"/>
                       </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                          <JSplitPaneConstraints position="right"/>
+                        </Constraint>
+                      </Constraints>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                       <SubComponents>
@@ -593,27 +502,18 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane1" pref="715" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jScrollPane1" alignment="0" pref="618" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane1" pref="112" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jScrollPane1" alignment="0" pref="129" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
                             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                               <Properties>
-                                <Property name="doubleBuffered" type="boolean" value="true"/>
                                 <Property name="name" type="java.lang.String" value="jScrollPane1" noResource="true"/>
                               </Properties>
                               <AuxValues>
@@ -622,10 +522,12 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JList" name="jList1">
+                                <Component class="glossa.ui.gui.io.JInterpreterMessagesList" name="jInterpreterMessagesList1">
                                   <Properties>
-                                    <Property name="doubleBuffered" type="boolean" value="true"/>
-                                    <Property name="name" type="java.lang.String" value="jList1" noResource="true"/>
+                                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                      <StringArray count="0"/>
+                                    </Property>
+                                    <Property name="name" type="java.lang.String" value="jInterpreterMessagesList1" noResource="true"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -650,19 +552,41 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cliInterface1" alignment="0" pref="739" max="32767" attributes="0"/>
+                                  <Component id="jRuntimeWindowInputPanel1" alignment="0" pref="618" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="618" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cliInterface1" alignment="1" pref="136" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jScrollPane2" pref="97" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jRuntimeWindowInputPanel1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="glossaeditor.ui.components.cli.CliInterface" name="cliInterface1">
+                            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="cliInterface1" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="jScrollPane2" noResource="true"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                              </AuxValues>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Component class="glossa.ui.gui.io.JRuntimeWindow" name="jRuntimeWindow1">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="jRuntimeWindow1" noResource="true"/>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Component class="glossa.ui.gui.io.JRuntimeWindowInputPanel" name="jRuntimeWindowInputPanel1">
+                              <Properties>
+                                <Property name="name" type="java.lang.String" value="jRuntimeWindowInputPanel1" noResource="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -685,10 +609,10 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToolBar2" alignment="0" pref="739" max="32767" attributes="0"/>
+                                  <Component id="jToolBar2" alignment="0" pref="618" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" pref="715" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane3" pref="594" max="32767" attributes="0"/>
                                       <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                                   </Group>
                               </Group>
@@ -698,7 +622,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jToolBar2" min="-2" pref="25" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" pref="93" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane3" pref="86" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1154,7 +1078,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="statusPanelSeparator" alignment="0" pref="751" max="32767" attributes="0"/>
+              <Component id="statusPanelSeparator" alignment="0" pref="967" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -1166,7 +1090,7 @@
                   <Component id="jSeparator17" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="578" max="32767" attributes="0"/>
+                  <EmptySpace pref="801" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1352,6 +1276,6 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,38,0,0,2,-17"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,61,0,0,3,-57"/>
   </AuxValues>
 </Form>

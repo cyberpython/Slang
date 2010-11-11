@@ -63,7 +63,7 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
 
     private boolean newFile;
     private boolean modified;
-    private String Title;
+    private String title;
     private File storage;
     private SyntaxDocument document;
     private EditorViewContainer container;
@@ -110,10 +110,10 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
         this.storage = input;
         if (storage == null) {
             newFile = true;
-            Title = UNTITLED;// + "-" + String.valueOf(documentCount);
+            title = UNTITLED;// + "-" + String.valueOf(documentCount);
         } else {
             newFile = false;
-            Title = storage.getName();
+            title = storage.getName();
         }
         modified = false;
 
@@ -141,7 +141,7 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
 
     private void postInit(File f) {
         this.storage = f;
-        this.Title = storage.getName();
+        this.title = storage.getName();
         this.newFile = false;
 
 
@@ -173,7 +173,7 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
             if (!openedSuccessfully) {
                 this.storage = null;
                 newFile = true;
-                Title = UNTITLED;
+                title = UNTITLED;
                 container.notifyDocumentModified(getTitleWithModificationIndicator(), null, false);
             }
         }
@@ -473,11 +473,11 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
     }
 
     public String getTitle() {
-        return this.Title;
+        return this.title;
     }
 
     public String getTitleWithModificationIndicator() {
-        String s = this.Title;
+        String s = this.title;
         if (this.modified) {
             s = s + "*";
         }
@@ -502,7 +502,7 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
     public void reset(int documentCount) {
         this.jEditorPane1.setText("");
         this.storage = null;
-        this.Title = UNTITLED + "-" + documentCount;
+        this.title = UNTITLED + "-" + documentCount;
         this.newFile = true;
         setModified(false);
     }
@@ -563,7 +563,7 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
 
             this.storage = f;
             this.newFile = false;
-            this.Title = storage.getName();
+            this.title = storage.getName();
             setModified(false);
 
             return true;

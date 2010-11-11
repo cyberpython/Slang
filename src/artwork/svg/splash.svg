@@ -123,10 +123,10 @@
        inkscape:collect="always"
        xlink:href="#linearGradient5253"
        id="radialGradient5259"
-       cx="102.00002"
-       cy="134.3522"
-       fx="102.00002"
-       fy="134.3522"
+       cx="101.07825"
+       cy="178.44308"
+       fx="101.07825"
+       fy="178.44308"
        r="250.00001"
        gradientTransform="matrix(1.1418792,-0.6592643,0.5682028,0.9841561,-90.810978,82.665485)"
        gradientUnits="userSpaceOnUse" />
@@ -196,22 +196,22 @@
        y="0.7774899" />
     <text
        xml:space="preserve"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3348);font-family:Arial;-inkscape-font-specification:Sans Bold"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3348);font-family:Arial;-inkscape-font-specification:Sans Bold"
        x="235.1234"
-       y="139.88232"
+       y="159.88232"
        id="text2550"><tspan
          sodipodi:role="line"
          id="tspan2552"
          x="235.1234"
-         y="139.88232"
+         y="159.88232"
          style="font-size:56px;text-align:justify;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1">Slang</tspan></text>
     <g
        id="g2418"
        inkscape:label="Layer 1"
-       transform="matrix(0.4002735,0,0,0.4002735,21.624493,69.15202)">
+       transform="matrix(0.4002735,0,0,0.4002735,21.624493,89.15202)">
       <path
          sodipodi:type="arc"
-         style="opacity:0.8;fill:#000000;fill-opacity:0.75845409;fill-rule:evenodd;stroke:#000000;stroke-width:0.49364379;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3183)"
+         style="opacity:0.8;fill:#000000;fill-opacity:0.75845409;fill-rule:evenodd;stroke:#000000;stroke-width:0.49364379;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter3183)"
          id="path3177"
          sodipodi:cx="263.64981"
          sodipodi:cy="250.49232"
@@ -227,7 +227,7 @@
          sodipodi:cy="250.49232"
          sodipodi:cx="263.64981"
          id="path3155"
-         style="opacity:0.8;fill:url(#linearGradient3173);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.49364379;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         style="opacity:0.8;fill:url(#linearGradient3173);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.49364379;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          sodipodi:type="arc" />
       <path
          transform="matrix(1.1643154,0,0,1.1643154,-124.59936,-117.51284)"
@@ -237,7 +237,7 @@
          sodipodi:cy="315.64716"
          sodipodi:cx="321.73358"
          id="path3189"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          sodipodi:type="arc" />
       <path
          transform="translate(24.735977,0.5178375)"
@@ -247,13 +247,13 @@
          sodipodi:cy="249.48216"
          sodipodi:cx="225.26402"
          id="path3211"
-         style="opacity:1;fill:url(#linearGradient3219);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         style="fill:url(#linearGradient3219);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          sodipodi:type="arc" />
       <text
          id="text3225"
          y="273.57812"
          x="202.5"
-         style="font-size:64px;font-style:normal;font-weight:bold;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+         style="font-size:64px;font-style:normal;font-weight:bold;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
          xml:space="preserve"><tspan
            y="273.57812"
            x="202.5"
@@ -261,8 +261,9 @@
            sodipodi:role="line">ΛΩΣΣΑ</tspan></text>
       <path
          id="path2397"
-         d="M 134.375,68.125 L 383.75,67.5 L 410.3812,113.6266 L 181.875,113.6266 L 181.875,458.75 L 131.92588,429.91186 L 134.375,68.125 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         d="M 134.375,68.125 383.75,67.5 l 26.6312,46.1266 -228.5062,0 0,345.1234 L 131.92588,429.91186 134.375,68.125 z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none"
+         inkscape:connector-curvature="0" />
     </g>
     <text
        xml:space="preserve"
@@ -270,7 +271,7 @@
        x="303.95541"
        y="206.46875"
        id="text3251"
-       transform="matrix(0.7794254,0,0,0.7794254,0.5838772,34.58194)"><tspan
+       transform="matrix(0.7794254,0,0,0.7794254,0.5838772,54.58194)"><tspan
          sodipodi:role="line"
          id="tspan3253"
          x="303.95541"
@@ -285,79 +286,28 @@
        xml:space="preserve"
        style="font-size:24.94161224px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
        x="235.93559"
-       y="195.50894"
+       y="215.50894"
        id="text3231"><tspan
          sodipodi:role="line"
          id="tspan3233"
          x="235.93559"
-         y="195.50894"
+         y="215.50894"
          style="font-size:24.94161224px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial">Περιβάλλον ανάπτυξης </tspan><tspan
          sodipodi:role="line"
          x="235.93559"
-         y="226.68596"
+         y="246.68596"
          style="font-size:24.94161224px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial"
          id="tspan3237">Για Τη ΓΛΩΣΣΑ</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Sans Bold"
+       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Sans Bold"
        x="235.1234"
-       y="139.88232"
+       y="159.88232"
        id="text2542"><tspan
          sodipodi:role="line"
          id="tspan2544"
          x="235.1234"
-         y="139.88232"
+         y="159.88232"
          style="font-size:56px;text-align:justify;writing-mode:lr-tb;text-anchor:start">Slang</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000100;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-       x="25.44672"
-       y="309.04779"
-       id="text3277"><tspan
-         sodipodi:role="line"
-         id="tspan3279"
-         x="25.44672"
-         y="309.04779"> </tspan><tspan
-         sodipodi:role="line"
-         x="25.44672"
-         y="326.58487"
-         id="tspan3029"
-         style="fill:#000000;fill-opacity:1">Γίνεται χρήση των:</tspan></text>
-    <text
-       id="text3035"
-       y="309.04779"
-       x="150.16382"
-       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000100;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-       xml:space="preserve"><tspan
-         y="309.04779"
-         x="150.16382"
-         id="tspan3037"
-         sodipodi:role="line"> </tspan><tspan
-         id="tspan3039"
-         y="326.58487"
-         x="150.16382"
-         sodipodi:role="line"><tspan
-           style="fill:#000000;fill-opacity:1"
-           id="tspan3835">jSyntaxPane (</tspan><tspan
-           id="tspan3041"
-           style="font-size:14.02965641px;text-align:start;text-anchor:start;fill:#0000ff;fill-opacity:1"> http://code.google.com/p/jsyntaxpane/</tspan><tspan
-           style="fill:#000000;fill-opacity:1"
-           id="tspan3837"> ).</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-       x="149.8213"
-       y="329.49628"
-       id="text3043"><tspan
-         sodipodi:role="line"
-         id="tspan3045"
-         x="149.8213"
-         y="329.49628"> </tspan><tspan
-         sodipodi:role="line"
-         x="149.8213"
-         y="347.03336"
-         id="tspan3047">Antlr3 ( <tspan
-   style="fill:#0000ff;fill-opacity:1"
-   id="tspan3827">http://www.antlr.org/</tspan> ).</tspan></text>
   </g>
 </svg>

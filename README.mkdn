@@ -12,7 +12,9 @@ Source code is available under the terms of the [Apache license v2.0](http://www
 
 [jOpt Simple](http://jopt-simple.sourceforge.net/) is copyright of Paul R. Holser and it is available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
-[Glossa-Interpreter](http://github.com/cyberpython/glossa-interpreter) and [Glossa-Interpreter-GUI-Components](http://github.com/cyberpython/glossa-interpreter-gui-components) are copyright of Georgios Migdos and are available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+[Glossa-Interpreter](https://github.com/cyberpython/glossa-interpreter) and [Glossa-Interpreter-GUI-Components](https://github.com/cyberpython/glossa-interpreter-gui-components) are copyright of Georgios Migdos and are available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+
+[Better Swing Application Framework](http://kenai.com/projects/bsaf/pages/Home) is licensed under the [Lesser General Public License (LGPL v. 2.1)](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html).
 
 FileDrop.java is public domain. Its original author is Robert Harder and Gnome/KDE support hsa been added by Nathan Blomquist.
 
@@ -24,8 +26,9 @@ To build the project’s code you will need :
 - [Apache Ant](http://ant.apache.org/) (built-in in Netbeans)
 - [Antlr 3.2](http://www.antlr.org/download/antlr-3.2.jar) (*)
 - [JOpt Simple](http://jopt-simple.sourceforge.net/) (*)
-- [Glossa-Interpreter](http://github.com/cyberpython/glossa-interpreter) (*)
-- [Glossa-Interpreter-GUI-Components](http://github.com/cyberpython/glossa-interpreter-gui-components) (*)
+- [Better Swing Application Framework 1.9](http://kenai.com/projects/bsaf/pages/Home) (*)
+- [Glossa-Interpreter](https://github.com/cyberpython/glossa-interpreter) (*)
+- [Glossa-Interpreter-GUI-Components](https://github.com/cyberpython/glossa-interpreter-gui-components) (*)
 
 (*) If you have an active internet connection all required libraries will be downloaded automatically to the correct directory during the first build, otherwise you have to copy the required jar files to slang/lib/
 

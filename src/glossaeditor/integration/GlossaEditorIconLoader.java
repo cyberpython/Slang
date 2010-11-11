@@ -76,21 +76,27 @@ public class GlossaEditorIconLoader {
             if (o instanceof JButton) {
                 JButton tmp = (JButton) o;
                 tmp.setIcon(icon);
+                tmp.repaint();
             } else if (o instanceof JToggleButton) {
                 JToggleButton tmp = (JToggleButton) o;
                 tmp.setIcon(icon);
+                tmp.repaint();
             } else if (o instanceof JMenuItem) {
                 JMenuItem tmp = (JMenuItem) o;
                 tmp.setIcon(icon);
+                tmp.repaint();
             } else if (o instanceof JMenu) {
                 JMenu tmp = (JMenu) o;
                 tmp.setIcon(icon);
+                tmp.repaint();
             } else if (o instanceof JLabel) {
                 JLabel tmp = (JLabel) o;
                 tmp.setIcon(icon);
+                tmp.repaint();
             } else if (o instanceof JSearchTextField) {
                 JSearchTextField tmp = (JSearchTextField) o;
                 tmp.setIcon(icon);
+                tmp.repaint();
             }
         }
     }

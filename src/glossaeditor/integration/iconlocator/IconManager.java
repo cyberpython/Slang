@@ -48,6 +48,7 @@ public class IconManager {
     private IconLocator systemLocator;
     private IconLocator crossplatformLocator;
     private FallbackIconLocator fbil;
+    private String iconThemeName;
 
     /**
      * Default constructor
@@ -70,23 +71,29 @@ public class IconManager {
 
         if (osName.equals("linux") && loadSystemIcons) {
             DesktopEnvironmentInfo deInfo = sysInfo.getDesktopEnvironmentInfo();
+            this.iconThemeName = deInfo.getIconThemeName();
             systemLocator = new FreedesktopIconLocator(deInfo);
             systemLocator.setFallbackIconLocator(fbil);
         } else {
             systemLocator = crossplatformLocator;
+            this.iconThemeName = "unknown";
         }
 
     }
 
-    public void updateIcons(SystemInfo sysInfo, boolean loadSystemIcons){
+    public void updateIcons(SystemInfo sysInfo, boolean loadSystemIcons) {
         String osName = sysInfo.getOSName().toLowerCase();
-        if (osName.equals("linux") && loadSystemIcons && (systemLocator==crossplatformLocator)) {
-            this.systemIconURLs = new HashMap<IconSearchKey, URL>();
-            this.systemIcons = new HashMap<IconSearchKey, Icon>();
+        if (osName.equals("linux") && loadSystemIcons && (systemLocator == crossplatformLocator)) {
             DesktopEnvironmentInfo deInfo = sysInfo.getDesktopEnvironmentInfo();
             deInfo.refreshThemeAndIconThemeName(osName);
-            systemLocator = new FreedesktopIconLocator(deInfo);
-            systemLocator.setFallbackIconLocator(this.fbil);
+            String iconThemeNameNew = deInfo.getIconThemeName();
+            if (!iconThemeName.equals(iconThemeNameNew)) {
+                this.iconThemeName = iconThemeNameNew;
+                this.systemIconURLs = new HashMap<IconSearchKey, URL>();
+                this.systemIcons = new HashMap<IconSearchKey, Icon>();
+                systemLocator = new FreedesktopIconLocator(deInfo);
+                systemLocator.setFallbackIconLocator(this.fbil);
+            }
         } else {
             systemLocator = crossplatformLocator;
         }

@@ -22,7 +22,7 @@
  * Created on 1 Μαρ 2009, 7:47:54 μμ
  */
 
-package glossaeditor.ui.dialogs;
+package glossaeditor.ui.dialogs.cellrenderers;
 
 import java.awt.Component;
 import java.awt.Font;

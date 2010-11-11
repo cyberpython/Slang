@@ -35,6 +35,7 @@ import glossaeditor.ui.filefilters.AllFilesFilter;
 import glossaeditor.ui.filefilters.GlossaFileFilter;
 import glossaeditor.integration.GlossaEditorIconLoader;
 import glossaeditor.integration.iconlocator.IconSearchKey;
+import glossaeditor.ui.components.misc.IconContainer;
 import glossaeditor.util.FileUtils;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -52,7 +53,7 @@ import javax.swing.ImageIcon;
  *
  * @author Georgios Migdos <cyberpython@gmail.com>
  */
-public class JFileBrowserPanel extends javax.swing.JPanel {
+public class JFileBrowserPanel extends javax.swing.JPanel implements IconContainer{
 
     private class RootDir{
         private final String COMPUTER_LABEL = "Ο Υπολογιστής Μου";
@@ -174,6 +175,10 @@ public class JFileBrowserPanel extends javax.swing.JPanel {
         if(showHiddenIcon!=null){
             this.jToggleButton1.setIcon(showHiddenIcon);
         }
+    }
+
+    public void iconsChangedEvent() {
+        this.jList1.repaint();
     }
 
     private void setPath(File root, FileFilter filter, boolean showHidden) {

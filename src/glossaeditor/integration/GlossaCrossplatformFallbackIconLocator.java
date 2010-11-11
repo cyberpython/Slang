@@ -58,6 +58,7 @@ public class GlossaCrossplatformFallbackIconLocator implements IconLocator, Fall
 
         this.availableIcons.add("document-new:24");
         this.availableIcons.add("document-open:24");
+        this.availableIcons.add("document-open-recent:24");
         this.availableIcons.add("document-save:24");
         this.availableIcons.add("document-print:24");
 
@@ -78,6 +79,7 @@ public class GlossaCrossplatformFallbackIconLocator implements IconLocator, Fall
 
         this.availableIcons.add("document-new:16");
         this.availableIcons.add("document-open:16");
+        this.availableIcons.add("document-open-recent:16");
         this.availableIcons.add("document-save:16");
         this.availableIcons.add("document-save-as:16");
         this.availableIcons.add("document-print:16");
@@ -99,6 +101,8 @@ public class GlossaCrossplatformFallbackIconLocator implements IconLocator, Fall
         this.availableIcons.add("help-about:16");
 
         this.availableIcons.add("application-exit:16");
+        this.availableIcons.add("window-close:16");
+        this.availableIcons.add("go-down:16");
     }
 
     /**

@@ -18,6 +18,7 @@
  */
 package glossaeditor.ui.dialogs;
 
+import glossaeditor.ui.dialogs.cellrenderers.FontListCellRenderer;
 import glossaeditor.ui.components.misc.JWin7SplitPaneUI;
 import glossaeditor.preferences.*;
 import glossaeditor.util.MiscUtils;
@@ -929,7 +930,7 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        this.appPrefs.setUseSystemIcons(this.jCheckBox1.isSelected());
+        
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**

@@ -15,12 +15,12 @@
  *  under the License.
  */
 
-package glossaeditor.ui.dialogs;
+package glossaeditor.ui.components.misc;
 
 /**
  *
  * @author Georgios Migdos <cyberpython@gmail.com>
  */
-public interface IconDisplayingDialog {
+public interface IconContainer {
     public void iconsChangedEvent();
 }

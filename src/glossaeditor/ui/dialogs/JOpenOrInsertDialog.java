@@ -19,6 +19,7 @@
 
 package glossaeditor.ui.dialogs;
 
+import glossaeditor.ui.components.misc.IconContainer;
 import glossaeditor.Slang;
 import glossaeditor.integration.GlossaEditorIconLoader;
 import glossaeditor.integration.iconlocator.IconSearchKey;
@@ -31,7 +32,7 @@ import javax.swing.ImageIcon;
  *
  * @author  cyberpython
  */
-public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconDisplayingDialog{
+public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconContainer{
     
     public static final int OPEN = 0;
     public static final int INSERT = 1;
@@ -81,7 +82,7 @@ public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconDisp
     }
 
     public void iconsChangedEvent() {
-        this.requestIcons();
+        //this.requestIcons();
     }
     
     public void setOpenIcon( ImageIcon openIcon){

@@ -976,9 +976,9 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     public void useSystemIconsChangedEvent(boolean useSystemIcons){
         Slang app = Slang.getApplication();
         app.getIconManager().updateIcons(app.getSystemInfo(), useSystemIcons);
-        this.requestIcons();
         this.findReplaceDialog.iconsChangedEvent();
         this.ooid.iconsChangedEvent();
+        this.jFileBrowserPanel1.iconsChangedEvent();
         app.getIconLoader().loadIcons();
     }
     // </editor-fold>

@@ -19,7 +19,6 @@
 
 package glossaeditor.ui.dialogs;
 
-import glossaeditor.ui.components.misc.IconContainer;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
@@ -29,7 +28,7 @@ import javax.swing.ImageIcon;
  *
  * @author  cyberpython
  */
-public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconContainer{
+public class JOpenOrInsertDialog extends javax.swing.JDialog{
     
     public static final int OPEN = 0;
     public static final int INSERT = 1;
@@ -68,10 +67,6 @@ public class JOpenOrInsertDialog extends javax.swing.JDialog implements IconCont
         setLocation(x, y);
         setLocationRelativeTo(parent);                
         requestFocus();
-    }
-
-    public void iconsChangedEvent() {
-        //this.requestIcons();
     }
     
     public void setOpenIcon( ImageIcon openIcon){

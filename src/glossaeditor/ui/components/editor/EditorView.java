@@ -369,11 +369,6 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
         return search(pattern, true, false);
     }
 
-    public void print() {
-        ((JGlossaEditorPane) jEditorPane1).printContents();
-
-    }
-
     public Color getKeywordColor() {
 
         try {
@@ -662,7 +657,7 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new JGlossaEditorPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
 
         setName("Form"); // NOI18N
 

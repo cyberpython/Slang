@@ -18,8 +18,6 @@
  */
 package glossaeditor.ui.dialogs;
 
-import glossaeditor.ui.components.misc.IconContainer;
-import glossaeditor.Slang;
 import glossaeditor.ui.components.editor.EditorView;
 import java.awt.Frame;
 import java.awt.Rectangle;
@@ -34,7 +32,7 @@ import javax.swing.event.CaretListener;
  *
  * @author  cyberpython
  */
-public class JFindReplaceDialog extends javax.swing.JDialog implements CaretListener, IconContainer{
+public class JFindReplaceDialog extends javax.swing.JDialog implements CaretListener{
 
     private Frame parent;
     private boolean locationHasBeenSet;
@@ -73,10 +71,6 @@ public class JFindReplaceDialog extends javax.swing.JDialog implements CaretList
             public void windowDeactivated(WindowEvent e) {
             }
         });
-    }
-
-    public void iconsChangedEvent() {
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="CaretListener implementation">

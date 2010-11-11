@@ -1,0 +1,50 @@
+#Slang
+
+An integrated development environment for the 'ΓΛΩΣΣΑ' programming language.
+
+##License
+
+Copyright (c) Georgios Migdos <cyberpython@gmail.com>
+
+Source code is available under the terms of the [Apache license v2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+[Antlr 3](http://www.antlr.org/) is copyright of Terence Parr and it is available under the terms of the [BSD license](http://www.antlr.org/license.html).
+
+[jOpt Simple](http://jopt-simple.sourceforge.net/) is copyright of Paul R. Holser and it is available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+
+[Glossa-Interpreter](http://github.com/cyberpython/glossa-interpreter) and [Glossa-Interpreter-GUI-Components](http://github.com/cyberpython/glossa-interpreter-gui-components) are copyright of Georgios Migdos and are available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+
+FileDrop.java is public domain. Its original author is Robert Harder and Gnome/KDE support hsa been added by Nathan Blomquist.
+
+##Build instructions
+
+To build the project’s code you will need :
+
+- [JDK (6.x+)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Apache Ant](http://ant.apache.org/) (built-in in Netbeans)
+- [Antlr 3.2](http://www.antlr.org/download/antlr-3.2.jar) (*)
+- [JOpt Simple](http://jopt-simple.sourceforge.net/) (*)
+- [Glossa-Interpreter](http://github.com/cyberpython/glossa-interpreter) (*)
+- [Glossa-Interpreter-GUI-Components](http://github.com/cyberpython/glossa-interpreter-gui-components) (*)
+
+(*) If you have an active internet connection all required libraries will be downloaded automatically to the correct directory during the first build, otherwise you have to copy the required jar files to slang/lib/
+
+
+Open a terminal and give:
+
+    git clone git://github.com/cyberpython/slang.git
+    cd slang
+    ant clean jar
+
+##How to run the application
+
+To run the interpreter you must have a JRE (6.x+) installed. Then you can give:
+
+    java -jar dist/slang.jar
+
+Or simply double click on dist/slang.jar
+    
+##Screenshots
+![Screenshot][screenshot]
+[screenshot]: http://img338.imageshack.us/img338/3604/screenshotme.png  "Screenshot of the interpreter running a sample input file in Ubuntu 10.10"
+

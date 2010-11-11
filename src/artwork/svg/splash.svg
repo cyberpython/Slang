@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -13,7 +14,7 @@
    height="375.29001"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.0 r9654"
    version="1.0"
    sodipodi:docname="splash.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
@@ -153,8 +154,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="149.04068"
-     inkscape:cy="101.59185"
+     inkscape:cx="283.10527"
+     inkscape:cy="258.7641"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -162,7 +163,8 @@
      inkscape:window-width="1360"
      inkscape:window-height="821"
      inkscape:window-x="124"
-     inkscape:window-y="77" />
+     inkscape:window-y="77"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -215,11 +217,11 @@
          sodipodi:cy="250.49232"
          sodipodi:rx="234.35539"
          sodipodi:ry="234.35539"
-         d="M 498.0052,250.49232 A 234.35539,234.35539 0 1 1 29.294418,250.49232 A 234.35539,234.35539 0 1 1 498.0052,250.49232 z"
+         d="m 498.0052,250.49232 c 0,129.43091 -104.92448,234.3554 -234.35539,234.3554 -129.43091,0 -234.355392,-104.92449 -234.355392,-234.3554 0,-129.4309 104.924482,-234.355388 234.355392,-234.355388 129.43091,0 234.35539,104.924488 234.35539,234.355388 z"
          transform="matrix(1.0128761,0,0,1.0128761,-10.421616,2.659335)" />
       <path
          transform="matrix(1.0128761,0,0,1.0128761,-17.044592,-3.7176891)"
-         d="M 498.0052,250.49232 A 234.35539,234.35539 0 1 1 29.294418,250.49232 A 234.35539,234.35539 0 1 1 498.0052,250.49232 z"
+         d="m 498.0052,250.49232 c 0,129.43091 -104.92448,234.3554 -234.35539,234.3554 -129.43091,0 -234.355392,-104.92449 -234.355392,-234.3554 0,-129.4309 104.924482,-234.355388 234.355392,-234.355388 129.43091,0 234.35539,104.924488 234.35539,234.355388 z"
          sodipodi:ry="234.35539"
          sodipodi:rx="234.35539"
          sodipodi:cy="250.49232"
@@ -229,7 +231,7 @@
          sodipodi:type="arc" />
       <path
          transform="matrix(1.1643154,0,0,1.1643154,-124.59936,-117.51284)"
-         d="M 518.20825,315.64716 A 196.47467,196.47467 0 1 1 125.25891,315.64716 A 196.47467,196.47467 0 1 1 518.20825,315.64716 z"
+         d="m 518.20825,315.64716 c 0,108.50996 -87.9647,196.47467 -196.47467,196.47467 -108.50996,0 -196.47467,-87.96471 -196.47467,-196.47467 0,-108.50997 87.96471,-196.47467 196.47467,-196.47467 108.50997,0 196.47467,87.9647 196.47467,196.47467 z"
          sodipodi:ry="196.47467"
          sodipodi:rx="196.47467"
          sodipodi:cy="315.64716"
@@ -239,7 +241,7 @@
          sodipodi:type="arc" />
       <path
          transform="translate(24.735977,0.5178375)"
-         d="M 433.35545,249.48216 A 208.09143,208.09143 0 1 1 17.172592,249.48216 A 208.09143,208.09143 0 1 1 433.35545,249.48216 z"
+         d="m 433.35545,249.48216 c 0,114.92573 -93.1657,208.09143 -208.09143,208.09143 -114.92572,0 -208.091428,-93.1657 -208.091428,-208.09143 0,-114.92572 93.165708,-208.091428 208.091428,-208.091428 114.92573,0 208.09143,93.165708 208.09143,208.091428 z"
          sodipodi:ry="208.09143"
          sodipodi:rx="208.09143"
          sodipodi:cy="249.48216"
@@ -264,7 +266,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3313);font-family:Arial;-inkscape-font-specification:Arial"
+       style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3313);font-family:Arial;-inkscape-font-specification:Arial"
        x="303.95541"
        y="206.46875"
        id="text3251"
@@ -273,7 +275,7 @@
          id="tspan3253"
          x="303.95541"
          y="206.46875"
-         style="font-size:32px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial">Επεξεργαστής Κώδικα </tspan><tspan
+         style="font-size:32px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial">Περιβάλλον ανάπτυξης</tspan><tspan
          sodipodi:role="line"
          x="303.95541"
          y="246.46875"
@@ -281,7 +283,7 @@
          id="tspan3255">Για Τη ΓΛΩΣΣΑ</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:24.94161224px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
+       style="font-size:24.94161224px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
        x="235.93559"
        y="195.50894"
        id="text3231"><tspan
@@ -289,28 +291,12 @@
          id="tspan3233"
          x="235.93559"
          y="195.50894"
-         style="font-size:24.94161224px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial">Επεξεργαστής Κώδικα </tspan><tspan
+         style="font-size:24.94161224px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial">Περιβάλλον ανάπτυξης </tspan><tspan
          sodipodi:role="line"
          x="235.93559"
          y="226.68596"
          style="font-size:24.94161224px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Arial"
          id="tspan3237">Για Τη ΓΛΩΣΣΑ</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000100;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Arial"
-       x="25.570017"
-       y="337.49628"
-       id="text3277"><tspan
-         sodipodi:role="line"
-         id="tspan3279"
-         x="25.570017"
-         y="337.49628"> </tspan><tspan
-         sodipodi:role="line"
-         x="25.570017"
-         y="355.03336"
-         id="tspan3281">Γίνεται χρήση του jsyntaxpane ( <tspan
-   style="font-size:14.02965641px;fill:#0000ff;fill-opacity:1"
-   id="tspan3283">http://code.google.com/p/jsyntaxpane/</tspan> ).</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial;-inkscape-font-specification:Sans Bold"
@@ -322,5 +308,56 @@
          x="235.1234"
          y="139.88232"
          style="font-size:56px;text-align:justify;writing-mode:lr-tb;text-anchor:start">Slang</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000100;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="25.44672"
+       y="309.04779"
+       id="text3277"><tspan
+         sodipodi:role="line"
+         id="tspan3279"
+         x="25.44672"
+         y="309.04779"> </tspan><tspan
+         sodipodi:role="line"
+         x="25.44672"
+         y="326.58487"
+         id="tspan3029"
+         style="fill:#000000;fill-opacity:1">Γίνεται χρήση των:</tspan></text>
+    <text
+       id="text3035"
+       y="309.04779"
+       x="150.16382"
+       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000100;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       xml:space="preserve"><tspan
+         y="309.04779"
+         x="150.16382"
+         id="tspan3037"
+         sodipodi:role="line"> </tspan><tspan
+         id="tspan3039"
+         y="326.58487"
+         x="150.16382"
+         sodipodi:role="line"><tspan
+           style="fill:#000000;fill-opacity:1"
+           id="tspan3835">jSyntaxPane (</tspan><tspan
+           id="tspan3041"
+           style="font-size:14.02965641px;text-align:start;text-anchor:start;fill:#0000ff;fill-opacity:1"> http://code.google.com/p/jsyntaxpane/</tspan><tspan
+           style="fill:#000000;fill-opacity:1"
+           id="tspan3837"> ).</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.02965641px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="149.8213"
+       y="329.49628"
+       id="text3043"><tspan
+         sodipodi:role="line"
+         id="tspan3045"
+         x="149.8213"
+         y="329.49628"> </tspan><tspan
+         sodipodi:role="line"
+         x="149.8213"
+         y="347.03336"
+         id="tspan3047">Antlr3 ( <tspan
+   style="fill:#0000ff;fill-opacity:1"
+   id="tspan3827">http://www.antlr.org/</tspan> ).</tspan></text>
   </g>
 </svg>

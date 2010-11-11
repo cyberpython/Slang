@@ -280,7 +280,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTabbedPane3" alignment="1" pref="335" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane3" alignment="1" pref="361" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -378,7 +378,7 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel8" alignment="1" pref="626" max="32767" attributes="0"/>
+                              <Component id="jPanel8" alignment="1" pref="600" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -408,7 +408,7 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace pref="324" max="32767" attributes="0"/>
+                                      <EmptySpace pref="298" max="32767" attributes="0"/>
                                       <Component id="jSearchTextField1" min="-2" pref="222" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton18" min="-2" max="-2" attributes="0"/>
@@ -502,7 +502,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" pref="618" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" pref="592" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -552,8 +552,8 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRuntimeWindowInputPanel1" alignment="0" pref="618" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane2" alignment="0" pref="618" max="32767" attributes="0"/>
+                                  <Component id="jRuntimeWindowInputPanel1" alignment="0" pref="592" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="592" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -609,10 +609,10 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToolBar2" alignment="0" pref="618" max="32767" attributes="0"/>
+                                  <Component id="jToolBar2" alignment="0" pref="592" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" pref="594" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane3" pref="568" max="32767" attributes="0"/>
                                       <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1008,13 +1008,6 @@
             <Property name="name" type="java.lang.String" value="jMenu3" noResource="true"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem28">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jMenuItem28.icon"/>
-                <Property name="text" type="java.lang.String" resourceKey="jMenuItem28.text"/>
-                <Property name="name" type="java.lang.String" value="jMenuItem28" noResource="true"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem29">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jMenuItem29.icon"/>

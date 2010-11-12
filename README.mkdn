@@ -48,6 +48,9 @@ To run the interpreter you must have a JRE (6.x+) installed. Then you can give:
 Or simply double click on dist/slang.jar
     
 ##Screenshots
-![Screenshot][screenshot]
-[screenshot]: http://img183.imageshack.us/img183/3725/screenshot2ji.png  "Screenshot of Slang running."
+![Screenshot1][screenshot1]
+[screenshot1]: http://img831.imageshack.us/img831/2763/screenshotll.png  "Screenshot of Slang running."
+
+![Screenshot2][screenshot2]
+[screenshot2]: http://img337.imageshack.us/img337/8332/screenshot2qu.png  "Screenshot of Slang running."
 

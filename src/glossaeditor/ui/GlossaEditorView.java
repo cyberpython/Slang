@@ -1439,6 +1439,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jButton10.setIcon(resourceMap.getIcon("jButton10.icon")); // NOI18N
         jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
         jButton10.setToolTipText(resourceMap.getString("jButton10.toolTipText")); // NOI18N
+        jButton10.setEnabled(false);
         jButton10.setFocusable(false);
         jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton10.setName("jButton10"); // NOI18N
@@ -1570,7 +1571,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
         );
 
         jSplitPane3.setLeftComponent(jPanel5);
@@ -1598,7 +1599,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
@@ -1623,7 +1624,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRuntimeWindowInputPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1701,7 +1702,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1802,7 +1803,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
         );
 
         jSplitPane3.setRightComponent(jPanel2);
@@ -2070,6 +2071,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jMenuItem23.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItem23.setIcon(resourceMap.getIcon("jMenuItem23.icon")); // NOI18N
         jMenuItem23.setText(resourceMap.getString("jMenuItem23.text")); // NOI18N
+        jMenuItem23.setEnabled(false);
         jMenuItem23.setName("jMenuItem23"); // NOI18N
         jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2084,6 +2086,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jMenuItem24.setIcon(resourceMap.getIcon("jMenuItem24.icon")); // NOI18N
         jMenuItem24.setText(resourceMap.getString("jMenuItem24.text")); // NOI18N
         jMenuItem24.setName("jMenuItem24"); // NOI18N
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
         helpMenu.add(jMenuItem24);
 
         menuBar.add(helpMenu);
@@ -2526,6 +2533,10 @@ private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
     saveInputFile();
 }//GEN-LAST:event_jButton13ActionPerformed
+
+private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+    showAboutBox();
+}//GEN-LAST:event_jMenuItem24ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu fileMenu;

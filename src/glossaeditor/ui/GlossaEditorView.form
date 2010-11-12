@@ -199,6 +199,7 @@
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jButton10.icon"/>
                 <Property name="text" type="java.lang.String" resourceKey="jButton10.text"/>
                 <Property name="toolTipText" type="java.lang.String" resourceKey="jButton10.toolTipText"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="name" type="java.lang.String" value="jButton10" noResource="true"/>
@@ -356,7 +357,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel8" pref="156" max="32767" attributes="0"/>
+                                  <Component id="jPanel8" pref="154" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -459,7 +460,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTabbedPane1" pref="174" max="32767" attributes="0"/>
+                                  <Component id="jTabbedPane1" pref="176" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -500,7 +501,7 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane1" alignment="0" pref="140" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane1" alignment="0" pref="142" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -552,7 +553,7 @@
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jScrollPane2" pref="108" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane2" pref="110" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jRuntimeWindowInputPanel1" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -615,7 +616,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jToolBar2" min="-2" pref="25" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jScrollPane3" pref="97" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane3" pref="99" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -1132,6 +1133,7 @@
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jMenuItem23.icon"/>
                 <Property name="text" type="java.lang.String" resourceKey="jMenuItem23.text"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="jMenuItem23" noResource="true"/>
               </Properties>
               <Events>
@@ -1149,6 +1151,9 @@
                 <Property name="text" type="java.lang.String" resourceKey="jMenuItem24.text"/>
                 <Property name="name" type="java.lang.String" value="jMenuItem24" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem24ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

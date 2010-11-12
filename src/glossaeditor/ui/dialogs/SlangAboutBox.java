@@ -17,6 +17,12 @@
 
 package glossaeditor.ui.dialogs;
 
+import glossaeditor.Slang;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import org.jdesktop.application.Action;
 
 public class SlangAboutBox extends javax.swing.JDialog {
@@ -25,16 +31,46 @@ public class SlangAboutBox extends javax.swing.JDialog {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);
+        jEditorPane1.addHyperlinkListener(new HyperlinkListener() {
+
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+                if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED){
+                    try{
+                        openUrlInBrowser(e.getURL().toURI());
+                    }catch(URISyntaxException use){
+                        use.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
-    /*private void setWindowBordersFromLAF(){
-        LookAndFeel laf = UIManager.getLookAndFeel();
-        if (laf.getSupportsWindowDecorations()) {
-            this.setUndecorated(true);
-            this.setDefaultLookAndFeelDecorated(false);
-            this.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
+    private void openUrlInBrowser(URI uri) {
+        try {
+            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+            desktop.browse(uri);
+        } catch (UnsupportedOperationException uoe) {
+            this.xdgOpenUrl(uri);
+        } catch (Exception e) {
+
         }
-    }*/
+    }
+
+    private void xdgOpenUrl(URI uri) {
+        String CROSS_DESKTOP_OPEN_FILE_COMMAND = "/usr/bin/xdg-open";
+        String osName = Slang.getApplication().getSystemInfo().getOSName();
+        if (osName.toLowerCase().equals("linux")) {
+            try {
+                String cmd = "/bin/sh " + CROSS_DESKTOP_OPEN_FILE_COMMAND + " "+uri.toString();
+                Runtime rt = Runtime.getRuntime();
+                Process p = rt.exec(cmd);
+                p.waitFor();
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
 
     @Action public void closeAboutBox() {
         setVisible(false);
@@ -49,15 +85,9 @@ public class SlangAboutBox extends javax.swing.JDialog {
     private void initComponents() {
 
         closeButton = new javax.swing.JButton();
-        javax.swing.JLabel appTitleLabel = new javax.swing.JLabel();
-        javax.swing.JLabel versionLabel = new javax.swing.JLabel();
-        javax.swing.JLabel appVersionLabel = new javax.swing.JLabel();
-        javax.swing.JLabel vendorLabel = new javax.swing.JLabel();
-        javax.swing.JLabel appVendorLabel = new javax.swing.JLabel();
-        javax.swing.JLabel homepageLabel = new javax.swing.JLabel();
-        javax.swing.JLabel appHomepageLabel = new javax.swing.JLabel();
-        javax.swing.JLabel appDescLabel = new javax.swing.JLabel();
-        javax.swing.JLabel imageLabel = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(glossaeditor.Slang.class).getContext().getResourceMap(SlangAboutBox.class);
@@ -70,81 +100,34 @@ public class SlangAboutBox extends javax.swing.JDialog {
         closeButton.setAction(actionMap.get("closeAboutBox")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
-        appTitleLabel.setFont(appTitleLabel.getFont().deriveFont(appTitleLabel.getFont().getStyle() | java.awt.Font.BOLD, appTitleLabel.getFont().getSize()+4));
-        appTitleLabel.setText(resourceMap.getString("Application.title")); // NOI18N
-        appTitleLabel.setName("appTitleLabel"); // NOI18N
+        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
 
-        versionLabel.setFont(versionLabel.getFont().deriveFont(versionLabel.getFont().getStyle() | java.awt.Font.BOLD));
-        versionLabel.setText(resourceMap.getString("versionLabel.text")); // NOI18N
-        versionLabel.setName("versionLabel"); // NOI18N
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        appVersionLabel.setText(resourceMap.getString("Application.version")); // NOI18N
-        appVersionLabel.setName("appVersionLabel"); // NOI18N
+        jEditorPane1.setContentType(resourceMap.getString("jEditorPane1.contentType")); // NOI18N
+        jEditorPane1.setEditable(false);
+        jEditorPane1.setText(resourceMap.getString("jEditorPane1.text")); // NOI18N
+        jEditorPane1.setToolTipText(resourceMap.getString("jEditorPane1.toolTipText")); // NOI18N
+        jEditorPane1.setName("jEditorPane1"); // NOI18N
+        jScrollPane1.setViewportView(jEditorPane1);
 
-        vendorLabel.setFont(vendorLabel.getFont().deriveFont(vendorLabel.getFont().getStyle() | java.awt.Font.BOLD));
-        vendorLabel.setText(resourceMap.getString("vendorLabel.text")); // NOI18N
-        vendorLabel.setName("vendorLabel"); // NOI18N
-
-        appVendorLabel.setText(resourceMap.getString("Application.vendor")); // NOI18N
-        appVendorLabel.setName("appVendorLabel"); // NOI18N
-
-        homepageLabel.setFont(homepageLabel.getFont().deriveFont(homepageLabel.getFont().getStyle() | java.awt.Font.BOLD));
-        homepageLabel.setText(resourceMap.getString("homepageLabel.text")); // NOI18N
-        homepageLabel.setName("homepageLabel"); // NOI18N
-
-        appHomepageLabel.setText(resourceMap.getString("Application.homepage")); // NOI18N
-        appHomepageLabel.setName("appHomepageLabel"); // NOI18N
-
-        appDescLabel.setText(resourceMap.getString("appDescLabel.text")); // NOI18N
-        appDescLabel.setName("appDescLabel"); // NOI18N
-
-        imageLabel.setIcon(resourceMap.getIcon("imageLabel.icon")); // NOI18N
-        imageLabel.setName("imageLabel"); // NOI18N
+        jTabbedPane1.addTab(resourceMap.getString("jScrollPane1.TabConstraints.tabTitle"), jScrollPane1); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(imageLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(versionLabel)
-                            .addComponent(vendorLabel)
-                            .addComponent(homepageLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(appVersionLabel)
-                            .addComponent(appVendorLabel)
-                            .addComponent(appHomepageLabel)))
-                    .addComponent(appTitleLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(appDescLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addComponent(closeButton))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(522, Short.MAX_VALUE)
+                .addComponent(closeButton)
                 .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(appTitleLabel)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(appDescLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(versionLabel)
-                    .addComponent(appVersionLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vendorLabel)
-                    .addComponent(appVendorLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(homepageLabel)
-                    .addComponent(appHomepageLabel))
-                .addGap(21, 21, Short.MAX_VALUE)
                 .addComponent(closeButton)
                 .addContainerGap())
         );
@@ -154,6 +137,9 @@ public class SlangAboutBox extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
+    private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
     
 }

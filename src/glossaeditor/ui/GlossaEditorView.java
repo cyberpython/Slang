@@ -49,6 +49,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.event.DocumentEvent;
 import org.jdesktop.application.Action;
@@ -59,9 +60,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -126,6 +131,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             int start = tmp.getLineStartOffset(line);
             int end = tmp.getLineEndOffset(line);
             this.executionHighlight = this.editorView1.highlight(start, end, this.EXEC_HIGHLIGHT_COLOR);
+            try{
+                this.editorView1.getEditorPane().setCaretPosition(start);
+            }catch(Exception e1){
+                
+            }
             return start;
         } catch (Exception e) {
             return -1;
@@ -187,7 +197,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     public void readStatementExecuted(Interpreter sender, Integer line) {
         if(runInteractively || (interpreterDelayBetweenSteps>0)){
-            removeExecHighlight();
             setExecHighlight(line.intValue()-1);
         }
     }
@@ -195,7 +204,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     public void executionPaused(Interpreter sender, Integer line, Boolean wasPrintStatement) {
 
         if(runInteractively || (interpreterDelayBetweenSteps>0)){
-            removeExecHighlight();
             setExecHighlight(line.intValue()-1);
         }
 
@@ -262,7 +270,13 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jRuntimeWindow1.clear();
         jInterpreterMessagesList1.clear();
         jTabbedPane1.setSelectedIndex(0);
-        interpreter = new Interpreter(f, System.out, System.err, jRuntimeWindow1.getOut(), jRuntimeWindow1.getErr(), jRuntimeWindowInputPanel1.getInputStream());
+        InputStream in;
+        if(jCheckBox2.isSelected()){
+            in = new ByteArrayInputStream(this.jTextArea1.getText().getBytes());
+        }else{
+            in = jRuntimeWindowInputPanel1.getInputStream();
+        }
+        interpreter = new Interpreter(f, System.out, System.err, jRuntimeWindow1.getOut(), jRuntimeWindow1.getErr(), in);
         interpreter.addListener(this);
         jInterpreterMessagesList1.setInterpreter(interpreter);
         boolean success = interpreter.parseAndAnalyzeSemantics(true);
@@ -279,6 +293,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         }
     }
     // </editor-fold>
+
 
     // <editor-fold defaultstate="collapsed" desc="Initialization">
     public final void preInit() {
@@ -640,6 +655,41 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     }
     //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Input File I/O">
+    public void openInputFile(){
+        JFileChooser fc = new JFileChooser();
+        int result = fc.showOpenDialog(frame);
+        if(result==JFileChooser.APPROVE_OPTION){
+            jTextArea1.setText("");
+            try{
+                BufferedReader r = new BufferedReader(new FileReader(fc.getSelectedFile()));
+                String buffer = "";
+                while( (buffer=r.readLine())!=null){
+                    jTextArea1.append(buffer+"\n");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void saveInputFile(){
+        JFileChooser fc = new JFileChooser();
+        int result = fc.showSaveDialog(frame);
+        if(result==JFileChooser.APPROVE_OPTION){
+            try{
+                BufferedWriter w = new BufferedWriter(new FileWriter(fc.getSelectedFile()));
+                w.write(jTextArea1.getText());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void clearInputFile(){
+        jTextArea1.setText("");
+    }
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Document Printing">
     private void printDocument() {
 
@@ -754,10 +804,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         JWin7Menu editMenu = new JWin7Menu("Επεξεργασία");
         editMenu.copyMenuItems(this.jMenu1);
         jWin7MenuBar1.add(editMenu);
-
-        JWin7Menu programMenu = new JWin7Menu("Πρόγραμμα");
-        programMenu.copyMenuItems(this.jMenu3);
-        jWin7MenuBar1.add(programMenu);
 
         JWin7Menu jWin7HelpMenu = new JWin7Menu("Βοήθεια");
         jWin7HelpMenu.copyMenuItems(this.helpMenu);
@@ -973,13 +1019,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     //</editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="CodeInspectorContainer implementation">
-
-    public String getCode(){
-        return this.editorView1.getEditorPane().getText();
-    }
-
-    //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="DocumentContainer implementation">
     public boolean isCurrentDocModified() {
         return this.editorView1.isModified();
@@ -1183,6 +1222,8 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jLabel4 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
+        jSeparator16 = new javax.swing.JToolBar.Separator();
+        jCheckBox2 = new javax.swing.JCheckBox();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -1213,10 +1254,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jMenuItem22 = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JSeparator();
         jMenuItem25 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem29 = new javax.swing.JMenuItem();
-        jSeparator16 = new javax.swing.JSeparator();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         helpMenu = new javax.swing.JMenu();
         jMenuItem23 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JSeparator();
@@ -1446,11 +1483,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
         );
 
         jSplitPane2.setRightComponent(jPanel3);
@@ -1533,7 +1570,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
         );
 
         jSplitPane3.setLeftComponent(jPanel5);
@@ -1616,6 +1653,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton11.setName("jButton11"); // NOI18N
         jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jToolBar2.add(jButton11);
 
         jButton12.setIcon(resourceMap.getIcon("jButton12.icon")); // NOI18N
@@ -1624,6 +1666,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton12.setName("jButton12"); // NOI18N
         jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         jToolBar2.add(jButton12);
 
         jButton13.setIcon(resourceMap.getIcon("jButton13.icon")); // NOI18N
@@ -1632,6 +1679,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton13.setName("jButton13"); // NOI18N
         jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         jToolBar2.add(jButton13);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1718,6 +1770,15 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jLabel5.setName("jLabel5"); // NOI18N
         jToolBar3.add(jLabel5);
 
+        jSeparator16.setName("jSeparator16"); // NOI18N
+        jToolBar3.add(jSeparator16);
+
+        jCheckBox2.setText(resourceMap.getString("jCheckBox2.text")); // NOI18N
+        jCheckBox2.setFocusable(false);
+        jCheckBox2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jCheckBox2.setName("jCheckBox2"); // NOI18N
+        jToolBar3.add(jCheckBox2);
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1754,15 +1815,15 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
         );
 
         menuBar.setDoubleBuffered(true);
@@ -2003,23 +2064,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         menuBar.add(jMenu1);
 
-        jMenu3.setText(resourceMap.getString("jMenu3.text")); // NOI18N
-        jMenu3.setName("jMenu3"); // NOI18N
-
-        jMenuItem29.setIcon(resourceMap.getIcon("jMenuItem29.icon")); // NOI18N
-        jMenuItem29.setText(resourceMap.getString("jMenuItem29.text")); // NOI18N
-        jMenuItem29.setName("jMenuItem29"); // NOI18N
-        jMenu3.add(jMenuItem29);
-
-        jSeparator16.setName("jSeparator16"); // NOI18N
-        jMenu3.add(jSeparator16);
-
-        jCheckBoxMenuItem1.setText(resourceMap.getString("jCheckBoxMenuItem1.text")); // NOI18N
-        jCheckBoxMenuItem1.setName("jCheckBoxMenuItem1"); // NOI18N
-        jMenu3.add(jCheckBoxMenuItem1);
-
-        menuBar.add(jMenu3);
-
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
         helpMenu.setName("helpMenu"); // NOI18N
 
@@ -2068,7 +2112,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -2080,7 +2124,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
                 .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(616, Short.MAX_VALUE))
+                .addContainerGap(686, Short.MAX_VALUE))
         );
         statusPanelLayout.setVerticalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2471,6 +2515,18 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     this.jLabel5.setEnabled(enable);
 }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    clearInputFile();
+}//GEN-LAST:event_jButton11ActionPerformed
+
+private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    openInputFile();
+}//GEN-LAST:event_jButton12ActionPerformed
+
+private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    saveInputFile();
+}//GEN-LAST:event_jButton13ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
@@ -2493,7 +2549,7 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBox jCheckBox2;
     private glossaeditor.ui.components.commandslist.JCommandsListPanel jCommandsListPanel1;
     private glossa.ui.gui.stackrenderer.JGlossaStackPanel jGlossaStackPanel1;
     private glossa.ui.gui.io.JInterpreterMessagesList jInterpreterMessagesList1;
@@ -2504,7 +2560,6 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -2526,7 +2581,6 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
-    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -2560,7 +2614,7 @@ private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JSeparator jSeparator16;
+    private javax.swing.JToolBar.Separator jSeparator16;
     private javax.swing.JSeparator jSeparator17;
     private javax.swing.JToolBar.Separator jSeparator18;
     private javax.swing.JToolBar.Separator jSeparator19;

@@ -10,6 +10,60 @@
 <project name="slang" default="default" basedir=".">
     <description>Builds, tests, and runs the project slang.</description>
     <import file="nbproject/build-impl.xml"/>
+
+     <target name="check-antlr">
+        <available file="lib/antlr-3.2.jar" property="antlr.present"/>
+    </target>
+
+    <target name="check-jopt">
+        <available file="lib/jopt-simple-3.2.jar" property="jopt.present"/>
+    </target>
+
+    <target name="check-glossa-interpreter">
+        <available file="lib/glossa-interpreter.jar" property="glossa-interpreter.present"/>
+    </target>
+
+    <target name="check-glossa-interpreter-gui-components">
+        <available file="lib/glossa-interpreter-gui-components.jar" property="glossa-interpreter-gui-components.present"/>
+    </target>
+
+    <target name="check-bsaf">
+        <available file="lib/bsaf-1.9.jar" property="bsaf.present"/>
+    </target>
+
+    <target name="download-antlr" depends="check-antlr" unless="antlr.present">
+        <mkdir dir="lib"/>
+        <get src="http://www.antlr.org/download/antlr-3.2.jar" dest="lib/antlr-3.2.jar"/>
+    </target>
+
+    <target name="download-jopt" depends="check-jopt" unless="jopt.present">
+        <mkdir dir="lib"/>
+        <get src="http://repo2.maven.org/maven2/net/sf/jopt-simple/jopt-simple/3.2/jopt-simple-3.2.jar" dest="lib/jopt-simple-3.2.jar"/>
+    </target>
+
+    <target name="download-glossa-interpreter" depends="check-glossa-interpreter" unless="glossa-interpreter.present">
+        <mkdir dir="lib"/>
+        <get src="http://cloud.github.com/downloads/cyberpython/glossa-interpreter/glossa-interpreter.jar" dest="lib/glossa-interpreter.jar"/>
+    </target>
+
+    <target name="download-glossa-interpreter-gui-components" depends="check-glossa-interpreter-gui-components" unless="glossa-interpreter-gui-components.present">
+        <mkdir dir="lib"/>
+        <get src="http://cloud.github.com/downloads/cyberpython/glossa-interpreter-gui-components/glossa-interpreter-gui-components.jar" dest="lib/glossa-interpreter-gui-components.jar"/>
+    </target>
+
+
+    <target name="download-bsaf" depends="check-bsaf" unless="bsaf.present">
+        <mkdir dir="lib"/>
+        <get src="http://cloud.github.com/downloads/cyberpython/Slang/bsaf-1.9-bin.zip" dest="lib/bsaf-1.9-bin.zip"/>
+        <unzip src="lib/bsaf-1.9-bin.zip" dest="lib/">
+        </unzip>
+        <delete file="lib/bsaf-1.9-bin.zip"/>
+    </target>
+
+    <target name="-pre-compile" depends="download-antlr,download-jopt,download-glossa-interpreter,download-glossa-interpreter-gui-components,download-bsaf">
+
+    </target>
+
     <!--
 
     There exist several targets which are by default empty and which can be 

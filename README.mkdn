@@ -49,5 +49,5 @@ Or simply double click on dist/slang.jar
     
 ##Screenshots
 ![Screenshot][screenshot]
-[screenshot]: http://img338.imageshack.us/img338/3604/screenshotme.png  "Screenshot of the interpreter running a sample input file in Ubuntu 10.10"
+[screenshot]: http://img183.imageshack.us/img183/3725/screenshot2ji.png  "Screenshot of Slang running."
 

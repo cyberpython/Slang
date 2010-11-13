@@ -35,8 +35,8 @@ To build the project’s code you will need :
 
 Open a terminal and give:
 
-    git clone git://github.com/cyberpython/slang.git
-    cd slang
+    git clone git://github.com/cyberpython/Slang.git
+    cd Slang
     ant clean jar
 
 ##How to run the application
@@ -53,4 +53,7 @@ Or simply double click on dist/slang.jar
 
 ![Screenshot2][screenshot2]
 [screenshot2]: http://img337.imageshack.us/img337/8332/screenshot2qu.png  "Screenshot of Slang running."
+
+![Screenshot3][screenshot3]
+[screenshot3]: http://img51.imageshack.us/img51/9381/screenshotune.png  "Screenshot of Slang running on a netbook."
 

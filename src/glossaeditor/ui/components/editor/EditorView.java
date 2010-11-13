@@ -641,12 +641,6 @@ public class EditorView extends javax.swing.JPanel implements DocumentListener, 
     /* ----------------------------------------------------- */
     // </editor-fold>
 
-    public void removeBorders() {
-        this.setBorder(null);
-        this.jScrollPane1.setBorder(null);
-        this.jEditorPane1.setBorder(null);
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

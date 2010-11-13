@@ -28,9 +28,6 @@ import glossa.interpreter.Interpreter;
 import glossa.interpreter.InterpreterListener;
 import glossa.interpreter.symboltable.SymbolTable;
 import glossaeditor.Slang;
-import glossaeditor.ui.components.misc.JWin7Menu;
-import glossaeditor.ui.components.misc.JWin7MenuBar;
-import glossaeditor.ui.components.misc.JWin7SplitPaneUI;
 import glossaeditor.ui.components.editor.EditorViewContainer;
 import glossaeditor.ui.components.editor.EditorView;
 import glossaeditor.ui.filefilters.GlossaFileFilter;
@@ -319,56 +316,9 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     }
 
-    /*private void createDropDownOpenButton() {
-    jToolBar1.remove(this.jButton2);
-    this.jButton2 = new JDropDownButton();
-    org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(glossaeditor.Slang.class).getContext().getResourceMap(GlossaEditorView.class);
-    this.jButton2.setIcon(resourceMap.getIcon("jButton2.icon")); // NOI18N
-    this.jButton2.addMouseListener(new MouseListener() {
-
-    public void mouseClicked(MouseEvent e) {
-    jButton2MouseClicked(e);
-    }
-
-    public void mousePressed(MouseEvent e) {
-    }
-
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-    });
-    this.jButton2.addKeyListener(new KeyListener() {
-
-    public void keyTyped(KeyEvent e) {
-    }
-
-    public void keyPressed(KeyEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-    if ((e.getKeyCode() == e.VK_ENTER) || (e.getKeyCode() == e.VK_SPACE)) {
-    open();
-    }
-    }
-    });
-    ((JDropDownButton) this.jButton2).setPopupMenu(jPopupMenu2);
-    this.jToolBar1.add(this.jButton2, 1);
-    }
-
-    private void jButton2MouseClicked(MouseEvent evt) {
-
-    if (jButton2.isEnabled() && (evt.getClickCount() == 1)) {
-    open();
-    }
-    }*/
+    
     public final void postInit(String arg) {
 
-        //this.createDropDownOpenButton();
         this.tmp = new JTextArea();
         this.createDocument();
         this.ioManager.loadRecentlyAccessed();
@@ -403,8 +353,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         }
 
         this.jPanel12.setVisible(false);
-
-        //this.applyWin7UIEnhancements();
     }
 
     private void addSearchBoxDocumentListener() {
@@ -752,66 +700,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="GUI updating/creation">
-    private void applyWin7UIEnhancements() {
-        if (MiscUtils.runningOnWindowsVistaOrLater()) {
-            JWin7MenuBar jWin7MenuBar1 = this.createWin7MenuBar();
-            this.setMenuBar(jWin7MenuBar1);
-            jToolBar1.setVisible(false);
-            jSplitPane2.setUI(new JWin7SplitPaneUI());
-
-            Color bgColor = new Color(251, 251, 251);
-            this.jSplitPane2.setBackground(bgColor);
-
-            this.jPanel3.setBackground(bgColor);
-            this.jPanel4.setBackground(bgColor);
-            this.jPanel5.setBackground(bgColor);
-            this.jPanel6.setBackground(bgColor);
-            //this.jPanel7.setBackground(bgColor);
-            this.jPanel12.setBackground(bgColor);
-            this.jPanel13.setBackground(bgColor);
-            this.jFileBrowserPanel1.setBackgrounds(bgColor);
-
-            this.jToolBar2.setBackground(bgColor);
-            this.jButton11.setBackground(bgColor);
-            this.jButton12.setBackground(bgColor);
-            this.jButton13.setBackground(bgColor);
-
-            this.jSplitPane2.setBorder(null);
-
-            this.jPanel3.setBorder(null);
-            this.jPanel5.setBorder(null);
-
-            this.jTabbedPane1.setBorder(null);
-            this.jTabbedPane3.setBorder(null);
-            this.jPanel8.setBorder(null);
-            this.jPanel12.setBorder(null);
-
-            /*this.jScrollPane1.setBorder(null);
-            this.jScrollPane3.setBorder(null);*/
-
-            //this.editorView1.removeBorders();
-        }
-    }
-
-    private JWin7MenuBar createWin7MenuBar() {
-        JWin7MenuBar jWin7MenuBar1 = new JWin7MenuBar();
-        jWin7MenuBar1.setPreferredSize(new Dimension(jWin7MenuBar1.getPreferredSize().width, 30));
-
-        JWin7Menu jWin7FileMenu = new JWin7Menu("Αρχείο");
-        jWin7FileMenu.copyMenuItems(this.fileMenu);
-        jWin7MenuBar1.add(jWin7FileMenu);
-
-        JWin7Menu editMenu = new JWin7Menu("Επεξεργασία");
-        editMenu.copyMenuItems(this.jMenu1);
-        jWin7MenuBar1.add(editMenu);
-
-        JWin7Menu jWin7HelpMenu = new JWin7Menu("Βοήθεια");
-        jWin7HelpMenu.copyMenuItems(this.helpMenu);
-        jWin7MenuBar1.add(jWin7HelpMenu);
-
-        return jWin7MenuBar1;
-    }
-
     private void enableDisableUndoRedo() {
         if (editorView1 != null) {
             boolean canUndo = editorView1.canUndo();
@@ -1451,18 +1339,15 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         });
         jToolBar1.add(jButton10);
 
-        jPanel1.setBorder(null);
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jSplitPane2.setBorder(null);
         jSplitPane2.setDividerLocation(500);
         jSplitPane2.setResizeWeight(1.0);
         jSplitPane2.setContinuousLayout(true);
         jSplitPane2.setDoubleBuffered(true);
         jSplitPane2.setName("jSplitPane2"); // NOI18N
 
-        jPanel3.setBorder(null);
         jPanel3.setName("jPanel3"); // NOI18N
 
         jTabbedPane3.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
@@ -1500,7 +1385,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jSplitPane3.setDoubleBuffered(true);
         jSplitPane3.setName("jSplitPane3"); // NOI18N
 
-        jPanel5.setBorder(null);
         jPanel5.setName("jPanel5"); // NOI18N
 
         jPanel8.setName("jPanel8"); // NOI18N
@@ -1583,7 +1467,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(118, 0));
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
 
-        jPanel4.setBorder(null);
         jPanel4.setName("jPanel4"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
@@ -1604,7 +1487,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
 
-        jPanel9.setBorder(null);
         jPanel9.setName("jPanel9"); // NOI18N
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
@@ -1631,7 +1513,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel9.TabConstraints.tabTitle"), jPanel9); // NOI18N
 
-        jPanel6.setBorder(null);
         jPanel6.setName("jPanel6"); // NOI18N
 
         jScrollPane3.setDoubleBuffered(true);

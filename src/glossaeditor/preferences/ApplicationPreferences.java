@@ -18,6 +18,7 @@ package glossaeditor.preferences;
 
 import glossaeditor.Slang;
 import glossaeditor.integration.SystemInfo;
+import glossaeditor.util.MiscUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -27,6 +28,7 @@ import java.util.Iterator;
 import java.util.prefs.Preferences;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -156,7 +158,7 @@ public class ApplicationPreferences {
     }
 
     private Font loadDefaultFont() {
-         
+
         final int DEFAULT_SIZE = 14;
 
         String[] fontsList = {"Liberation Mono", "DejaVu Sans Mono", "Courier New"};
@@ -219,29 +221,32 @@ public class ApplicationPreferences {
             String osName = sysInfo.getOSName().toLowerCase();
             if (osName.toLowerCase().equals("linux")) {
                 systemLAFClassName = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-            }
-
-            if (systemLAFClassName.equals(UIManager.getCrossPlatformLookAndFeelClassName())) {
-
-                boolean lafSet = false;
-                for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(laf.getName())) {
-                        UIManager.setLookAndFeel(laf.getClassName());
-                        lafSet = true;
-                    }
-                }
-                if (!lafSet) {
+                UIManager.setLookAndFeel(systemLAFClassName);
+            } else {
+                if (MiscUtils.runningOnWindowsVistaOrLater() || systemLAFClassName.equals(UIManager.getCrossPlatformLookAndFeelClassName())  ) {
+                    setNimbusLAF(systemLAFClassName);
+                } else {
                     UIManager.setLookAndFeel(systemLAFClassName);
                 }
-
-            } else {
-                UIManager.setLookAndFeel(systemLAFClassName);
             }
         } catch (Exception e1) {
             try {
                 UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             } catch (Exception e2) {
             }
+        }
+    }
+
+    private void setNimbusLAF(String systemLAFClassName) throws ClassNotFoundException, IllegalAccessException, InstantiationException, UnsupportedLookAndFeelException {
+        boolean lafSet = false;
+        for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(laf.getName())) {
+                UIManager.setLookAndFeel(laf.getClassName());
+                lafSet = true;
+            }
+        }
+        if (!lafSet) {
+            UIManager.setLookAndFeel(systemLAFClassName);
         }
     }
 

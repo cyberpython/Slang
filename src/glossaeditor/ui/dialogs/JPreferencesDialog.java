@@ -19,7 +19,6 @@
 package glossaeditor.ui.dialogs;
 
 import glossaeditor.ui.dialogs.cellrenderers.FontListCellRenderer;
-import glossaeditor.ui.components.misc.JWin7SplitPaneUI;
 import glossaeditor.preferences.*;
 import glossaeditor.util.MiscUtils;
 import java.awt.Color;
@@ -74,25 +73,8 @@ public class JPreferencesDialog extends javax.swing.JDialog implements Applicati
         this.jColorButton4.addListener(jHtmlLabel4);
         this.jColorButton5.addListener(jHtmlLabel6);
         this.jColorButton7.addListener(jPanel4);
-
-        //this.applyWin7UIEnhancements();
     }
-
-    private void applyWin7UIEnhancements() {
-        if (MiscUtils.runningOnWindowsVistaOrLater()) {
-            jSplitPane1.setUI(new JWin7SplitPaneUI());
-            this.jSplitPane1.setBorder(null);
-            Color bgColor = new Color(251, 251, 251);
-            this.jSplitPane1.setBackground(bgColor);
-            this.jPanel1.setBackground(bgColor);
-            this.jPanel2.setBackground(bgColor);
-            this.jPanel3.setBackground(bgColor);
-            this.jPanel5.setBackground(bgColor);
-            this.jPanel6.setBackground(bgColor);
-            this.jPanel10.setBackground(bgColor);
-            this.jComboBox1.setBackground(bgColor);
-        }
-    }
+    
     public void showDialog() {
         if (!locationHasBeenSet) {
             centerWindowOnFrame();

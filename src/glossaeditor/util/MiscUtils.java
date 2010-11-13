@@ -27,6 +27,15 @@ import java.io.IOException;
  */
 public class MiscUtils {
 
+    public static boolean runningOnWindows(){
+        SystemInfo sysInfo =  Slang.getApplication().getSystemInfo();
+        String osName = sysInfo.getOSName();
+        if( osName.contains("windows")){
+            return true;
+        }
+        return false;
+    }
+
     public static boolean runningOnWindowsVistaOrLater(){
         SystemInfo sysInfo =  Slang.getApplication().getSystemInfo();
         String osName = sysInfo.getOSName();

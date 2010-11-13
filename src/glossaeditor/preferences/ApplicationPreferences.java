@@ -223,7 +223,7 @@ public class ApplicationPreferences {
                 systemLAFClassName = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
                 UIManager.setLookAndFeel(systemLAFClassName);
             } else {
-                if (MiscUtils.runningOnWindowsVistaOrLater() || systemLAFClassName.equals(UIManager.getCrossPlatformLookAndFeelClassName())  ) {
+                if (MiscUtils.runningOnWindows() || systemLAFClassName.equals(UIManager.getCrossPlatformLookAndFeelClassName())  ) {
                     setNimbusLAF(systemLAFClassName);
                 } else {
                     UIManager.setLookAndFeel(systemLAFClassName);

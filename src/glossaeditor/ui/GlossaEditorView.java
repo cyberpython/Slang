@@ -38,9 +38,7 @@ import glossaeditor.integration.FileDrop;
 import glossaeditor.preferences.ApplicationPreferences;
 import glossaeditor.preferences.ApplicationPreferencesListener;
 import glossaeditor.util.FileUtils;
-import glossaeditor.util.MiscUtils;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
@@ -63,7 +61,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -172,9 +169,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     public void executionStarted(Interpreter sender) {
         running = true;
+        this.editorView1.getEditorPane().setEditable(false);
         this.jButton16.setEnabled(false);
         this.jButton20.setEnabled(true);
         this.jCheckBox1.setEnabled(false);
+        this.jCheckBox2.setEnabled(false);
         this.jSpinner1.setEnabled(false);
         this.jLabel4.setEnabled(false);
         this.jLabel5.setEnabled(false);
@@ -182,9 +181,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     public void executionStopped(Interpreter sender) {
         running = false;
+        this.editorView1.getEditorPane().setEditable(true);
         this.jButton16.setEnabled(true);
         this.jButton20.setEnabled(false);
         this.jCheckBox1.setEnabled(true);
+        this.jCheckBox2.setEnabled(true);
         this.jSpinner1.setEnabled(true);
         this.jLabel4.setEnabled(true);
         this.jLabel5.setEnabled(true);

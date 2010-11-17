@@ -43,12 +43,12 @@
 
     <target name="download-glossa-interpreter" depends="check-glossa-interpreter" unless="glossa-interpreter.present">
         <mkdir dir="lib"/>
-        <get src="http://cloud.github.com/downloads/cyberpython/glossa-interpreter/glossa-interpreter-0.9.03b.jar" dest="lib/glossa-interpreter.jar"/>
+        <get src="http://cloud.github.com/downloads/cyberpython/glossa-interpreter/glossa-interpreter-0.9.04b.jar" dest="lib/glossa-interpreter.jar"/>
     </target>
 
     <target name="download-glossa-interpreter-gui-components" depends="check-glossa-interpreter-gui-components" unless="glossa-interpreter-gui-components.present">
         <mkdir dir="lib"/>
-        <get src="http://cloud.github.com/downloads/cyberpython/glossa-interpreter-gui-components/gigc-0.9.03b.jar" dest="lib/glossa-interpreter-gui-components.jar"/>
+        <get src="http://cloud.github.com/downloads/cyberpython/glossa-interpreter-gui-components/gigc-0.9.04b.jar" dest="lib/glossa-interpreter-gui-components.jar"/>
     </target>
 
 

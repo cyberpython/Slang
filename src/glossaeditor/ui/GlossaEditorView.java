@@ -280,10 +280,10 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         boolean success = interpreter.parseAndAnalyzeSemantics(true);
         if(success){
             jTabbedPane1.setSelectedIndex(1);
-             if(runInteractively||(interpreterDelayBetweenSteps>0)){
+             //if(runInteractively||(interpreterDelayBetweenSteps>0)){
                 interpreter.addListener(jGlossaStackPanel1.getStackRenderer());
                 jTabbedPane3.setSelectedIndex(2);
-            }
+            //}
             Thread t = new Thread(interpreter);
             t.start();
         }else{

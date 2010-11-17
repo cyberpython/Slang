@@ -57,3 +57,15 @@ Or simply double click on dist/slang.jar
 ![Screenshot3][screenshot3]
 [screenshot3]: http://img51.imageshack.us/img51/9381/screenshotune.png  "Screenshot of Slang running on a netbook."
 
+![Screenshot4][screenshot4]
+[screenshot4]: http://img261.imageshack.us/img261/9389/screenshotubuntu03.png  "Screenshot of Slang and a window displaying a 3-dimensional array's values."
+
+![Screenshot5][screenshot5]
+[screenshot5]: http://img121.imageshack.us/img121/2717/screenshotubuntu04.png  "Screenshot of Slang and a window displaying a 2-dimensional array's values."
+
+![Screenshot6][screenshot6]
+[screenshot6]: http://img89.imageshack.us/img89/5817/screenshotwin702.png  "Screenshot of Slang running on Windows 7."
+
+![Screenshot7][screenshot7]
+[screenshot7]: http://img80.imageshack.us/img80/4861/screenshotwinxp01.png  "Screenshot of Slang running on Windows XP."
+

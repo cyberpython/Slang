@@ -48,24 +48,24 @@ To run the interpreter you must have a JRE (6.x+) installed. Then you can give:
 Or simply double click on dist/slang.jar
     
 ##Screenshots
-![Screenshot1][screenshot1]
-[screenshot1]: http://img831.imageshack.us/img831/2763/screenshotll.png  "Screenshot of Slang running."
+<a href="http://img831.imageshack.us/img831/2763/screenshotll.png">![Screenshot1][screenshot1]</a>
+[screenshot1]: http://img831.imageshack.us/img831/2763/screenshotll.th.png  "Screenshot of Slang running."
 
-![Screenshot2][screenshot2]
-[screenshot2]: http://img337.imageshack.us/img337/8332/screenshot2qu.png  "Screenshot of Slang running."
+<a href="http://img337.imageshack.us/img337/8332/screenshot2qu.png">![Screenshot2][screenshot2]</a>
+[screenshot2]: http://img337.imageshack.us/img337/8332/screenshot2qu.th.png  "Screenshot of Slang running."
 
-![Screenshot3][screenshot3]
-[screenshot3]: http://img51.imageshack.us/img51/9381/screenshotune.png  "Screenshot of Slang running on a netbook."
+<a href="http://img51.imageshack.us/img51/9381/screenshotune.png">![Screenshot3][screenshot3]</a>
+[screenshot3]: http://img51.imageshack.us/img51/9381/screenshotune.th.png  "Screenshot of Slang running on a netbook."
 
-![Screenshot4][screenshot4]
-[screenshot4]: http://img261.imageshack.us/img261/9389/screenshotubuntu03.png  "Screenshot of Slang and a window displaying a 3-dimensional array's values."
+<a href="http://img261.imageshack.us/img261/9389/screenshotubuntu03.png">![Screenshot4][screenshot4]</a>
+[screenshot4]: http://img261.imageshack.us/img261/9389/screenshotubuntu03.th.png  "Screenshot of Slang and a window displaying a 3-dimensional array's values."
 
-![Screenshot5][screenshot5]
-[screenshot5]: http://img121.imageshack.us/img121/2717/screenshotubuntu04.png  "Screenshot of Slang and a window displaying a 2-dimensional array's values."
+<a href="http://img121.imageshack.us/img121/2717/screenshotubuntu04.png">![Screenshot5][screenshot5]</a>
+[screenshot5]: http://img121.imageshack.us/img121/2717/screenshotubuntu04.th.png  "Screenshot of Slang and a window displaying a 2-dimensional array's values."
 
-![Screenshot6][screenshot6]
-[screenshot6]: http://img89.imageshack.us/img89/5817/screenshotwin702.png  "Screenshot of Slang running on Windows 7."
+<a href="http://img89.imageshack.us/img89/5817/screenshotwin702.png">![Screenshot6][screenshot6]</a>
+[screenshot6]: http://img89.imageshack.us/img89/5817/screenshotwin702.th.png  "Screenshot of Slang running on Windows 7."
 
-![Screenshot7][screenshot7]
-[screenshot7]: http://img80.imageshack.us/img80/4861/screenshotwinxp01.png  "Screenshot of Slang running on Windows XP."
+<a href="http://img80.imageshack.us/img80/4861/screenshotwinxp01.png">![Screenshot7][screenshot7]</a>
+[screenshot7]: http://img80.imageshack.us/img80/4861/screenshotwinxp01.th.png  "Screenshot of Slang running on Windows XP."
 

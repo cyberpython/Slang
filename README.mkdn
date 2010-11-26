@@ -16,6 +16,8 @@ Source code is available under the terms of the [Apache license v2.0](http://www
 
 [Better Swing Application Framework](http://kenai.com/projects/bsaf/pages/Home) is licensed under the [Lesser General Public License (LGPL v. 2.1)](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html).
 
+[JSyntaxPane](http://code.google.com/p/jsyntaxpane/) is copyright of Ayman Al-Sairafi and it is available under the terms of the [Apache license v2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
 FileDrop.java is public domain. Its original author is Robert Harder and Gnome/KDE support hsa been added by Nathan Blomquist.
 
 ##Build instructions

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Georgios "cyberpython" Migdos cyberpython@gmail.com
+ * Copyright 2010 Georgios "cyberpython" Migdos cyberpython@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,26 +22,22 @@ import glossaeditor.ui.dialogs.JFindReplaceDialog;
 import glossaeditor.ui.dialogs.JPreferencesDialog;
 import glossaeditor.integration.SystemInfo;
 import glossaeditor.preferences.ApplicationPreferences;
-import javax.swing.UIManager;
+import glossaeditor.ui.dialogs.SplashDialog;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
 /**
  * The main class of the application.
  */
-public class Slang extends SingleFrameApplication{
+public class Slang extends SingleFrameApplication {
 
     private String arg;
     private ApplicationPreferences appPrefs;
     private SystemInfo sysInfo;
-
     private GlossaEditorView mainWindow;
     private JOpenOrInsertDialog ooid;
     private JFindReplaceDialog findReplaceDialog;
     private JPreferencesDialog prefsDlg;
-
-    public void allIconsLoaded(){
-    }
 
     /**
      * At startup create and show the main frame of the application.
@@ -50,35 +46,39 @@ public class Slang extends SingleFrameApplication{
     protected void startup() {
         long time1 = new java.util.Date().getTime();
 
+        SplashDialog splashDlg = new SplashDialog();
+
+        splashDlg.setStatus("Φόρτωση πληροφοριών συστήματος...");
         this.sysInfo = new SystemInfo();
         sysInfo.printSystemInfo(System.out);
-        
+
+        splashDlg.setStatus("Φόρτωση προτιμήσεων χρήστη...");
         this.appPrefs = new ApplicationPreferences();
+
+        splashDlg.setStatus("Δημιουργία γραφικής διεπαφής χρήστη...");
         createWindowAndDialogs();
+
+        splashDlg.setVisible(false);
         
         show(mainWindow);
+
+        splashDlg.close();
+
         long time2 = new java.util.Date().getTime();
         System.out.println("Time: " + (time2 - time1));
     }
 
-    public SystemInfo getSystemInfo(){
+    public SystemInfo getSystemInfo() {
         return this.sysInfo;
     }
 
-    public ApplicationPreferences getAppPreferences(){
+    public ApplicationPreferences getAppPreferences() {
         return this.appPrefs;
     }
 
-    public void restartApp(){
-        if(Slang.getApplication().closeAllWindows()){
-            String[] args  = new String[0];
-            Slang.launch(Slang.class, args);
-        }
-    }
+    public boolean closeAllWindows() {
 
-    public boolean closeAllWindows(){
-
-        if(mainWindow.queryCloseApp()){
+        if (mainWindow.queryCloseApp()) {
             this.mainWindow.getFrame().setVisible(false);
             this.mainWindow.getFrame().dispose();
             this.ooid.setVisible(false);
@@ -92,7 +92,7 @@ public class Slang extends SingleFrameApplication{
         return false;
     }
 
-    public void createWindowAndDialogs(){
+    public void createWindowAndDialogs() {
         mainWindow = new GlossaEditorView(this, this.arg, this.appPrefs);
 
 
@@ -133,12 +133,5 @@ public class Slang extends SingleFrameApplication{
      */
     public static Slang getApplication() {
         return Application.getInstance(Slang.class);
-    }
-
-    /**
-     * Main method launching the application.
-     */
-    public static void main(String[] args) {
-        launch(Slang.class, args);
     }
 }

@@ -2,28 +2,6 @@
 
 An integrated development environment for the 'ΓΛΩΣΣΑ' programming language.
 
-##Screenshots
-<a href="http://img831.imageshack.us/img831/2763/screenshotll.png">![Screenshot1][screenshot1]</a>
-[screenshot1]: http://img831.imageshack.us/img831/2763/screenshotll.th.png  "Screenshot of Slang running."
-
-<a href="http://img337.imageshack.us/img337/8332/screenshot2qu.png">![Screenshot2][screenshot2]</a>
-[screenshot2]: http://img337.imageshack.us/img337/8332/screenshot2qu.th.png  "Screenshot of Slang running."
-
-<a href="http://img51.imageshack.us/img51/9381/screenshotune.png">![Screenshot3][screenshot3]</a>
-[screenshot3]: http://img51.imageshack.us/img51/9381/screenshotune.th.png  "Screenshot of Slang running on a netbook."
-
-<a href="http://img261.imageshack.us/img261/9389/screenshotubuntu03.png">![Screenshot4][screenshot4]</a>
-[screenshot4]: http://img261.imageshack.us/img261/9389/screenshotubuntu03.th.png  "Screenshot of Slang and a window displaying a 3-dimensional array's values."
-
-<a href="http://img121.imageshack.us/img121/2717/screenshotubuntu04.png">![Screenshot5][screenshot5]</a>
-[screenshot5]: http://img121.imageshack.us/img121/2717/screenshotubuntu04.th.png  "Screenshot of Slang and a window displaying a 2-dimensional array's values."
-
-<a href="http://img89.imageshack.us/img89/5817/screenshotwin702.png">![Screenshot6][screenshot6]</a>
-[screenshot6]: http://img89.imageshack.us/img89/5817/screenshotwin702.th.png  "Screenshot of Slang running on Windows 7."
-
-<a href="http://img80.imageshack.us/img80/4861/screenshotwinxp01.png">![Screenshot7][screenshot7]</a>
-[screenshot7]: http://img80.imageshack.us/img80/4861/screenshotwinxp01.th.png  "Screenshot of Slang running on Windows XP."
-
 ##License
 
 Copyright (c) Georgios Migdos <cyberpython@gmail.com>
@@ -33,8 +11,6 @@ Source code is available under the terms of the [Apache license v2.0](http://www
 [Antlr 3](http://www.antlr.org/) is copyright of Terence Parr and it is available under the terms of the [BSD license](http://www.antlr.org/license.html).
 
 [jOpt Simple](http://jopt-simple.sourceforge.net/) is copyright of Paul R. Holser and it is available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
-
-[Glossa-Interpreter](https://github.com/cyberpython/glossa-interpreter) and [Glossa-Interpreter-GUI-Components](https://github.com/cyberpython/glossa-interpreter-gui-components) are copyright of Georgios Migdos and are available under the terms of the [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
 [Better Swing Application Framework](http://kenai.com/projects/bsaf/pages/Home) is licensed under the [Lesser General Public License (LGPL v. 2.1)](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html).
 
@@ -51,8 +27,6 @@ To build the project’s code you will need :
 - [Antlr 3.2](http://www.antlr.org/download/antlr-3.2.jar) (*)
 - [JOpt Simple](http://jopt-simple.sourceforge.net/) (*)
 - [Better Swing Application Framework 1.9](http://kenai.com/projects/bsaf/pages/Home) (*)
-- [Glossa-Interpreter](https://github.com/cyberpython/glossa-interpreter) (*)
-- [Glossa-Interpreter-GUI-Components](https://github.com/cyberpython/glossa-interpreter-gui-components) (*)
 
 (*) If you have an active internet connection all required libraries will be downloaded automatically to the correct directory during the first build, otherwise you have to copy the required jar files to slang/lib/
 

@@ -542,13 +542,11 @@ public class Messages {
     public static String formalParametersNamesToString(List<FormalParameter> params) {
         StringBuilder dim = new StringBuilder();
         dim.append("(");
-        if(params!=null){
-            for (Iterator<FormalParameter> it = params.iterator(); it.hasNext();) {
-                FormalParameter param = it.next();
-                dim.append(param.getName());
-                if (it.hasNext()) {
-                    dim.append(", ");
-                }
+        for (Iterator<FormalParameter> it = params.iterator(); it.hasNext();) {
+            FormalParameter param = it.next();
+            dim.append(param.getName());
+            if (it.hasNext()) {
+                dim.append(", ");
             }
         }
         dim.append(")");

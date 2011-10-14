@@ -83,7 +83,6 @@ public class SubProgramScope extends Scope {
      */
     public List<Integer> checkParameterTypes(List<ActualParameter> parameters) {
         List<Integer> result = new ArrayList<Integer>();
-        
         if (parameters == null) {
             if ((this.formalParameters == null) || this.formalParameters.isEmpty()) {
                 return result;
@@ -112,7 +111,6 @@ public class SubProgramScope extends Scope {
                 }
                 i++;
             }
-            
             return result;
         } else {
             return null;

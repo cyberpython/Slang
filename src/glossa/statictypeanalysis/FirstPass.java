@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/glossa/grammars/FirstPass.g 2010-11-26 09:30:01
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/glossa/grammars/FirstPass.g 2011-10-14 17:44:45
 
 
 /*
@@ -2905,11 +2905,10 @@ public class FirstPass extends TreeParser {
             // src/glossa/grammars/FirstPass.g:382:2: ( ^( FORMAL_PARAMS ( ID )* ) )
             // src/glossa/grammars/FirstPass.g:382:4: ^( FORMAL_PARAMS ( ID )* )
             {
-            match(input,FORMAL_PARAMS,FOLLOW_FORMAL_PARAMS_in_formalParamsList2059); 
 
-
-                                        List<FormalParameter> result = new ArrayList<FormalParameter>();
-                                    
+                                List<FormalParameter> result = new ArrayList<FormalParameter>();
+                            
+            match(input,FORMAL_PARAMS,FOLLOW_FORMAL_PARAMS_in_formalParamsList2077); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
@@ -2928,7 +2927,7 @@ public class FirstPass extends TreeParser {
                 	case 1 :
                 	    // src/glossa/grammars/FirstPass.g:386:21: ID
                 	    {
-                	    ID12=(CommonTree)match(input,ID,FOLLOW_ID_in_formalParamsList2107); 
+                	    ID12=(CommonTree)match(input,ID,FOLLOW_ID_in_formalParamsList2099); 
 
                 	                                FormalParameter param = new FormalParameter((ID12!=null?ID12.getLine():0), (ID12!=null?ID12.getCharPositionInLine():0), (ID12!=null?ID12.getText():null));
                 	                                if( inFunctionDecl &&  subprogramName.toLowerCase().equals((ID12!=null?ID12.getText():null).toLowerCase())){
@@ -2950,11 +2949,11 @@ public class FirstPass extends TreeParser {
                 } while (true);
 
 
-                                            formalParams = result;
-                                        
-
                 match(input, Token.UP, null); 
             }
+
+                                formalParams = result;
+                            
 
             }
 
@@ -3241,7 +3240,7 @@ public class FirstPass extends TreeParser {
     public static final BitSet FOLLOW_REAL_in_returnType2000 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_STRING_in_returnType2014 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_BOOLEAN_in_returnType2026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FORMAL_PARAMS_in_formalParamsList2059 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_formalParamsList2107 = new BitSet(new long[]{0x0000000000080008L});
+    public static final BitSet FOLLOW_FORMAL_PARAMS_in_formalParamsList2077 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_formalParamsList2099 = new BitSet(new long[]{0x0000000000080008L});
 
 }

@@ -1,0 +1,43 @@
+<profiles>
+	<profile>
+		<title>Eclipse</title>
+		<keywords>0x7f0055</keywords>
+		<numbers>0x000000</numbers>
+		<strings>0x2a00ff</strings>
+		<operators>0x000000</operators>
+		<comments>0x3f7f5f</comments>
+		<other>0x000000</other>
+                <background>0xffffff</background>
+	</profile>
+	<profile>
+		<title>Netbeans</title>
+		<keywords>0x0000e6</keywords>
+		<numbers>0x000000</numbers>
+		<strings>0xce7b00</strings>
+		<operators>0x000000</operators>
+		<comments>0x969696</comments>
+		<other>0x000000</other>
+                <background>0xffffff</background>
+	</profile>
+	<profile>
+		<title>Tango</title>
+		<keywords>0xa52a2a</keywords>
+		<numbers>0xff00ff</numbers>
+		<strings>0xff00ff</strings>
+		<operators>0xa52a2a</operators>
+		<comments>0x0000ff</comments>
+		<other>0x000000</other>
+                <background>0xffffff</background>
+	</profile>
+	<profile>
+		<title>Kate</title>
+		<keywords>0x000000</keywords>
+		<numbers>0xb07e00</numbers>
+		<strings>0xdd0000</strings>
+		<operators>0x000000</operators>
+		<comments>0x808080</comments>
+		<other>0x000000</other>
+                <background>0xffffff</background>
+	</profile>
+</profiles>
+

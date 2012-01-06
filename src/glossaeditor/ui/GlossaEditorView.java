@@ -83,7 +83,7 @@ import org.jdesktop.application.Application.ExitListener;
 /**
  * The application's main frame.
  */
-public class GlossaEditorView extends FrameView implements EditorViewContainer, DocumentContainer, ApplicationPreferencesListener, ExitListener, InterpreterListener  {
+public class GlossaEditorView extends FrameView implements EditorViewContainer, DocumentContainer, ApplicationPreferencesListener, ExitListener, InterpreterListener {
 
     private final String applicationTitle = "Περιβάλλον ανάπτυξης για τη ΓΛΩΣΣΑ";
     private int newDocumentsCounter;
@@ -101,7 +101,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     private int interpreterDelayBetweenSteps;
     private boolean running;
     private JTextArea tmp;
-
     private final Color EXEC_HIGHLIGHT_COLOR = new Color(217, 255, 126);
     private Object executionHighlight;
 
@@ -116,8 +115,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     }
 
     // <editor-fold defaultstate="collapsed" desc="Code execution">
-
-
     public int setExecHighlight(int line) {
         removeExecHighlight();
         this.tmp.setText(this.editorView1.getEditorPane().getText());
@@ -125,10 +122,9 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             int start = tmp.getLineStartOffset(line);
             int end = tmp.getLineEndOffset(line);
             this.executionHighlight = this.editorView1.highlight(start, end, this.EXEC_HIGHLIGHT_COLOR);
-            try{
+            try {
                 this.editorView1.getEditorPane().setCaretPosition(start);
-            }catch(Exception e1){
-                
+            } catch (Exception e1) {
             }
             return start;
         } catch (Exception e) {
@@ -144,24 +140,22 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         }
     }
 
-    private void run(){
+    private void run() {
         jButton16.setEnabled(false);
-        if(running){
+        if (running) {
             interpreter.resume();
-        }else{
+        } else {
             runCurrentFile();
         }
     }
 
-    private void stop(){
-        if(interpreter!=null){
+    private void stop() {
+        if (interpreter != null) {
             interpreter.stop();
         }
     }
 
-
     public void parsingAndSemanticAnalysisFinished(boolean success) {
-
     }
 
     public void runtimeError() {
@@ -194,35 +188,35 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     }
 
     public void readStatementExecuted(Interpreter sender, Integer line) {
-        if(runInteractively || (interpreterDelayBetweenSteps>0)){
-            setExecHighlight(line.intValue()-1);
+        if (runInteractively || (interpreterDelayBetweenSteps > 0)) {
+            setExecHighlight(line.intValue() - 1);
         }
     }
 
     public void executionPaused(Interpreter sender, Integer line, Boolean wasPrintStatement) {
 
-        if(runInteractively || (interpreterDelayBetweenSteps>0)){
-            setExecHighlight(line.intValue()-1);
+        if (runInteractively || (interpreterDelayBetweenSteps > 0)) {
+            setExecHighlight(line.intValue() - 1);
         }
 
-        if(!runInteractively){
-            if(interpreterDelayBetweenSteps>0){
+        if (!runInteractively) {
+            if (interpreterDelayBetweenSteps > 0) {
                 final Interpreter inter = sender;
                 Thread t = new Thread(new Runnable() {
 
                     public void run() {
-                        try{
-                            Thread.sleep(interpreterDelayBetweenSteps*1000);
-                        }catch(InterruptedException e){
+                        try {
+                            Thread.sleep(interpreterDelayBetweenSteps * 1000);
+                        } catch (InterruptedException e) {
                         }
                         inter.resume();
                     }
                 });
                 t.start();
-            }else{
+            } else {
                 sender.resume();
             }
-        }else{
+        } else {
             jButton16.setEnabled(true);
         }
     }
@@ -235,16 +229,20 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     public void runCurrentFile() {
         File tmpFile = null;
-        try{
+        try {
             tmpFile = File.createTempFile(this.editorView1.getTitle(), ".gls");
             OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(tmpFile), "UTF-8");
             BufferedWriter bw = new BufferedWriter(w);
-            bw.write(editorView1.getEditorPane().getText());
+            String text = editorView1.getEditorPane().getText();
+            if (!text.endsWith("\n")) {
+                text += "\n";
+            }
+            bw.write(text);
 
             bw.flush();
             bw.close();
             w.close();
-        }catch(IOException ioe){
+        } catch (IOException ioe) {
             //TODO: report error
         }
         if (tmpFile != null) {
@@ -256,7 +254,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
         removeExecHighlight();
 
-        if(this.interpreter!=null){
+        if (this.interpreter != null) {
             interpreter.removeListener(this);
             interpreter.removeListener(jGlossaStackPanel1.getStackRenderer());
             jInterpreterMessagesList1.setInterpreter(null);
@@ -269,29 +267,28 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         jInterpreterMessagesList1.clear();
         jTabbedPane1.setSelectedIndex(0);
         InputStream in;
-        if(jCheckBox2.isSelected()){
+        if (jCheckBox2.isSelected()) {
             in = new ByteArrayInputStream(this.jTextArea1.getText().getBytes());
-        }else{
+        } else {
             in = jRuntimeWindowInputPanel1.getInputStream();
         }
         interpreter = new Interpreter(f, System.out, System.err, jRuntimeWindow1.getOut(), jRuntimeWindow1.getErr(), in);
         interpreter.addListener(this);
         jInterpreterMessagesList1.setInterpreter(interpreter);
         boolean success = interpreter.parseAndAnalyzeSemantics(true);
-        if(success){
+        if (success) {
             jTabbedPane1.setSelectedIndex(1);
-             //if(runInteractively||(interpreterDelayBetweenSteps>0)){
+            if(runInteractively||(interpreterDelayBetweenSteps>0)){
                 interpreter.addListener(jGlossaStackPanel1.getStackRenderer());
                 jTabbedPane3.setSelectedIndex(2);
-            //}
+            }
             Thread t = new Thread(interpreter);
             t.start();
-        }else{
+        } else {
             jButton16.setEnabled(true);
         }
     }
     // </editor-fold>
-
 
     // <editor-fold defaultstate="collapsed" desc="Initialization">
     public final void preInit() {
@@ -317,7 +314,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
 
     }
 
-    
     public final void postInit(String arg) {
 
         this.tmp = new JTextArea();
@@ -415,7 +411,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     }
 
     //</editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Icon loading">
     private void setSearchTextfieldIcon() {
         String path = "/artwork/icons/png/crossplatform/s16x16/edit-find.png";
@@ -605,41 +600,42 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Input File I/O">
-    public void openInputFile(){
+    public void openInputFile() {
         JFileChooser fc = new JFileChooser();
         int result = fc.showOpenDialog(frame);
-        if(result==JFileChooser.APPROVE_OPTION){
+        if (result == JFileChooser.APPROVE_OPTION) {
             jTextArea1.setText("");
-            try{
+            try {
                 BufferedReader r = new BufferedReader(new FileReader(fc.getSelectedFile()));
                 String buffer = "";
-                while( (buffer=r.readLine())!=null){
-                    jTextArea1.append(buffer+"\n");
+                while ((buffer = r.readLine()) != null) {
+                    jTextArea1.append(buffer + "\n");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void saveInputFile(){
+    public void saveInputFile() {
         JFileChooser fc = new JFileChooser();
         int result = fc.showSaveDialog(frame);
-        if(result==JFileChooser.APPROVE_OPTION){
-            try{
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
                 BufferedWriter w = new BufferedWriter(new FileWriter(fc.getSelectedFile()));
                 w.write(jTextArea1.getText());
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void clearInputFile(){
+    public void clearInputFile() {
         jTextArea1.setText("");
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Document Printing">
+
     private void printDocument() {
 
         try {
@@ -819,7 +815,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
                 Process p = rt.exec(cmd, null, helpDir);
                 p.waitFor();
             } catch (Exception e) {
-                
             }
         }
     }
@@ -831,7 +826,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
         } catch (UnsupportedOperationException uoe) {
             this.xdgOpenFile(f);
         } catch (Exception e) {
-            
         }
     }
 
@@ -842,12 +836,11 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
             try {
                 File parentDir = f.getParentFile();
                 String fname = f.getName();
-                String cmd = "/bin/sh " + CROSS_DESKTOP_OPEN_FILE_COMMAND + " \"" + fname +"\"";
+                String cmd = "/bin/sh " + CROSS_DESKTOP_OPEN_FILE_COMMAND + " \"" + fname + "\"";
                 Runtime rt = Runtime.getRuntime();
                 Process p = rt.exec(cmd, null, parentDir);
                 p.waitFor();
             } catch (Exception e) {
-                
             }
         }
     }
@@ -907,7 +900,6 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     }
 
     //</editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="DocumentContainer implementation">
     public boolean isCurrentDocModified() {
         return this.editorView1.isModified();
@@ -1003,6 +995,7 @@ public class GlossaEditorView extends FrameView implements EditorViewContainer, 
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Application exit event handling">
+
     public boolean canExit(java.util.EventObject e) {
         return queryCloseApp();
     }
@@ -2386,13 +2379,13 @@ private void jSearchTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIR
 }//GEN-LAST:event_jSearchTextField1KeyPressed
 
 private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-    if(jButton16.isEnabled()){
+    if (jButton16.isEnabled()) {
         run();
     }
 }//GEN-LAST:event_jButton16ActionPerformed
 
 private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-    if(jButton20.isEnabled()){
+    if (jButton20.isEnabled()) {
         stop();
     }
 }//GEN-LAST:event_jButton20ActionPerformed
@@ -2419,7 +2412,6 @@ private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
     showAboutBox();
 }//GEN-LAST:event_jMenuItem24ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;

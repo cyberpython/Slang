@@ -27,13 +27,16 @@ import glossa.interpreter.Interpreter;
 import glossa.interpreter.InterpreterListener;
 import glossa.interpreter.symboltable.SymbolTable;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +66,6 @@ public class CLI implements InterpreterListener {
     }
 
     public void parsingAndSemanticAnalysisFinished(boolean success) {
-        
     }
 
     public void runtimeError() {
@@ -72,15 +74,15 @@ public class CLI implements InterpreterListener {
     public void readStatementExecuted(Interpreter sender, Integer line) {
     }
 
-    public void executionPaused(Interpreter sender, Integer line, Boolean wasPrintStatement){
+    public void executionPaused(Interpreter sender, Integer line, Boolean wasPrintStatement) {
         if (!stepByStep) {
             sender.resume();
         } else {
-            if(wasPrintStatement){
+            if (wasPrintStatement) {
                 sender.resume();
-            }else{
-                int lineNumber = line==null?-1:line.intValue();
-                String codeLine = lineNumber==-1?"":sourceCode.get(lineNumber-1);
+            } else {
+                int lineNumber = line == null ? -1 : line.intValue();
+                String codeLine = lineNumber == -1 ? "" : sourceCode.get(lineNumber - 1);
                 out.println(String.format(COMMAND_EXECUTED_MSG, lineNumber, codeLine));
                 checkUserInputAfterStep(sender);
             }
@@ -89,11 +91,9 @@ public class CLI implements InterpreterListener {
     }
 
     public void executionStarted(Interpreter sender) {
-
     }
 
     public void executionStopped(Interpreter sender) {
-
     }
 
     public void stackPopped() {
@@ -124,34 +124,50 @@ public class CLI implements InterpreterListener {
 
         this.sourceCode.clear();
 
-        try{
+        File tmpFile = null;
+
+        try {
             BufferedReader r = new BufferedReader(new FileReader(sourceCodeFile));
+            String name = sourceCodeFile.getName();
+            name = name.split("\\.")[0];
+            tmpFile = File.createTempFile(name, ".gls");
+            OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(tmpFile), "UTF-8");
+            BufferedWriter bw = new BufferedWriter(w);
 
             String sourceCodeline = "";
-            try{
-                while( (sourceCodeline = r.readLine())!=null ){
+            try {
+                while ((sourceCodeline = r.readLine()) != null) {
+                    bw.write(sourceCodeline+"\n");
                     sourceCode.add(sourceCodeline.trim());
                 }
-            }catch(IOException ioe){
+                bw.write("\n");
+                bw.flush();
+                bw.close();
+                w.close();
+            } catch (IOException ioe) {
                 sourceCode.clear();
-            }finally{
-                try{
+            } finally {
+                try {
                     r.close();
-                }catch(IOException ioe){
+                } catch (IOException ioe) {
                 }
             }
 
             this.out = out;
             this.err = err;
             this.in = in;
-            Interpreter inter = new Interpreter(sourceCodeFile, out, err, out, err, in);
-            inter.addListener(this);
-            if(inter.parseAndAnalyzeSemantics(false)){
-                Thread t = new Thread(inter);
-                t.start();
+
+            if (tmpFile != null) {
+                Interpreter inter = new Interpreter(tmpFile, out, err, out, err, in);
+                inter.addListener(this);
+                if (inter.parseAndAnalyzeSemantics(false)) {
+                    Thread t = new Thread(inter);
+                    t.start();
+                }
             }
-        }catch(FileNotFoundException fnfe){
+        } catch (FileNotFoundException fnfe) {
             err.println(String.format(FILE_NOT_FOUND_ERROR, sourceCodeFile.getAbsolutePath()));
+        } catch (IOException ioe) {
         }
     }
 

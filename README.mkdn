@@ -31,11 +31,7 @@ To build the project’s code you will need :
 (*) If you have an active internet connection all required libraries will be downloaded automatically to the correct directory during the first build, otherwise you have to copy the required jar files to slang/lib/
 
 
-Open a terminal and give:
-
-    git clone git://github.com/cyberpython/Slang.git
-    cd Slang
-    ant clean jar
+Open the project with Netbeans, right click on it and select "Clean and build".
 
 ##How to run the application
 

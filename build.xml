@@ -40,7 +40,7 @@
         </unzip>
         <delete file="lib/bsaf-1.9-bin.zip"/>
     </target>
-    
+
     <target name="generate-parser" depends="download-antlr">
         <java jar="lib/antlr-3.2.jar" fork="true" failonerror="true">
             <arg value="${src.dir}/glossa/grammars/Glossa.g"/>
@@ -103,7 +103,7 @@
     </target>
 
     <target name="generate-antlr3-recognizers" depends="generate-parser,generate-firts-pass-treeparser,generate-type-analyzer,generate-AST-interpreter">
-        
+
     </target>
 
     <target name="-pre-compile" depends="generate-antlr3-recognizers,download-jopt,download-bsaf">

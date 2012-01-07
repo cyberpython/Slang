@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/glossa/grammars/FirstPass.g 2012-01-06 23:05:55
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/glossa/grammars/FirstPass.g 2012-01-07 13:43:15
 
 
 /*

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/glossa/grammars/Glossa.g 2012-01-06 23:05:52
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 src/glossa/grammars/Glossa.g 2012-01-07 13:43:12
 
 /*
  *  The MIT License
@@ -1231,7 +1231,7 @@ public class GlossaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, arrayDimension
+                    // elements: arrayDimension, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2538,7 +2538,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: elseBlock, ifBlock, elseIfBlock, END_IF
+            // elements: END_IF, elseIfBlock, ifBlock, elseBlock
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3413,7 +3413,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: expr2, RANGE, expr1
+            // elements: expr1, RANGE, expr2
             // token labels: 
             // rule labels: retval, expr1, expr2
             // token list labels: 
@@ -3547,7 +3547,7 @@ public class GlossaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: LT, expr
+                    // elements: expr, LT
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3679,7 +3679,7 @@ public class GlossaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: GE, expr
+                    // elements: expr, GE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4444,7 +4444,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: paramsList, ID, CALL
+            // elements: ID, paramsList, CALL
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5920,7 +5920,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: paramsList, ID
+            // elements: ID, paramsList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6005,7 +6005,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: arraySubscript, ID
+            // elements: ID, arraySubscript
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6431,7 +6431,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: block, ID, END_PROCEDURE, PROCEDURE, varDecl, formalParamsList, constDecl
+            // elements: END_PROCEDURE, varDecl, PROCEDURE, block, constDecl, ID, formalParamsList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6742,7 +6742,7 @@ public class GlossaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: returnType, varDecl, constDecl, formalParamsList, END_FUNCTION, block, ID, FUNCTION
+            // elements: ID, END_FUNCTION, constDecl, formalParamsList, returnType, block, varDecl, FUNCTION
             // token labels: 
             // rule labels: retval
             // token list labels: 

@@ -22,8 +22,14 @@ FileDrop.java is public domain. Its original author is Robert Harder and Gnome/K
 
 To build the project’s code you will need :
 
-- [JDK (6.x+)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-- [Apache Ant](http://ant.apache.org/) (built-in in Netbeans)
+- [JDK (6.x+)](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+You can install it on Ubuntu with:
+
+    [sudo apt-get install openjdk-6-jdk](apt://openjdk-6-jdk)
+- [Apache Ant](http://ant.apache.org/) (built-in in Netbeans).
+You can install it on Ubuntu with:
+
+    [sudo apt-get install ant](apt://ant)
 - [Antlr 3.2](http://www.antlr.org/download/antlr-3.2.jar) (*)
 - [JOpt Simple](http://jopt-simple.sourceforge.net/) (*)
 - [Better Swing Application Framework 1.9](http://kenai.com/projects/bsaf/pages/Home) (*)
@@ -31,13 +37,13 @@ To build the project’s code you will need :
 (*) If you have an active internet connection all required libraries will be downloaded automatically to the correct directory during the first build, otherwise you have to copy the required jar files to slang/lib/
 
 
-Open the project with Netbeans, right click on it and select "Clean and build".
+Open the project with Netbeans (6.8), right click on it and select "Clean and build" or
+open a terminal and give:
+    ant clean jar
+    
 
 ##How to run the application
 
-To run the interpreter you must have a JRE (6.x+) installed. Then you can give:
+To run the application you must have a JRE (6.x+) installed. Then you can give:
 
-    java -jar dist/slang.jar
-
-Or simply double click on dist/slang.jar
-
+    java -cp "./lib/antlr-3.2.jar:./lib/bsaf-1.9.jar:./lib/jopt-simple-3.2.jar:./dist/slang.jar" glossaeditor.Main

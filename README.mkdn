@@ -1,5 +1,7 @@
 #Slang
 
+##This project has been deprecated - If you are looking for a ΓΛΩΣΣΑ IDE for Linux see [Lingua](http://cyberpython.github.com/lingua/)
+
 An integrated development environment for the 'ΓΛΩΣΣΑ' programming language.
 
 ##License
